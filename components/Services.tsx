@@ -135,6 +135,7 @@ export default function Services() {
           {SERVICES.map((s) => (
             <div
               key={s.code}
+              data-svc-card
               className="hover-border"
               style={{
                 border: `1px solid ${colors.line}`,

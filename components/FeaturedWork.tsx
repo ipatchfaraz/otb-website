@@ -29,6 +29,7 @@ export default function FeaturedWork() {
     >
       <div style={{ padding: '84px 0 40px 0' }}>
         <div
+          data-work-head
           style={{
             padding: '0 72px',
             display: 'flex',
@@ -65,6 +66,7 @@ export default function FeaturedWork() {
         </div>
 
         <div
+          data-work-track
           style={{
             display: 'flex',
             gap: 24,

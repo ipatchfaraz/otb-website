@@ -74,6 +74,7 @@ export default function KitTeaser() {
 
           {/* Status bar */}
           <div
+            data-kit-term
             style={{
               position: 'relative',
               zIndex: 2,
@@ -94,7 +95,7 @@ export default function KitTeaser() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ color: colors.red, animation: anims.blink }}>●</span> REC
               <span style={{ color: '#3A3A3A' }}>//</span>
-              <span style={{ color: colors.mutedSoft }}>OTB://FREE_INTEL/BRAND_STARTER_KIT.pdf</span>
+              <span data-kit-path style={{ color: colors.mutedSoft }}>OTB://FREE_INTEL/BRAND_STARTER_KIT.pdf</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               <span>UNIT: OTB-KIT-04</span>
@@ -116,6 +117,7 @@ export default function KitTeaser() {
           />
 
           <div
+            data-kit-body
             style={{
               position: 'relative',
               zIndex: 2,

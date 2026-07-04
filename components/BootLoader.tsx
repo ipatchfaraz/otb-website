@@ -53,6 +53,7 @@ export default function BootLoader({ onDone }: { onDone?: () => void }) {
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, filter: 'drop-shadow(0 0 26px rgba(255,229,0,0.4))' }}>
         <div
+          data-battery
           style={{
             border: `3px solid ${colors.yellow}`,
             borderRadius: 4,
@@ -66,6 +67,7 @@ export default function BootLoader({ onDone }: { onDone?: () => void }) {
             return (
               <div
                 key={i}
+                data-batt-seg
                 style={{
                   width: 34,
                   height: 92,
@@ -76,7 +78,7 @@ export default function BootLoader({ onDone }: { onDone?: () => void }) {
             );
           })}
         </div>
-        <div style={{ width: 12, height: 44, background: colors.yellow, borderRadius: '0 3px 3px 0' }} />
+        <div data-batt-nub style={{ width: 12, height: 44, background: colors.yellow, borderRadius: '0 3px 3px 0' }} />
       </div>
       <div
         style={{

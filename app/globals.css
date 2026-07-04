@@ -90,8 +90,191 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--otb-yellow); ou
 /* Mobile toggles for nav bits */
 .nav-cta { display: inline-flex; }
 .nav-toggle { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: 1px solid var(--otb-line); color: var(--otb-yellow); cursor: pointer; padding: 0; }
+
+/* ---------------------------------------------------------------- */
+/* Mobile overrides (≤ 768px) — ported from the Claude Design .dc.html files. */
+/* Global rules first, then per-screen tweaks by data-screen-label.           */
+/* ---------------------------------------------------------------- */
 @media (max-width: 768px) {
+  /* --- Nav --- */
   .nav-main { display: none !important; }
   .nav-cta { display: none !important; }
   .nav-toggle { display: flex !important; }
+
+  /* --- Header shrinks --- */
+  header[data-screen-label="Header"] {
+    padding: 0 16px !important;
+    height: 58px !important;
+    gap: 12px !important;
+  }
+
+  /* --- Section padding: uniform 40px top/bot, 20px left/right --- */
+  section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+  section > div, main > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  main {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 44px !important;
+    padding-bottom: 56px !important;
+  }
+
+  /* --- Hero --- */
+  section[data-screen-label="Hero"] > div:first-child {
+    padding: 40px 0 24px 0 !important;
+    gap: 24px !important;
+  }
+  section[data-screen-label="Hero"] h1 {
+    font-size: clamp(44px, 11vw, 66px) !important;
+  }
+
+  /* --- Trusted by --- */
+  /* Cell grid: force 2 columns × up-to-4 rows (max 8 logos). */
+  section[data-screen-label="Trusted by"] > div:nth-of-type(2) {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  section[data-screen-label="Trusted by"] > div:nth-of-type(2) > div {
+    height: 108px !important;
+  }
+  section[data-screen-label="Trusted by"] > div:nth-of-type(2) > div:nth-child(n+9) {
+    display: none !important;
+  }
+  /* Stats: force 2×2, and tighten label letter-spacing so it doesn't wrap */
+  section[data-screen-label="Trusted by"] > div:nth-of-type(3) {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  section[data-screen-label="Trusted by"] > div:nth-of-type(3) > div > div:first-child {
+    letter-spacing: 0.22em !important;
+    font-size: 9px !important;
+    white-space: nowrap;
+  }
+
+  /* --- Featured work: horizontal strip layout on mobile --- */
+  [data-work-head] { display: none !important; }
+  section[data-screen-label="Selected work"] > div {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+  [data-work-track] { padding: 0 20px 4px 20px !important; }
+  [data-work-track] > a {
+    height: 82vh !important;
+    max-height: 720px !important;
+    width: 86vw !important;
+    max-width: 420px !important;
+  }
+
+  /* --- Services grid: single column on mobile --- */
+  section[data-screen-label="Services"] > div {
+    padding: 60px 0 !important;
+  }
+  section[data-screen-label="Services"] > div > div:last-of-type {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  [data-svc-card] { padding: 24px !important; }
+
+  /* --- Process (Burger Strategy) --- */
+  #process > div { padding: 60px 20px !important; }
+
+  /* --- Kit teaser (guide) --- */
+  #guide { padding: 44px 14px !important; }
+  [data-kit-term] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 18px 16px 12px 24px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.06em !important;
+    gap: 8px !important;
+  }
+  [data-kit-term] > div { flex-wrap: wrap !important; row-gap: 4px !important; }
+  [data-kit-path] {
+    display: inline-block;
+    max-width: 66vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  [data-kit-body] {
+    padding: 30px 18px 32px 18px !important;
+    gap: 30px !important;
+  }
+
+  /* --- About / Journal grids tighter --- */
+  section[data-screen-label="About the studio"] > div:last-of-type,
+  section[data-screen-label="Branding 101"] > div:last-of-type {
+    gap: 12px !important;
+  }
+
+  /* --- Contact CTA extra top padding --- */
+  #contact { padding-top: 92px !important; }
+
+  /* --- Boot battery: smaller so it fits the viewport --- */
+  [data-battery] {
+    padding: 7px !important;
+    gap: 5px !important;
+    border-width: 2px !important;
+  }
+  [data-batt-seg] {
+    width: 19px !important;
+    height: 58px !important;
+  }
+  [data-batt-nub] {
+    width: 8px !important;
+    height: 28px !important;
+  }
+
+  /* --- Footer --- */
+  footer[data-screen-label="Footer"] > div {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  [data-foot-cols] { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* --- Work index page --- */
+  section[data-screen-label="Archive hero"] {
+    padding: 40px 20px 32px 20px !important;
+  }
+  [data-screen-label="Filters"] { padding: 14px 20px !important; }
+  section[data-screen-label="Case grid"] {
+    padding: 36px 20px 56px 20px !important;
+  }
+  section[data-screen-label="Case grid"] > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* --- Logo vault page (uses same grid on mobile) --- */
+  [data-screen-label="Logo vault"] > div { padding: 44px 20px !important; }
+
+  /* --- Case study page --- */
+  section[data-screen-label="Case hero"] {
+    padding-top: 40px !important;
+    padding-bottom: 32px !important;
+  }
+  section[data-screen-label="Case overview"] {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+  [data-insight] { padding: 44px 20px !important; }
+  [data-insight-q] {
+    font-size: clamp(26px, 7.2vw, 42px) !important;
+    overflow-wrap: break-word;
+  }
+  [data-case-gallery] {
+    grid-template-columns: 1fr !important;
+  }
+  [data-case-gallery] figure {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* --- Booking iframe (Cal) breathing room --- */
+  #book { padding: 44px 20px !important; }
 }
+

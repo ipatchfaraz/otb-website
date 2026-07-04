@@ -151,11 +151,12 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
           </div>
         </div>
         <div style={{ borderTop: `1px solid ${colors.line}`, borderBottom: `1px solid ${colors.line}`, background: colors.yellow }}>
-          <div style={{ maxWidth: 1440, margin: '0 auto', padding: '72px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div data-insight style={{ maxWidth: 1440, margin: '0 auto', padding: '72px', display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ fontFamily: fonts.mono, fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', color: colors.bg }}>
               [ THE INSIGHT ]
             </div>
             <div
+              data-insight-q
               style={{
                 fontFamily: fonts.display,
                 fontWeight: 900,
@@ -206,7 +207,7 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
             </p>
           </div>
           {c.gallery && (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+            <div data-case-gallery style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
               {c.gallery.map((fig, i) => (
                 <figure
                   key={i}

@@ -193,6 +193,7 @@ export default function Footer() {
       </div>
 
       <div
+        data-foot-cols
         style={{
           position: 'relative',
           zIndex: 2,
