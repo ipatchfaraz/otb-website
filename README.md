@@ -13,6 +13,27 @@ prototype in `../client-proposal-deck/project/`.
 - `/kit`          — Brand starter kit download (OTB Kit Download.dc.html)
 - `/logo-vault`   — Marks archive (LogoVault.dc.html)
 
+## Deploy to Vercel
+
+The repo is already `git init`-ed with an initial commit. Vercel builds
+in a clean workspace where the `#`-in-path issue below doesn't apply.
+
+1. **Create a GitHub repo** (empty, no README/gitignore) — e.g.
+   `otb-website` under your account.
+2. **Push:**
+   ```sh
+   cd otb-website
+   git remote add origin git@github.com:<you>/otb-website.git
+   git push -u origin main
+   ```
+3. **Import on Vercel:** https://vercel.com/new → pick the repo.
+   Framework preset is detected automatically as Next.js.
+   No env vars needed. Click **Deploy**.
+4. First build takes ~2 minutes. You'll get a preview URL like
+   `otb-website-<hash>.vercel.app`.
+5. Every subsequent `git push` to `main` triggers a production deploy.
+   PRs get preview deploys automatically.
+
 ## Local dev
 
 ```sh
@@ -22,28 +43,31 @@ npm run dev
 
 Open http://localhost:3000.
 
-## ⚠️ IMPORTANT — the parent folder name breaks Next.js
+## ⚠️ Local dev — the parent folder name breaks Next.js
 
-The parent folder is `#. OTB New Website/`. The `#` character is treated as
-a URL fragment by Next.js's React Server Components bundler, which produces
-`Could not find the module ".../error-boundary.js#"` errors during
-`next dev` and `next build`.
+The parent folder is `#. OTB New Website/`. The `#` character is treated
+as a URL fragment by Next.js's React Server Components bundler, which
+produces `Could not find the module ".../error-boundary.js#"` errors
+during `next dev` and `next build`. Vercel is unaffected — it builds
+in `/vercel/path0/`.
 
-**Workarounds (pick one):**
+**Local workarounds (pick one):**
 
 1. **Rename the parent folder** so it doesn't contain `#` — e.g.
-   `OTB New Website/` — then `npm run dev` / `npm run build` work normally.
+   `OTB New Website/`. `npm run dev` / `build` then work normally.
 2. **Copy the project to a `#`-free path** for dev/build:
    ```sh
-   rsync -a --exclude node_modules --exclude .next ./ /tmp/otb-run/
+   rsync -a --exclude node_modules --exclude .next --exclude .git ./ /tmp/otb-run/
    cd /tmp/otb-run && npm install && npm run dev
    ```
-   Sync back source changes with the same rsync command afterwards.
+   Sync source changes back with the same rsync command; commit + push
+   from the original folder (`git` itself handles the `#` fine).
 3. **Move `otb-website/` up one level** to a directory whose full path
    has no `#`.
 
-`outputFileTracing: false` in `next.config.mjs` fixes the file-tracer
-crash but not the RSC manifest lookup — the rename/move is required.
+`outputFileTracing: false` in `next.config.mjs` sidesteps a related
+tracer crash, but the RSC manifest lookup still fails in the `#`
+folder — the rename/move is required for local dev.
 
 ## Fonts
 
@@ -69,7 +93,7 @@ is a clear, contained follow-up:
 - **Cal.com iframe height.** The `<iframe>` uses a fixed 700 px; the
   Cal embed script can auto-size it, but that adds a third-party
   script tag.
-- **Image optimization.** Component uses raw `<img>` tags for
+- **Image optimization.** Components use raw `<img>` tags for
   fastest 1:1 fidelity with the prototype markup. Swapping to
   `next/image` would want an audit for each image's intrinsic size.
 
