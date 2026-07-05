@@ -31,7 +31,7 @@ export default function KitTeaser() {
       });
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong');
-      router.push(`/kit/download?email=${encodeURIComponent(email)}`);
+      router.push(`/kit?email=${encodeURIComponent(email)}`);
     } catch (err) {
       setStatus('error');
       setErrMsg(err instanceof Error ? err.message : 'FAILED');
