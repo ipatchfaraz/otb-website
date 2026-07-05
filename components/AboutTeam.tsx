@@ -17,7 +17,7 @@ type Member = {
 const TEAM: Member[] = [
   {
     idx: '01', name: 'Muhammed Faraz Faizal', role: 'CHIEF BRAND OFFICER',
-    photo: '/images/team/Faraz.png', clearance: 'LVL-04', idNo: 'OTB-CBO-001', dept: 'BRAND',
+    photo: '/images/team/Faraz.png?v=2', clearance: 'LVL-04', idNo: 'OTB-CBO-001', dept: 'BRAND',
     socials: [{ label: 'INSTAGRAM ↗', url: '#' }, { label: 'LINKEDIN ↗', url: '#' }]
   },
   {
