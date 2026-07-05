@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // All routes here are prerendered at build time (● SSG / ○ Static),
-  // so file tracing isn't needed at runtime. Disabling it also
-  // sidesteps a Next.js bug where a `#` in the project's ancestor
-  // path breaks the tracer during local `next build`.
-  outputFileTracing: false,
+  // Locally, disable outputFileTracing to sidestep a Next.js bug where
+  // a `#` in the project's ancestor path breaks the tracer.
+  // On Vercel, we MUST leave it enabled — disabling it breaks the RSC
+  // manifest lookup at runtime ("Cannot read properties of undefined
+  // (reading 'clientModules')"). Vercel builds under /vercel/path0/
+  // so the `#` bug never triggers there.
+  outputFileTracing: !!process.env.VERCEL,
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.prod.website-files.com' }

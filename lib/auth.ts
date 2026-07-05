@@ -9,6 +9,10 @@ import bcrypt from 'bcryptjs';
 import { prisma } from './prisma';
 
 export const authOptions: NextAuthOptions = {
+  // Explicit — even though NextAuth auto-reads NEXTAUTH_SECRET, some
+  // Next.js runtimes (Vercel edge, minified serverless) don't resolve
+  // it early enough. Passing it here is belt-and-suspenders.
+  secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: 'jwt', maxAge: 60 * 60 * 12 }, // 12h
   pages: { signIn: '/admin/login' },
   providers: [
