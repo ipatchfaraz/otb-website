@@ -361,11 +361,20 @@ export const CASES: Record<CaseSlug, CaseStudy> = {
 };
 
 /** Cover image used on the /work/[slug] "all case_files" carousel. */
+// Featured-strip covers on the homepage. Falls back to heroImg per case
+// if a project isn't listed here.
 export const COVERS: Partial<Record<CaseSlug, string>> = {
-  trueilm: CDN_A + '68715b75047e40656a5e2e57_True%20Ilm%20CS%20-%20Thumbnail.png',
-  iou:     CDN_A + '68715c16bd024d7791f2198a_IOU%20CS%20-%20Thumbnail.png',
+  trueilm: CDN_P + '6871589b841ef6679c9a666f_True%20Ilm%20CS%20-%20Thumbnail.png',
+  iou:     CDN_P + '68715b4c4c674742c4ea24f1_IOU%20CS%20-%20Thumbnail.png',
   kalemah: '/images/kalemah/595.png',
-  marookha:CDN_A + '652044929f0ed92a421314a1_Marookha.png',
+  marookha:CDN_P + '638c50d59a16183b69adf97b_Marookha.png',
   bayaan:  '/images/bayaan/cover.png',
-  dunes:   CDN_A + '6520449240c7fd50774b6935_Dunes.png'
+  dunes:   CDN_P + '638c4d6d57859fe324d864be_Dunes.png',
+  paradise:'/images/paradise/232.png',
+  indiaverse: CDN_P + '638c4723b9a23c2e78cdf774_Thumbnail.png',
+  barakah: CDN_P + '638c523595fb430bf43e5877_The%20Barakah%20Effect.png',
+  revivers: CDN_P + '639d71e8caead8e9ca942bd2_Revivers.png',
+  grainer: CDN_P + '638c53302a2fb857d7061435_Grainer.png',
+  sifa: CDN_P + '638c53d7de35906cec604639_Sifa.png',
+  quraany: CDN_P + '638c50594c238b4747b1f2eb_Quraany.png'
 };

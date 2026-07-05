@@ -10,7 +10,7 @@ const NAV: Href[] = [
   { href: '/#services', label: 'SERVICES' },
   { href: '/#process', label: 'PROCESS' },
   { href: '/#about', label: 'ABOUT' },
-  { href: '/#journal', label: 'JOURNAL' }
+  { href: '/journal', label: 'JOURNAL' }
 ];
 
 export default function Header({ homeHref = '/' }: { homeHref?: string }) {

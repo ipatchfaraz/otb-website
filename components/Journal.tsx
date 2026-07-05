@@ -1,25 +1,11 @@
+import Link from 'next/link';
 import { colors, fonts } from '@/lib/tokens';
 import CornerBrackets from './CornerBrackets';
+import { getJournalList } from '@/lib/content';
 
-const ENTRIES = [
-  {
-    log: 'LOG_01 // STRATEGY // 6 MIN READ',
-    head: 'WHAT IS A TRUELINE — AND WHY YOUR TAGLINE ISN’T ONE.',
-    body: 'The one-sentence truth at the centre of every brand we build, and how to find yours.'
-  },
-  {
-    log: 'LOG_02 // IDENTITY // 4 MIN READ',
-    head: 'FIVE SIGNS YOUR BRAND IS STILL IN THE BOX.',
-    body: 'Template logos, borrowed voice, trend-chasing colour — a quick self-audit before you rebrand.'
-  },
-  {
-    log: 'LOG_03 // NAMING // 5 MIN READ',
-    head: 'NAMING A BRAND: PROCESS, NOT SORCERY.',
-    body: 'How we generate, stress-test and legally clear names — and the shortlist rules we never break.'
-  }
-];
+export default async function Journal() {
+  const entries = (await getJournalList()).slice(0, 3);
 
-export default function Journal() {
   return (
     <section
       id="journal"
@@ -58,8 +44,8 @@ export default function Journal() {
             BRANDING 101.
           </h2>
         </div>
-        <a
-          href="#"
+        <Link
+          href="/journal"
           className="hover-yellow"
           style={{
             fontFamily: fonts.mono,
@@ -73,7 +59,7 @@ export default function Journal() {
           }}
         >
           SEE ALL ENTRIES →
-        </a>
+        </Link>
       </div>
       <div
         style={{
@@ -82,9 +68,10 @@ export default function Journal() {
           gap: 16
         }}
       >
-        {ENTRIES.map((e) => (
-          <article
-            key={e.log}
+        {entries.map((e) => (
+          <Link
+            key={e.slug}
+            href={`/journal/${e.slug}`}
             className="hover-border"
             style={{
               border: `1px solid ${colors.line}`,
@@ -92,11 +79,15 @@ export default function Journal() {
               display: 'flex',
               flexDirection: 'column',
               gap: 18,
-              position: 'relative'
+              position: 'relative',
+              textDecoration: 'none',
+              color: 'inherit'
             }}
           >
             <CornerBrackets outside corners={['tl', 'br']} />
-            <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.15em', color: colors.muted }}>{e.log}</div>
+            <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.15em', color: colors.muted }}>
+              LOG_{e.log} // {e.category} // {e.readMin}
+            </div>
             <h3
               style={{
                 fontFamily: fonts.display,
@@ -107,11 +98,10 @@ export default function Journal() {
                 textTransform: 'uppercase'
               }}
             >
-              {e.head}
+              {e.title}
             </h3>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: colors.muted }}>{e.body}</p>
-            <a
-              href="#"
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: colors.muted }}>{e.dek}</p>
+            <span
               className="hover-yellow"
               style={{
                 marginTop: 'auto',
@@ -124,8 +114,8 @@ export default function Journal() {
               }}
             >
               READ ENTRY →
-            </a>
-          </article>
+            </span>
+          </Link>
         ))}
       </div>
     </section>

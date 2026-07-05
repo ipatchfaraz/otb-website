@@ -1,13 +1,15 @@
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { colors, fonts } from '@/lib/tokens';
-import { CASES, COVERS, ORDER, type CaseSlug } from '@/lib/case-studies';
+import { getCase, getNextCase, type PublicCase } from '@/lib/content';
 import CornerBrackets from './CornerBrackets';
 
-export default function CaseStudy({ slug }: { slug: CaseSlug }) {
-  const c = CASES[slug];
-  const nextSlug = ORDER[(ORDER.indexOf(slug) + 1) % ORDER.length];
-  const nx = CASES[nextSlug];
+export default async function CaseStudy({ slug }: { slug: string }) {
+  const c: PublicCase | null = await getCase(slug);
+  if (!c) notFound();
+  const nx = (await getNextCase(slug)) ?? c;
   const nextMeta = nx.caseLabel.replace('[ CASE_FILE: ', '').replace(' ]', '');
+  const nextSlug = nx.slug;
 
   const chapterRow = (label: string, sub: string) => (
     <div style={{ flex: '0 0 200px', display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -324,7 +326,7 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
               </span>
             </div>
             <img
-              src={COVERS[nextSlug] || nx.heroImg}
+              src={nx.coverImage}
               alt=""
               style={{ width: 180, height: 120, objectFit: 'cover', display: 'block', border: `1px solid ${colors.line}` }}
             />

@@ -2,16 +2,16 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { colors, fonts } from '@/lib/tokens';
-import { PROJECTS, type ProjectTag } from '@/lib/projects';
+import type { ProjectListing, ProjectTag } from '@/lib/projects';
 import CornerBrackets from './CornerBrackets';
 
 const FILTERS: Array<'ALL' | ProjectTag> = ['ALL', 'STRATEGY', 'IDENTITY', 'PACKAGING'];
 
-export default function WorkGrid() {
+export default function WorkGrid({ projects }: { projects: ProjectListing[] }) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>('ALL');
   const shown = useMemo(
-    () => (filter === 'ALL' ? PROJECTS : PROJECTS.filter((p) => (p.tags as string[]).includes(filter))),
-    [filter]
+    () => (filter === 'ALL' ? projects : projects.filter((p) => (p.tags as string[]).includes(filter))),
+    [filter, projects]
   );
 
   return (

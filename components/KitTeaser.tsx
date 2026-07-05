@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { anims, colors, fonts } from '@/lib/tokens';
 
+type SubmitState = 'idle' | 'sending' | 'error';
+
 const KIT_ITEMS = [
   'POSITIONING WORKSHEET',
   'VOICE & TONE CHECKLIST',
@@ -13,6 +15,28 @@ const KIT_ITEMS = [
 export default function KitTeaser() {
   const router = useRouter();
   const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<SubmitState>('idle');
+  const [errMsg, setErrMsg] = useState<string | null>(null);
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status === 'sending') return;
+    setStatus('sending');
+    setErrMsg(null);
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = (await res.json()) as { ok?: boolean; error?: string };
+      if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong');
+      router.push(`/kit/download?email=${encodeURIComponent(email)}`);
+    } catch (err) {
+      setStatus('error');
+      setErrMsg(err instanceof Error ? err.message : 'FAILED');
+    }
+  };
 
   return (
     <section
@@ -165,13 +189,7 @@ export default function KitTeaser() {
                   </span>
                 ))}
               </div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  router.push('/kit');
-                }}
-                style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 6 }}
-              >
+              <form onSubmit={onSubmit} style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 6 }}>
                 <input
                   type="email"
                   required
@@ -179,6 +197,7 @@ export default function KitTeaser() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="YOUR@EMAIL.COM"
                   aria-label="Email address"
+                  disabled={status === 'sending'}
                   style={{
                     flex: '1 1 240px',
                     background: colors.bg,
@@ -191,10 +210,31 @@ export default function KitTeaser() {
                     outline: 'none'
                   }}
                 />
-                <button type="submit" className="cta-y" style={{ padding: '15px 26px', fontSize: 12 }}>
-                  GET THE KIT<span style={{ animation: anims.blink }}>█</span>
+                <button
+                  type="submit"
+                  className="cta-y"
+                  disabled={status === 'sending'}
+                  style={{ padding: '15px 26px', fontSize: 12, opacity: status === 'sending' ? 0.6 : 1 }}
+                >
+                  {status === 'sending' ? 'SENDING' : 'GET THE KIT'}
+                  <span style={{ animation: anims.blink }}>█</span>
                 </button>
               </form>
+              {errMsg && (
+                <div
+                  style={{
+                    fontFamily: fonts.mono,
+                    fontSize: 10,
+                    letterSpacing: '0.12em',
+                    color: colors.red,
+                    border: `1px solid ${colors.red}`,
+                    background: 'rgba(255,59,48,0.08)',
+                    padding: '9px 12px'
+                  }}
+                >
+                  ✕ {errMsg}
+                </div>
+              )}
               <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.15em', color: colors.muted }}>
                 NO SPAM. ONE DOWNLOAD LINK, ZERO FOLLOW-UP LOOPS.
               </div>

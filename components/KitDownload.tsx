@@ -6,8 +6,8 @@ const LOGS = [
   'HANDSHAKE // OTB-NODE-04 .......... OK',
   'AUTH TOKEN // FREE_INTEL .......... GRANTED',
   'DECRYPT PAYLOAD // 128-BIT ........ DONE',
-  'ASSEMBLE WORKSHEETS ............... 4 / 4',
-  'PACKAGE BRAND_STARTER_KIT.pdf ..... SEALED'
+  'FETCH BRAND_STARTER_KIT.pdf ....... COMPLETE',
+  'PACKAGE READY_TO_DEPLOY ........... SEALED'
 ];
 
 const MANIFEST = [
@@ -17,54 +17,8 @@ const MANIFEST = [
   { code: '04', name: 'Type Pairing Cheatsheet', desc: 'Scale ratios and five battle-tested type pairings to steal.' }
 ];
 
-const KIT_TEXT = [
-  'OUTTA THE BOX  //  THE BRAND STARTER KIT  //  v1.0',
-  '==================================================',
-  'A free field guide to unboxing your brand.',
-  'The same worksheets we run inside our Discovery Workshops.',
-  '',
-  '01 // POSITIONING WORKSHEET',
-  '--------------------------------------------------',
-  '- In one sentence, who is this brand for?',
-  '- What do we do better than anyone else in our space?',
-  '- The one belief we will not compromise on:',
-  '- If the brand vanished tomorrow, what would be missed?',
-  '- Our brand in exactly three words:',
-  '',
-  '02 // VOICE & TONE CHECKLIST',
-  '--------------------------------------------------',
-  '- We sound more like ____ and less like ____.',
-  '- Three words we always use / three we never use.',
-  '- How we open a message. How we close one.',
-  '- Tone when things go right vs. when they go wrong.',
-  '',
-  '03 // 12 BRAND PROMPTS',
-  '--------------------------------------------------',
-  '01. The origin story in five lines.',
-  '02. The enemy we are fighting against.',
-  '03. The change we want to see in our category.',
-  '04. A promise only we can make.',
-  '05. What our best customer says about us.',
-  '06. The thing we refuse to do for money.',
-  '07. Our brand as a person at a dinner party.',
-  '08. The headline we want on the press release.',
-  '09. What we want people to feel, not think.',
-  '10. The ritual we want customers to repeat.',
-  '11. The detail nobody else would bother with.',
-  '12. Where the brand is in five years.',
-  '',
-  '04 // TYPE PAIRING CHEATSHEET',
-  '--------------------------------------------------',
-  '- Display + text pairing rules of thumb.',
-  '- Recommended scale ratios (1.200 / 1.250 / 1.333).',
-  '- Line-length and line-height starting points.',
-  '- Five battle-tested pairings to steal.',
-  '',
-  '--------------------------------------------------',
-  'Made by Outta The Box — a branding studio in Kuala Lumpur.',
-  'Think outta the box. www.otb.design',
-  ''
-].join('\n');
+// The real download is a PDF at /public/downloads/OTB-Brand-Starter-Kit.pdf
+// served directly by Next — see the download() handler below.
 
 export default function KitDownload() {
   const [pct, setPct] = useState(0);
@@ -100,15 +54,14 @@ export default function KitDownload() {
 
   const download = () => {
     if (!ready) return;
-    const blob = new Blob([KIT_TEXT], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
+    // Ships the real PDF from public/downloads/. Direct <a> click keeps the
+    // download attribute honored across browsers.
     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'OTB_Brand_Starter_Kit.txt';
+    a.href = '/downloads/OTB-Brand-Starter-Kit.pdf';
+    a.download = 'OTB-Brand-Starter-Kit.pdf';
     document.body.appendChild(a);
     a.click();
     a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 4000);
   };
 
   return (
@@ -310,7 +263,7 @@ export default function KitDownload() {
                   <span style={{ animation: anims.blink }}>{ready ? '↓' : '█'}</span>
                 </button>
                 <span style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.12em', color: colors.muted }}>
-                  {ready ? 'TXT // FREE // NO SIGN-UP' : 'STANDBY...'}
+                  {ready ? 'PDF · 24 PP · 9.7 MB' : 'STANDBY...'}
                 </span>
               </div>
             </div>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="Cyberpunk grid of boxes, one breaking out">
+  <defs>
+    <linearGradient id="g2bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#131313"></stop>
+      <stop offset="100%" stop-color="#080808"></stop>
+    </linearGradient>
+    <filter id="g2glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3.5" result="b"></feGaussianBlur>
+      <feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+    <pattern id="g2scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" fill="#000000" opacity="0.32"></rect>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="420" fill="url(#g2bg)"></rect>
+
+  
+  <g stroke="#1B1B1B" stroke-width="1" fill="none">
+    <path d="M0 300 H800"></path><path d="M0 340 H800"></path><path d="M0 380 H800"></path>
+    <path d="M120 300 L40 420"></path><path d="M260 300 L200 420"></path><path d="M400 300 L400 420"></path><path d="M540 300 L600 420"></path><path d="M680 300 L760 420"></path>
+  </g>
+
+  
+  <g>
+    <rect x="70" y="90" width="150" height="150" fill="none" stroke="#3A3A22" stroke-width="2"></rect>
+    <rect x="82" y="102" width="126" height="126" fill="#141410" stroke="#2A2A1C" stroke-width="1"></rect>
+    <rect x="250" y="120" width="120" height="120" fill="none" stroke="#333" stroke-width="2"></rect>
+    <rect x="260" y="130" width="100" height="100" fill="#121212" stroke="#2A2A2A" stroke-width="1"></rect>
+    <rect x="410" y="140" width="100" height="100" fill="none" stroke="#333" stroke-width="2"></rect>
+    <rect x="418" y="148" width="84" height="84" fill="#121212" stroke="#2A2A2A" stroke-width="1"></rect>
+    
+    <g stroke="#5A5A5A" stroke-width="2" fill="none">
+      <path d="M300 176 h16 v18 h-16 z"></path><path d="M303 176 v-6 a5 5 0 0 1 10 0 v6"></path>
+    </g>
+  </g>
+
+  
+  <g filter="url(#g2glow)">
+    <rect x="560" y="70" width="170" height="170" fill="none" stroke="#FFE500" stroke-width="3"></rect>
+  </g>
+  <rect x="566" y="76" width="170" height="170" fill="none" stroke="#24E0E0" stroke-width="1.5" opacity="0.6"></rect>
+  <rect x="554" y="64" width="170" height="170" fill="none" stroke="#FF2E88" stroke-width="1.5" opacity="0.5"></rect>
+  
+  <g filter="url(#g2glow)">
+    <path d="M560 70 L640 40 L730 40" fill="none" stroke="#FFE500" stroke-width="3"></path>
+    <path d="M730 70 L760 30" fill="none" stroke="#FFE500" stroke-width="3"></path>
+  </g>
+  <circle cx="645" cy="155" r="7" fill="#FFE500" filter="url(#g2glow)"></circle>
+
+  
+  <g fill="#FFE500" opacity="0.8">
+    <rect x="500" y="96" width="26" height="4"></rect>
+    <rect x="516" y="130" width="14" height="4"></rect>
+    <rect x="742" y="118" width="30" height="4"></rect>
+  </g>
+  <rect x="516" y="200" width="26" height="4" fill="#FF2E88" opacity="0.7"></rect>
+
+  <g font-family="&#39;JetBrains Mono&#39;, ui-monospace, monospace" font-size="12" letter-spacing="2">
+    <text x="24" y="44" fill="#8A8A8A">SELF-AUDIT //</text>
+    <text x="24" y="392" fill="#FFE500">STATUS: IN_THE_BOX</text>
+    <text x="600" y="392" fill="#24E0E0">1 ESCAPED</text>
+  </g>
+
+  <rect width="800" height="420" fill="url(#g2scan)"></rect>
+  <rect x="1" y="1" width="798" height="418" fill="none" stroke="#2A2A2A" stroke-width="1"></rect>
+</svg>

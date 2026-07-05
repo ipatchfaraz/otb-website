@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="Cyberpunk crosshair locking onto a single beam">
+  <defs>
+    <radialGradient id="g1bg" cx="42%" cy="46%" r="75%">
+      <stop offset="0%" stop-color="#161611"></stop>
+      <stop offset="60%" stop-color="#0E0E0E"></stop>
+      <stop offset="100%" stop-color="#080808"></stop>
+    </radialGradient>
+    <filter id="g1glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"></feGaussianBlur>
+      <feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+    <pattern id="g1grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#1C1C1C" stroke-width="1"></path>
+    </pattern>
+    <pattern id="g1scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" y="0" fill="#000000" opacity="0.32"></rect>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="420" fill="url(#g1bg)"></rect>
+  <rect width="800" height="420" fill="url(#g1grid)"></rect>
+
+  
+  <g transform="translate(342 200)" fill="none">
+    <circle r="150" stroke="#242419" stroke-width="1.5"></circle>
+    <circle r="118" stroke="#3A3A22" stroke-width="1.5"></circle>
+    <circle r="86" stroke="#FFE500" stroke-width="1.5" opacity="0.35"></circle>
+    <circle r="54" stroke="#FFE500" stroke-width="2" filter="url(#g1glow)"></circle>
+    <circle r="6" fill="#FFE500" filter="url(#g1glow)"></circle>
+    
+    <circle r="54" stroke="#24E0E0" stroke-width="1.5" opacity="0.5" transform="translate(-6 3)"></circle>
+    <circle r="54" stroke="#FF2E88" stroke-width="1.5" opacity="0.45" transform="translate(6 -3)"></circle>
+  </g>
+
+  
+  <g stroke="#FFE500" stroke-width="2" filter="url(#g1glow)">
+    <path d="M342 20 V70"></path><path d="M342 330 V380"></path>
+    <path d="M132 200 H182"></path><path d="M502 200 H552"></path>
+  </g>
+
+  
+  <g filter="url(#g1glow)">
+    <rect x="0" y="196" width="800" height="4" fill="#FFE500"></rect>
+  </g>
+  <rect x="0" y="200" width="800" height="1.5" fill="#24E0E0" opacity="0.7"></rect>
+  <rect x="0" y="193" width="800" height="1.5" fill="#FF2E88" opacity="0.55"></rect>
+
+  
+  <g font-family="&#39;JetBrains Mono&#39;, ui-monospace, monospace" font-size="12" fill="#FFE500" letter-spacing="2">
+    <text x="24" y="185">01 // TRUELINE</text>
+    <text x="640" y="228" fill="#8A8A8A">LOCK_ON</text>
+  </g>
+  <g fill="#FFE500" opacity="0.8">
+    <rect x="612" y="190" width="3" height="16"></rect>
+    <rect x="620" y="186" width="3" height="24"></rect>
+    <rect x="628" y="192" width="3" height="12"></rect>
+  </g>
+
+  <rect width="800" height="420" fill="url(#g1scan)"></rect>
+  <rect x="1" y="1" width="798" height="418" fill="none" stroke="#2A2A2A" stroke-width="1"></rect>
+</svg>

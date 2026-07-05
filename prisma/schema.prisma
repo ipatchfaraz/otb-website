@@ -1,0 +1,82 @@
+// Prisma schema for the OTB CMS + lead-magnet mailing list.
+// Generated to Postgres — Vercel Postgres (Neon) recommended.
+// After setting DATABASE_URL, run: `npx prisma db push` (dev)
+// or `npx prisma migrate deploy` (production).
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  slug         String   @id
+  order        Int      @default(0)
+  discipline   String
+  line         String
+  tags         String[] // ["STRATEGY", "IDENTITY", "PACKAGING"]
+  coverImage   String   // work-grid cover URL (absolute or /images/... path)
+
+  // Case study fields
+  caseLabel    String
+  title        String
+  client       String
+  tagline      String
+  sector       String
+  scope        String
+  year         String
+  brief        String   @db.Text
+  problemHead  String   @db.Text
+  problemBody  String   @db.Text
+  digBody      String   @db.Text
+  insight      String   @db.Text
+  leapHead     String   @db.Text
+  leapBody     String   @db.Text
+  solutionBody String   @db.Text
+  payoff       String   @db.Text
+  heroImg      String
+  gallery      Json?    // Gallery[] — see lib/case-studies.ts
+
+  published    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([published, order])
+}
+
+model JournalEntry {
+  log       String   @id // "01", "02", ...
+  slug      String   @unique
+  category  String
+  readMin   String   // "6 MIN READ"
+  date      String   // "2026.02.11" — kept as string for prototype fidelity
+  author    String
+  authorRole String
+  thumb     String?
+  title     String
+  dek       String   @db.Text
+  body      Json     // Block[] { t: 'p'|'h'|'quote'|'list', v: string | string[] }
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Lead {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  source         String    @default("kit-download") // where the lead came from
+  createdAt      DateTime  @default(now())
+  resendSyncedAt DateTime?
+  resendError    String?
+}

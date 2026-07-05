@@ -1,22 +1,18 @@
 import Link from 'next/link';
 import { colors, fonts } from '@/lib/tokens';
 import CornerBrackets from './CornerBrackets';
-import { FEATURED_ORDER } from '@/lib/projects';
-import { CASES, COVERS } from '@/lib/case-studies';
+import { getFeaturedProjects } from '@/lib/content';
 
-export default function FeaturedWork() {
-  const cards = FEATURED_ORDER.map((slug, i) => {
-    const c = CASES[slug as keyof typeof CASES];
-    const meta = c.caseLabel.replace('[ CASE_FILE: ', '').replace(' ]', '');
-    return {
-      slug,
-      file: `FILE_${String(i + 1).padStart(2, '0')}`,
-      cover: COVERS[slug as keyof typeof COVERS] || c.heroImg,
-      meta,
-      tagline: c.tagline,
-      alt: `${c.client} case study cover`
-    };
-  });
+export default async function FeaturedWork() {
+  const projects = await getFeaturedProjects();
+  const cards = projects.map((p, i) => ({
+    slug: p.slug,
+    file: `FILE_${String(i + 1).padStart(2, '0')}`,
+    cover: p.coverImage,
+    meta: p.caseLabel.replace('[ CASE_FILE: ', '').replace(' ]', ''),
+    tagline: p.tagline,
+    alt: `${p.client} case study cover`
+  }));
 
   return (
     <section
@@ -76,7 +72,7 @@ export default function FeaturedWork() {
             alignItems: 'stretch'
           }}
         >
-          {cards.map((card, i) => (
+          {cards.map((card) => (
             <Link
               key={card.slug}
               href={`/work/${card.slug}`}

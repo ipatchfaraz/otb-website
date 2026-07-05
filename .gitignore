@@ -2,5 +2,8 @@ node_modules
 .next
 out
 .DS_Store
+.env
 .env*.local
 next-env.d.ts
+# Prisma generated client — regenerated on install via postinstall
+/prisma/migrations/
