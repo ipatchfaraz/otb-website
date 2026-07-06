@@ -16,7 +16,11 @@ export default function LogoVaultGrid({ count = 63 }: { count?: number }) {
         gridTemplateColumns: 'repeat(auto-fill, minmax(84px, 1fr))',
         gap: 0,
         borderTop: `1px solid ${colors.line}`,
-        borderLeft: `1px solid ${colors.line}`
+        borderLeft: `1px solid ${colors.line}`,
+        // Inline safety net — same reason as LogoVaultTeaser above.
+        maxWidth: '100%',
+        minWidth: 0,
+        boxSizing: 'border-box'
       }}
     >
       {Array.from({ length: count }, (_, i) => {
@@ -34,7 +38,12 @@ export default function LogoVaultGrid({ count = 63 }: { count?: number }) {
               padding: 12,
               borderRight: `1px solid ${colors.line}`,
               borderBottom: `1px solid ${colors.line}`,
-              transition: 'background 0.15s'
+              transition: 'background 0.15s',
+              // Explicit box-sizing + overflow so cells stay square
+              // and content can't escape their bounds on iOS Safari.
+              boxSizing: 'border-box',
+              overflow: 'hidden',
+              minWidth: 0
             }}
           >
             <img

@@ -4,8 +4,19 @@ import LogoVaultGrid from './LogoVaultGrid';
 
 export default function LogoVaultTeaser() {
   return (
-    <section data-screen-label="Logo vault" style={{ borderTop: `1px solid ${colors.line}` }}>
-      <div style={{ maxWidth: 1440, margin: '0 auto', padding: 72 }}>
+    <section
+      data-screen-label="Logo vault"
+      style={{
+        borderTop: `1px solid ${colors.line}`,
+        // Inline safety net — iOS Safari sometimes serves stale CSS
+        // that lets the vault grid overflow horizontally. Inline styles
+        // beat any cached CSS, so this can't fall out of sync with the
+        // stylesheet.
+        overflowX: 'hidden',
+        maxWidth: '100%'
+      }}
+    >
+      <div style={{ maxWidth: 1440, margin: '0 auto', padding: 72, boxSizing: 'border-box' }}>
         <div
           style={{
             display: 'flex',
