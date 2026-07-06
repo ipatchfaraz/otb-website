@@ -259,7 +259,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--otb-yellow); ou
     grid-template-columns: 1fr !important;
   }
 
-  /* --- Logo vault page (uses same grid on mobile) --- */
+  /* --- Logo vault: use a fixed 5-column grid on mobile so the
+     marks stay readable instead of shrinking to 1cm across --- */
+  [data-vault-grid] {
+    grid-template-columns: repeat(5, 1fr) !important;
+  }
   [data-screen-label="Logo vault"] > div { padding: 44px 20px !important; }
 
   /* --- Case study page --- */

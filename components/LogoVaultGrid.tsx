@@ -4,6 +4,7 @@ import { colors } from '@/lib/tokens';
 export default function LogoVaultGrid({ count = 63 }: { count?: number }) {
   return (
     <div
+      data-vault-grid
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(84px, 1fr))',
