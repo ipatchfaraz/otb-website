@@ -21,6 +21,29 @@ a { color: inherit; }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--otb-yellow); outline-offset: 2px; }
 ::selection { background: var(--otb-yellow); color: var(--otb-bg); }
 
+/* Every top-level section on the public site is stacked in normal
+ * document flow — no absolute-positioned children. But because
+ * sections were transparent by default, any painted descendant that
+ * measured slightly taller than expected would visually bleed into
+ * the next section on mobile Safari (which we saw in the wild). An
+ * explicit background on every section forces opaque stacking so
+ * later sections always cover earlier ones. */
+section {
+  background: var(--otb-bg);
+  position: relative;
+  z-index: 0;
+}
+main {
+  background: var(--otb-bg);
+  position: relative;
+  z-index: 0;
+}
+footer {
+  background: var(--otb-bg);
+  position: relative;
+  z-index: 0;
+}
+
 /* --- Keyframes (ported from the prototype) --- */
 @keyframes otbCubeSpin { from { transform: rotateX(-22deg) rotateY(0deg); } to { transform: rotateX(-22deg) rotateY(360deg); } }
 @keyframes otbBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
