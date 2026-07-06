@@ -42,10 +42,13 @@ model Project {
   gallery      Json?    // Gallery[] — see lib/case-studies.ts
 
   published    Boolean  @default(true)
+  // True on projects that show in the homepage FEATURED WORK strip.
+  featured     Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   @@index([published, order])
+  @@index([featured, order])
 }
 
 model JournalEntry {

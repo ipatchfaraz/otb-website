@@ -26,7 +26,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     'caseLabel', 'title', 'client', 'tagline', 'sector', 'scope', 'year',
     'brief', 'problemHead', 'problemBody', 'digBody', 'insight',
     'leapHead', 'leapBody', 'solutionBody', 'payoff', 'heroImg', 'gallery',
-    'published'
+    'published', 'featured'
   ] as const;
   const update: Record<string, unknown> = {};
   for (const k of allow) if (k in data) update[k] = data[k];

@@ -63,11 +63,21 @@ export async function getFeaturedProjects(): Promise<PublicCase[]> {
 
   if (prisma) {
     try {
-      const rows = await prisma.project.findMany({
-        where: { published: true },
-        orderBy: { order: 'asc' },
-        take: 6
+      // Prefer projects explicitly flagged as featured — the admin's
+      // curated homepage strip. If none are flagged yet (e.g. before
+      // the first save after upgrade), fall back to the top 6 by order
+      // so the strip never renders empty.
+      let rows = await prisma.project.findMany({
+        where: { published: true, featured: true },
+        orderBy: { order: 'asc' }
       });
+      if (!rows.length) {
+        rows = await prisma.project.findMany({
+          where: { published: true },
+          orderBy: { order: 'asc' },
+          take: 6
+        });
+      }
       if (rows.length)
         return rows.map((r) => ({
           slug: r.slug,

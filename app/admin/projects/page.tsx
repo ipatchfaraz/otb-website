@@ -32,6 +32,7 @@ type ProjectRow = {
   heroImg: string;
   gallery: unknown;
   published: boolean;
+  featured: boolean;
 };
 
 const BASE_TAGS = ['STRATEGY', 'IDENTITY', 'PACKAGING'];
@@ -189,6 +190,7 @@ export default function ProjectsAdminPage() {
                     </span>
                     <span style={{ fontFamily: fonts.mono, fontSize: 9, color: '#7A7A7A' }}>
                       {r.published ? 'PUBLISHED' : 'DRAFT'}
+                      {r.featured && <span style={{ color: colors.yellow }}> · ★ FEATURED</span>}
                     </span>
                   </span>
                 </button>
@@ -226,7 +228,7 @@ export default function ProjectsAdminPage() {
                 <div style={{ fontFamily: fonts.mono, fontSize: 11, letterSpacing: '0.16em', color: colors.yellow }}>
                   EDITING · {current.slug}
                 </div>
-                <div style={{ display: 'flex', gap: 10 }}>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                   <label style={{ display: 'flex', gap: 8, alignItems: 'center', color: colors.muted, fontFamily: fonts.mono, fontSize: 11 }}>
                     <input
                       type="checkbox"
@@ -234,6 +236,25 @@ export default function ProjectsAdminPage() {
                       onChange={(e) => patchCurrent({ published: e.target.checked })}
                     />
                     PUBLISHED
+                  </label>
+                  <label
+                    style={{
+                      display: 'flex',
+                      gap: 8,
+                      alignItems: 'center',
+                      color: current.featured ? colors.yellow : colors.muted,
+                      fontFamily: fonts.mono,
+                      fontSize: 11,
+                      letterSpacing: '0.05em'
+                    }}
+                    title="Show this project in the homepage FRESH OUT OF THE BOX strip"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={current.featured}
+                      onChange={(e) => patchCurrent({ featured: e.target.checked })}
+                    />
+                    ★ HOMEPAGE FEATURED
                   </label>
                   <Link
                     href={`/work/${current.slug}`}

@@ -3,8 +3,10 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/require-admin';
 import { CASES, ORDER, COVERS, type CaseSlug } from '@/lib/case-studies';
-import { PROJECTS } from '@/lib/projects';
+import { PROJECTS, FEATURED_ORDER } from '@/lib/projects';
 import { STATIC_JOURNAL } from '@/lib/journal';
+
+const FEATURED_SET = new Set<string>(FEATURED_ORDER);
 
 // POST /api/admin/seed
 // Populates empty Project + JournalEntry tables from the compiled static data
@@ -51,7 +53,8 @@ export async function POST() {
         payoff: c.payoff,
         heroImg: c.heroImg,
         gallery: c.gallery ?? [],
-        published: true
+        published: true,
+        featured: FEATURED_SET.has(slug)
       }
     });
     projectsCreated += 1;
