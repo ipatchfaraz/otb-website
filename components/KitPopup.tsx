@@ -3,12 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { anims, colors, fonts } from '@/lib/tokens';
 
-// Local-storage key that remembers the user has either submitted or
-// dismissed the popup. Cleared automatically after 30 days so we can
-// re-engage lapsed visitors.
-const STORAGE_KEY = 'otb-kit-popup-dismissed';
-const COOLDOWN_MS = 30 * 24 * 60 * 60 * 1000;
-
 const KIT_ITEMS = [
   'POSITIONING WORKSHEET',
   'VOICE & TONE CHECKLIST',
@@ -32,16 +26,6 @@ export default function KitPopup({ booted }: { booted: boolean }) {
 
   useEffect(() => {
     if (!booted) return;
-    // Skip if dismissed within cooldown
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const dismissedAt = Number(raw);
-        if (Number.isFinite(dismissedAt) && Date.now() - dismissedAt < COOLDOWN_MS) return;
-      }
-    } catch {
-      /* localStorage disabled — proceed anyway */
-    }
     const t = setTimeout(() => setOpen(true), 650);
     return () => clearTimeout(t);
   }, [booted]);
@@ -68,11 +52,6 @@ export default function KitPopup({ booted }: { booted: boolean }) {
 
   const close = () => {
     setOpen(false);
-    try {
-      localStorage.setItem(STORAGE_KEY, String(Date.now()));
-    } catch {
-      /* ignore */
-    }
   };
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -89,12 +68,6 @@ export default function KitPopup({ booted }: { booted: boolean }) {
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong');
       setStatus('sent');
-      // Stamp dismissal so we don't reopen on next visit
-      try {
-        localStorage.setItem(STORAGE_KEY, String(Date.now()));
-      } catch {
-        /* ignore */
-      }
       // Auto-redirect to the download page after a beat so the user sees
       // the confirmation message.
       setTimeout(() => router.push(`/kit?email=${encodeURIComponent(email)}`), 1400);
