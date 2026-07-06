@@ -16,7 +16,7 @@ export const colors = {
 } as const;
 
 export const fonts = {
-  display: "'Archivo Black', 'Rigid Square', 'Chakra Petch', ui-sans-serif, sans-serif",
+  display: "'Rigid Square', 'Chakra Petch', ui-sans-serif, sans-serif",
   body: "'Inter', system-ui, sans-serif",
   mono: "'JetBrains Mono', ui-monospace, monospace"
 } as const;
