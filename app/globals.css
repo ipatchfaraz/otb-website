@@ -283,11 +283,29 @@ footer {
   }
 
   /* --- Logo vault: use a fixed 5-column grid on mobile so the
-     marks stay readable instead of shrinking to 1cm across --- */
+     marks stay readable instead of shrinking to 1cm across.
+     min-width: 0 + max-width: 100% + overflow-x: hidden are
+     defensive against iOS Safari letting grid content expand
+     past its container. Longhand padding overrides beat the
+     `section > div { padding-left: 0 }` sibling rule on Safari,
+     which sometimes misresolves shorthand `padding` vs longhand
+     `padding-left`/`padding-right` even with equal !important. */
   [data-vault-grid] {
     grid-template-columns: repeat(5, 1fr) !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
-  [data-screen-label="Logo vault"] > div { padding: 44px 20px !important; }
+  [data-screen-label="Logo vault"] {
+    overflow-x: hidden !important;
+  }
+  [data-screen-label="Logo vault"] > div {
+    padding-top: 44px !important;
+    padding-right: 20px !important;
+    padding-bottom: 44px !important;
+    padding-left: 20px !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
 
   /* --- Case study page --- */
   section[data-screen-label="Case hero"] {
