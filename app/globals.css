@@ -161,19 +161,23 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--otb-yellow); ou
     white-space: nowrap;
   }
 
-  /* --- Featured work: horizontal strip layout on mobile --- */
+  /* --- Featured work: pan works on mobile too, but head hidden and
+     inner viewport top-justified so tall cards don't get clipped. --- */
   [data-work-head] { display: none !important; }
   section[data-screen-label="Selected work"] > div {
     padding-top: 24px !important;
     padding-bottom: 24px !important;
+    justify-content: flex-start !important;
   }
-  [data-work-track] { padding: 0 20px 4px 20px !important; }
+  [data-work-track] { padding: 0 20px !important; }
   [data-work-track] > a {
     height: 82vh !important;
     max-height: 720px !important;
     width: 86vw !important;
     max-width: 420px !important;
   }
+  /* Trailing scroll room so the last card can pan clear of the right edge */
+  [data-work-endpad] { width: max(0px, calc(100vw - 348px)) !important; }
 
   /* --- Services grid: single column on mobile --- */
   section[data-screen-label="Services"] > div {
