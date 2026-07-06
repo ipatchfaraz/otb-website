@@ -50,14 +50,19 @@ export default function ProjectsAdminPage() {
     void load();
   }, []);
 
-  async function load() {
+  async function load(keepSelected = true) {
     setLoading(true);
     try {
       const res = await fetch('/api/admin/projects');
       if (!res.ok) throw new Error((await res.json()).error || 'LOAD_FAILED');
       const data = (await res.json()) as { projects: ProjectRow[] };
       setRows(data.projects);
-      if (data.projects[0] && !selected) setSelected(data.projects[0].slug);
+      if (!keepSelected || !selected) {
+        if (data.projects[0]) setSelected(data.projects[0].slug);
+      } else if (!data.projects.find((p) => p.slug === selected)) {
+        // Selected project was deleted — fall back to the first row
+        setSelected(data.projects[0]?.slug ?? null);
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'LOAD_FAILED');
     } finally {
@@ -84,6 +89,46 @@ export default function ProjectsAdminPage() {
     }
     setFlash('SAVED');
     setTimeout(() => setFlash(null), 1600);
+    // Reload from server so sidebar reflects true DB state (published,
+    // featured, order, etc.) instead of the potentially-stale local edit.
+    void load(true);
+  }
+
+  /** Persist a new `order` for two rows and refresh. Called by the
+   *  ▲/▼ buttons in the sidebar. */
+  async function swapOrder(a: ProjectRow, b: ProjectRow) {
+    setError(null);
+    // Optimistic: swap locally so the UI moves immediately
+    setRows((rs) =>
+      rs
+        .map((r) => {
+          if (r.slug === a.slug) return { ...r, order: b.order };
+          if (r.slug === b.slug) return { ...r, order: a.order };
+          return r;
+        })
+        .sort((x, y) => x.order - y.order)
+    );
+    try {
+      const results = await Promise.all([
+        fetch(`/api/admin/projects/${a.slug}`, {
+          method: 'PUT',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ order: b.order })
+        }),
+        fetch(`/api/admin/projects/${b.slug}`, {
+          method: 'PUT',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ order: a.order })
+        })
+      ]);
+      if (!results.every((r) => r.ok)) throw new Error('REORDER_FAILED');
+      setFlash('ORDER SAVED');
+      setTimeout(() => setFlash(null), 1200);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'REORDER_FAILED');
+      // Roll back
+      void load(true);
+    }
   }
 
   async function createNew() {
@@ -147,53 +192,110 @@ export default function ProjectsAdminPage() {
             {loading && <div style={labelStyle}>LOADING…</div>}
             {rows.map((r, i) => {
               const active = r.slug === selected;
+              const prev = rows[i - 1];
+              const next = rows[i + 1];
               return (
-                <button
+                <div
                   key={r.slug}
-                  onClick={() => setSelected(r.slug)}
                   style={{
-                    textAlign: 'left',
-                    background: active ? '#1B1B1B' : 'transparent',
-                    border: `1px solid ${active ? colors.yellow : '#232323'}`,
-                    color: colors.fg,
-                    padding: '8px 10px',
                     display: 'flex',
-                    gap: 10,
-                    alignItems: 'center',
-                    cursor: 'pointer'
+                    gap: 4,
+                    alignItems: 'stretch',
+                    background: active ? '#1B1B1B' : 'transparent',
+                    border: `1px solid ${active ? colors.yellow : '#232323'}`
                   }}
                 >
-                  <span
+                  <button
+                    onClick={() => setSelected(r.slug)}
                     style={{
-                      fontFamily: fonts.mono,
-                      fontSize: 9,
-                      color: colors.yellow,
-                      width: 18
+                      flex: 1,
+                      minWidth: 0,
+                      textAlign: 'left',
+                      background: 'transparent',
+                      border: 'none',
+                      color: colors.fg,
+                      padding: '8px 10px',
+                      display: 'flex',
+                      gap: 10,
+                      alignItems: 'center',
+                      cursor: 'pointer'
                     }}
                   >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
                     <span
                       style={{
-                        fontFamily: fonts.display,
-                        fontWeight: 700,
-                        fontSize: 13,
-                        textTransform: 'uppercase',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        color: r.published ? colors.fg : colors.muted
+                        fontFamily: fonts.mono,
+                        fontSize: 9,
+                        color: colors.yellow,
+                        width: 18
                       }}
                     >
-                      {r.client || r.slug}
+                      {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span style={{ fontFamily: fonts.mono, fontSize: 9, color: '#7A7A7A' }}>
-                      {r.published ? 'PUBLISHED' : 'DRAFT'}
-                      {r.featured && <span style={{ color: colors.yellow }}> · ★ FEATURED</span>}
+                    <span style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
+                      <span
+                        style={{
+                          fontFamily: fonts.display,
+                          fontWeight: 700,
+                          fontSize: 13,
+                          textTransform: 'uppercase',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          color: r.published ? colors.fg : colors.muted
+                        }}
+                      >
+                        {r.client || r.slug}
+                      </span>
+                      <span style={{ fontFamily: fonts.mono, fontSize: 9, color: '#7A7A7A' }}>
+                        {r.published ? 'PUBLISHED' : 'DRAFT'}
+                        {r.featured && <span style={{ color: colors.yellow }}> · ★ FEATURED</span>}
+                      </span>
                     </span>
-                  </span>
-                </button>
+                  </button>
+                  <div style={{ display: 'flex', flexDirection: 'column', borderLeft: `1px solid #232323` }}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (prev) void swapOrder(r, prev);
+                      }}
+                      disabled={!prev}
+                      title="Move up"
+                      style={{
+                        cursor: prev ? 'pointer' : 'not-allowed',
+                        background: 'transparent',
+                        border: 'none',
+                        color: prev ? colors.muted : '#3A3A3A',
+                        fontSize: 11,
+                        lineHeight: 1,
+                        padding: '4px 10px',
+                        flex: 1
+                      }}
+                    >
+                      ▲
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (next) void swapOrder(r, next);
+                      }}
+                      disabled={!next}
+                      title="Move down"
+                      style={{
+                        cursor: next ? 'pointer' : 'not-allowed',
+                        background: 'transparent',
+                        border: 'none',
+                        color: next ? colors.muted : '#3A3A3A',
+                        fontSize: 11,
+                        lineHeight: 1,
+                        padding: '4px 10px',
+                        flex: 1,
+                        borderTop: `1px solid #232323`
+                      }}
+                    >
+                      ▼
+                    </button>
+                  </div>
+                </div>
               );
             })}
           </div>
