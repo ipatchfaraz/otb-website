@@ -6,6 +6,10 @@ export type Gallery = {
   col: string;
   tag: string;
   caption: string;
+  /** True on exactly one figure — used as the work-grid cover. */
+  isCover?: boolean;
+  /** True on any number of figures — those cycle on hover over the card. */
+  inHoverCycle?: boolean;
 };
 
 export type CaseStudy = {

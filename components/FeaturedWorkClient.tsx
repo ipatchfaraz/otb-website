@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { colors, fonts } from '@/lib/tokens';
 import CornerBrackets from './CornerBrackets';
 
@@ -11,6 +11,9 @@ export type FeaturedCard = {
   meta: string;
   tagline: string;
   alt: string;
+  /** URLs of gallery figures marked as `inHoverCycle` in the CMS.
+   *  Cycled on hover with a cross-fade + yellow glitch flash. */
+  hoverCycle: string[];
 };
 
 /**
@@ -158,69 +161,7 @@ export default function FeaturedWorkClient({ cards }: { cards: FeaturedCard[] })
           }}
         >
           {cards.map((card) => (
-            <Link
-              key={card.slug}
-              href={`/work/${card.slug}`}
-              className="hover-border"
-              style={{
-                width: 'clamp(300px, 27vw, 400px)',
-                height: 'min(60vh, 600px)',
-                flex: 'none',
-                border: `1px solid ${colors.line}`,
-                display: 'flex',
-                flexDirection: 'column',
-                position: 'relative',
-                textDecoration: 'none',
-                color: colors.fg,
-                background: colors.bg
-              }}
-            >
-              <div
-                role="img"
-                aria-label={card.alt}
-                style={{
-                  flex: 1,
-                  margin: 16,
-                  backgroundImage: `url('${card.cover}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  border: `1px solid ${colors.line}`,
-                  position: 'relative'
-                }}
-              >
-                <CornerBrackets />
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: 14,
-                    left: 18,
-                    fontFamily: fonts.mono,
-                    fontSize: 11,
-                    letterSpacing: '0.2em',
-                    color: colors.muted
-                  }}
-                >
-                  {card.file}
-                </span>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '6px 22px 22px 22px' }}>
-                <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.15em', color: colors.muted }}>
-                  {card.meta}
-                </div>
-                <p style={{ margin: 0, fontSize: 16, lineHeight: 1.5 }}>{card.tagline}</p>
-                <span
-                  style={{
-                    fontFamily: fonts.mono,
-                    fontSize: 11,
-                    fontWeight: 700,
-                    letterSpacing: '0.15em',
-                    color: colors.yellow
-                  }}
-                >
-                  UNBOX THE CASE →
-                </span>
-              </div>
-            </Link>
+            <ProjectCard key={card.slug} card={card} />
           ))}
           <Link
             href="/work"
@@ -282,5 +223,147 @@ export default function FeaturedWorkClient({ cards }: { cards: FeaturedCard[] })
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * One featured project card. Owns its own hover-cycle state: while the
+ * pointer is over the card, iterate through the URLs in `hoverCycle`
+ * every ~1.4 s with a cross-fade + yellow glitch flash. Resets on
+ * mouseleave.
+ */
+function ProjectCard({ card }: { card: FeaturedCard }) {
+  const [hovering, setHovering] = useState(false);
+  const [displayIdx, setDisplayIdx] = useState(-1); // -1 = cover
+  const [flash, setFlash] = useState(false);
+  const cycle = card.hoverCycle;
+
+  useEffect(() => {
+    if (!hovering || cycle.length === 0) return;
+    // Preload — avoids the flash-of-blank as new images fetch mid-cycle
+    cycle.forEach((u) => {
+      const img = new window.Image();
+      img.src = u;
+    });
+    let i = 0;
+    setDisplayIdx(0);
+    const iv = setInterval(() => {
+      i = (i + 1) % cycle.length;
+      setDisplayIdx(i);
+      setFlash(true);
+      setTimeout(() => setFlash(false), 260);
+    }, 1400);
+    return () => clearInterval(iv);
+  }, [hovering, cycle]);
+
+  const currentImg = hovering && displayIdx >= 0 && cycle[displayIdx] ? cycle[displayIdx] : card.cover;
+
+  return (
+    <Link
+      href={`/work/${card.slug}`}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => {
+        setHovering(false);
+        setDisplayIdx(-1);
+        setFlash(false);
+      }}
+      className="hover-border"
+      style={{
+        width: 'clamp(300px, 27vw, 400px)',
+        height: 'min(60vh, 600px)',
+        flex: 'none',
+        border: `1px solid ${colors.line}`,
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        textDecoration: 'none',
+        color: colors.fg,
+        background: colors.bg
+      }}
+    >
+      <div
+        role="img"
+        aria-label={card.alt}
+        style={{
+          flex: 1,
+          margin: 16,
+          border: `1px solid ${colors.line}`,
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        {/* Cover layer — always present so we cross-fade cleanly */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url('${card.cover}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        />
+        {/* Hover-cycle layer — fades over the cover */}
+        {cycle.length > 0 && (
+          <div
+            key={currentImg}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `url('${currentImg}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: hovering && displayIdx >= 0 ? 1 : 0,
+              transition: 'opacity 0.45s ease'
+            }}
+          />
+        )}
+        {/* Yellow glitch flash — brief overlay on each cycle */}
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'linear-gradient(180deg, transparent 0%, rgba(255,229,0,0.14) 42%, transparent 46%, rgba(255,229,0,0.10) 55%, transparent 60%)',
+            mixBlendMode: 'screen',
+            opacity: flash ? 1 : 0,
+            transition: 'opacity 0.15s linear',
+            pointerEvents: 'none'
+          }}
+        />
+        <CornerBrackets />
+        <span
+          style={{
+            position: 'absolute',
+            top: 14,
+            left: 18,
+            fontFamily: fonts.mono,
+            fontSize: 11,
+            letterSpacing: '0.2em',
+            color: colors.muted,
+            zIndex: 2
+          }}
+        >
+          {card.file}
+        </span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '6px 22px 22px 22px' }}>
+        <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.15em', color: colors.muted }}>
+          {card.meta}
+        </div>
+        <p style={{ margin: 0, fontSize: 16, lineHeight: 1.5 }}>{card.tagline}</p>
+        <span
+          style={{
+            fontFamily: fonts.mono,
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: '0.15em',
+            color: colors.yellow
+          }}
+        >
+          UNBOX THE CASE →
+        </span>
+      </div>
+    </Link>
   );
 }
