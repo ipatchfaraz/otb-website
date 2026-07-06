@@ -86,12 +86,22 @@ export default function KitPopup({ booted }: { booted: boolean }) {
       style={{
         display: 'flex',
         position: 'fixed',
-        inset: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        // Use dvh so iOS Safari accounts for its URL bar. Without this,
+        // the overlay height equals full 100vh (URL bar included) and
+        // the modal's top clips above the visible area.
+        height: '100dvh',
         zIndex: 130,
         background: 'rgba(6,6,6,0.88)',
-        alignItems: 'center',
+        // Align to top so tall modals never clip above the fold; the
+        // overlay itself scrolls if the modal exceeds viewport height.
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        padding: 24,
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        padding: '20px 14px',
         boxSizing: 'border-box',
         animation: 'otbKitPopupFade 0.35s ease-out'
       }}
@@ -105,12 +115,15 @@ export default function KitPopup({ booted }: { booted: boolean }) {
           position: 'relative',
           width: '100%',
           maxWidth: 620,
-          maxHeight: '92vh',
-          overflowY: 'auto',
+          // No hard height cap — the overlay handles scrolling so the
+          // modal can be its natural height.
           background: colors.bg,
           border: `1px solid ${colors.line}`,
           boxShadow: '0 0 80px rgba(255,229,0,0.06)',
-          animation: 'otbKitPopupRise 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+          animation: 'otbKitPopupRise 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          // Small bottom margin so the last CTA has breathing room from
+          // Safari's bottom toolbar.
+          marginBottom: 20
         }}
       >
         {/* Status bar */}
