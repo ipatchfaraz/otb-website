@@ -8,6 +8,10 @@ export type Figure = {
   col: '1 / -1' | 'auto';
   tag: string;
   caption: string;
+  /** True on exactly one figure — the image used for the work-grid card cover. */
+  isCover?: boolean;
+  /** True on any number of figures — those cycle on hover over the work-grid card. */
+  inHoverCycle?: boolean;
 };
 
 /**
@@ -22,16 +26,39 @@ export type Figure = {
  */
 export default function GalleryEditor({
   value,
-  onChange
+  onChange,
+  onCoverChange
 }: {
   value: Figure[];
   onChange: (next: Figure[]) => void;
+  /**
+   * Fires when the admin picks a new "cover" figure. Parent uses this
+   * to mirror the URL onto the project's top-level `coverImage` field
+   * so the work grid stays in sync without a separate manual paste.
+   */
+  onCoverChange?: (url: string) => void;
 }) {
   const figures = value ?? [];
 
   const patch = (i: number, p: Partial<Figure>) => {
     const next = figures.slice();
     next[i] = { ...next[i], ...p };
+    onChange(next);
+  };
+  const setCover = (i: number) => {
+    // Radio semantic — only one cover at a time.
+    const next = figures.map((f, idx) => ({ ...f, isCover: idx === i }));
+    onChange(next);
+    if (onCoverChange && next[i]?.img) onCoverChange(next[i].img);
+  };
+  const clearCover = (i: number) => {
+    const next = figures.slice();
+    next[i] = { ...next[i], isCover: false };
+    onChange(next);
+  };
+  const toggleHoverCycle = (i: number) => {
+    const next = figures.slice();
+    next[i] = { ...next[i], inHoverCycle: !next[i].inHoverCycle };
     onChange(next);
   };
   const move = (i: number, dir: -1 | 1) => {
@@ -51,9 +78,12 @@ export default function GalleryEditor({
     ]);
   };
 
+  const coverCount = figures.filter((f) => f.isCover).length;
+  const hoverCount = figures.filter((f) => f.inHoverCycle).length;
+
   return (
     <section style={{ display: 'flex', flexDirection: 'column', gap: 13 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
         <div
           style={{
             fontFamily: fonts.mono,
@@ -64,6 +94,22 @@ export default function GalleryEditor({
         >
           // GALLERY · {String(figures.length).padStart(2, '0')} FIGURE{figures.length === 1 ? '' : 'S'}
         </div>
+        <div
+          style={{
+            fontFamily: fonts.mono,
+            fontSize: 9,
+            letterSpacing: '0.14em',
+            color: '#5A5A5A'
+          }}
+        >
+          <span style={{ color: coverCount === 1 ? colors.yellow : coverCount === 0 ? '#5A5A5A' : '#E5484D' }}>
+            ● COVER ({coverCount})
+          </span>
+          {'  ·  '}
+          <span style={{ color: hoverCount > 0 ? colors.yellow : '#5A5A5A' }}>
+            ◇ HOVER CYCLE ({hoverCount})
+          </span>
+        </div>
       </div>
 
       {figures.map((g, i) => (
@@ -72,6 +118,9 @@ export default function GalleryEditor({
           index={i}
           figure={g}
           onPatch={(p) => patch(i, p)}
+          onSetCover={() => setCover(i)}
+          onClearCover={() => clearCover(i)}
+          onToggleHoverCycle={() => toggleHoverCycle(i)}
           onMoveUp={() => move(i, -1)}
           onMoveDown={() => move(i, 1)}
           onRemove={() => remove(i)}
@@ -103,6 +152,9 @@ function FigureRow({
   index,
   figure,
   onPatch,
+  onSetCover,
+  onClearCover,
+  onToggleHoverCycle,
   onMoveUp,
   onMoveDown,
   onRemove
@@ -110,6 +162,9 @@ function FigureRow({
   index: number;
   figure: Figure;
   onPatch: (p: Partial<Figure>) => void;
+  onSetCover: () => void;
+  onClearCover: () => void;
+  onToggleHoverCycle: () => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onRemove: () => void;
@@ -288,6 +343,56 @@ function FigureRow({
           gap: 8
         }}
       >
+        {/* Cover + hover-cycle toggles */}
+        <div
+          style={{
+            display: 'flex',
+            gap: 8,
+            flexWrap: 'wrap',
+            alignItems: 'center'
+          }}
+        >
+          <button
+            type="button"
+            onClick={figure.isCover ? onClearCover : onSetCover}
+            disabled={!figure.img}
+            title={figure.img ? (figure.isCover ? 'Unset as cover' : 'Use this image as the work-grid card cover + case hero') : 'Upload an image first'}
+            style={{
+              cursor: figure.img ? 'pointer' : 'not-allowed',
+              background: figure.isCover ? colors.yellow : 'transparent',
+              color: figure.isCover ? colors.bg : figure.img ? colors.mutedSoft : '#4A4A4A',
+              border: `1px solid ${figure.isCover ? colors.yellow : '#2A2A2A'}`,
+              fontFamily: fonts.mono,
+              fontSize: 9,
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              padding: '6px 10px',
+              opacity: figure.img ? 1 : 0.5
+            }}
+          >
+            {figure.isCover ? '● COVER' : '○ SET AS COVER'}
+          </button>
+          <button
+            type="button"
+            onClick={onToggleHoverCycle}
+            disabled={!figure.img}
+            title={figure.img ? 'Cycle this image on hover over the work-grid card' : 'Upload an image first'}
+            style={{
+              cursor: figure.img ? 'pointer' : 'not-allowed',
+              background: figure.inHoverCycle ? colors.yellow : 'transparent',
+              color: figure.inHoverCycle ? colors.bg : figure.img ? colors.mutedSoft : '#4A4A4A',
+              border: `1px solid ${figure.inHoverCycle ? colors.yellow : '#2A2A2A'}`,
+              fontFamily: fonts.mono,
+              fontSize: 9,
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              padding: '6px 10px',
+              opacity: figure.img ? 1 : 0.5
+            }}
+          >
+            {figure.inHoverCycle ? '◆ IN HOVER CYCLE' : '◇ ADD TO HOVER CYCLE'}
+          </button>
+        </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <label style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 5, minWidth: 0 }}>
             <span

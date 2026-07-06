@@ -389,6 +389,7 @@ export default function ProjectsAdminPage() {
                   <GalleryEditor
                     value={(Array.isArray(current.gallery) ? (current.gallery as unknown as Figure[]) : []) ?? []}
                     onChange={(next) => patchCurrent({ gallery: next as unknown as ProjectRow['gallery'] })}
+                    onCoverChange={(url) => patchCurrent({ coverImage: url })}
                   />
                 </div>
               </Section>
