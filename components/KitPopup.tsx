@@ -89,9 +89,7 @@ export default function KitPopup({ booted }: { booted: boolean }) {
         top: 0,
         left: 0,
         right: 0,
-        // Use dvh so iOS Safari accounts for its URL bar. Without this,
-        // the overlay height equals full 100vh (URL bar included) and
-        // the modal's top clips above the visible area.
+        // 100dvh so iOS Safari respects its URL bar (iOS 15.4+).
         height: '100dvh',
         zIndex: 130,
         background: 'rgba(6,6,6,0.88)',
@@ -101,7 +99,12 @@ export default function KitPopup({ booted }: { booted: boolean }) {
         justifyContent: 'center',
         overflowY: 'auto',
         WebkitOverflowScrolling: 'touch',
-        padding: '20px 14px',
+        // Padding includes safe-area-inset so the modal never sits
+        // under the iPhone notch / Dynamic Island / status bar.
+        paddingTop: 'max(20px, env(safe-area-inset-top))',
+        paddingRight: 'max(14px, env(safe-area-inset-right))',
+        paddingBottom: 'max(20px, env(safe-area-inset-bottom))',
+        paddingLeft: 'max(14px, env(safe-area-inset-left))',
         boxSizing: 'border-box',
         animation: 'otbKitPopupFade 0.35s ease-out'
       }}
