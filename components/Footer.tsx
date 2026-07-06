@@ -219,7 +219,7 @@ export default function Footer() {
               marginTop: 4
             }}
           >
-            EST. 2016 // 15+ YRS ACTIVE
+            EST. 2016 // 10+ YRS ACTIVE
           </div>
         </div>
         <nav aria-label="Sitemap" style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>

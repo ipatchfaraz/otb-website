@@ -65,7 +65,7 @@ export default function HeroSection({ started }: { started: boolean }) {
             <span style={{ color: colors.yellow, animation: anims.flicker }}>BOX</span>.
           </h1>
           <p style={{ margin: 0, maxWidth: '58ch', fontSize: 17, lineHeight: 1.65, color: colors.muted }}>
-            Outta The Box is a branding agency that&rsquo;s spent 15+ years unboxing brands — using unconventional thinking and our own Organic Intelligence (OI) approach to build purpose-driven, humanised brands.
+            Outta The Box is a branding agency that&rsquo;s spent 10+ years unboxing brands — using unconventional thinking and our own Organic Intelligence (OI) approach to build purpose-driven, humanised brands.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
             <Link href="/#book" className="cta-y" style={{ fontSize: 12, padding: '16px 28px' }}>
@@ -94,7 +94,7 @@ export default function HeroSection({ started }: { started: boolean }) {
                 paddingRight: '2ch'
               }}
             >
-              EST. KUALA LUMPUR /// 15+ YEARS /// 100+ CLIENTS /// SHIPPED WORLDWIDE /// EST. KUALA LUMPUR /// 15+ YEARS /// 100+ CLIENTS /// SHIPPED WORLDWIDE ///{' '}
+              EST. KUALA LUMPUR /// 10+ YEARS /// 100+ CLIENTS /// SHIPPED WORLDWIDE /// EST. KUALA LUMPUR /// 10+ YEARS /// 100+ CLIENTS /// SHIPPED WORLDWIDE ///{' '}
             </span>
           ))}
         </div>

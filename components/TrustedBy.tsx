@@ -70,10 +70,10 @@ export default function TrustedBy() {
   }, []);
 
   const stats: Array<[string, string]> = [
-    ['Y E A R S', '15+'],
+    ['Y E A R S', '10+'],
     ['C L I E N T S', '100+'],
-    ['P R O J E C T S', '400+'],
-    ['A W A R D S', '30+']
+    ['P R O J E C T S', '200+'],
+    ['C O U N T R I E S', '12+']
   ];
 
   return (
