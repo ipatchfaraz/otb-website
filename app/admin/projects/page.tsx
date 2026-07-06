@@ -2,6 +2,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import AdminHeader from '@/components/AdminHeader';
+import ImagePicker from '@/components/ImagePicker';
+import GalleryEditor, { type Figure } from '@/components/GalleryEditor';
 import { colors, fonts } from '@/lib/tokens';
 
 type ProjectRow = {
@@ -324,9 +326,13 @@ export default function ProjectsAdminPage() {
                     Base tags: {BASE_TAGS.join(' · ')}
                   </div>
                 </Field>
-                <Field label="COVER IMAGE URL (/images/… or https://…)">
-                  <input style={inputStyle} value={current.coverImage} onChange={(e) => patchCurrent({ coverImage: e.target.value })} />
-                </Field>
+                <ImagePicker
+                  label="COVER IMAGE (WORK GRID CARD)"
+                  value={current.coverImage}
+                  onChange={(url) => patchCurrent({ coverImage: url })}
+                  emptyHint="NO COVER"
+                  clearLabel="CLEAR"
+                />
                 <Field label="CASE FILE LABEL">
                   <input style={inputStyle} value={current.caseLabel} onChange={(e) => patchCurrent({ caseLabel: e.target.value })} />
                 </Field>
@@ -372,23 +378,19 @@ export default function ProjectsAdminPage() {
                 <Field label="CH.05 — PAYOFF">
                   <Textarea rows={3} value={current.payoff} onChange={(v) => patchCurrent({ payoff: v })} />
                 </Field>
-                <Field label="HERO IMAGE URL">
-                  <input style={inputStyle} value={current.heroImg} onChange={(e) => patchCurrent({ heroImg: e.target.value })} />
-                </Field>
-                <Field label="GALLERY (JSON — array of { img, alt, col, tag, caption })">
-                  <Textarea
-                    rows={8}
-                    value={JSON.stringify(current.gallery ?? [], null, 2)}
-                    onChange={(v) => {
-                      try {
-                        patchCurrent({ gallery: JSON.parse(v) });
-                        setError(null);
-                      } catch (err) {
-                        setError('GALLERY JSON is invalid: ' + (err as Error).message);
-                      }
-                    }}
+                <ImagePicker
+                  label="HERO IMAGE (CASE STUDY BANNER)"
+                  value={current.heroImg}
+                  onChange={(url) => patchCurrent({ heroImg: url })}
+                  emptyHint="NO HERO"
+                  clearLabel="CLEAR"
+                />
+                <div style={{ marginTop: 6 }}>
+                  <GalleryEditor
+                    value={(Array.isArray(current.gallery) ? (current.gallery as unknown as Figure[]) : []) ?? []}
+                    onChange={(next) => patchCurrent({ gallery: next as unknown as ProjectRow['gallery'] })}
                   />
-                </Field>
+                </div>
               </Section>
             </div>
           )}
