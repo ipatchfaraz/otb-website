@@ -38,7 +38,7 @@ export default function LogoVaultPage() {
         <h1
           style={{
             fontFamily: fonts.display,
-            fontWeight: 700,
+            fontWeight: 900,
             fontSize: 'clamp(44px, 6.5vw, 96px)',
             lineHeight: 1,
             margin: 0,

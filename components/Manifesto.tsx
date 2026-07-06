@@ -19,7 +19,7 @@ export default function Manifesto() {
       <h2
         style={{
           fontFamily: fonts.display,
-          fontWeight: 700,
+          fontWeight: 900,
           fontSize: 'clamp(34px, 5vw, 68px)',
           lineHeight: 1.08,
           margin: 0,

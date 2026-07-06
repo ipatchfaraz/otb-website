@@ -78,7 +78,7 @@ export default function Footer() {
           bottom: '4%',
           textAlign: 'center',
           fontFamily: fonts.display,
-          fontWeight: 700,
+          fontWeight: 900,
           fontSize: 'clamp(120px, 22vw, 340px)',
           lineHeight: 0.8,
           color: 'transparent',
@@ -165,7 +165,7 @@ export default function Footer() {
           <h2
             style={{
               fontFamily: fonts.display,
-              fontWeight: 700,
+              fontWeight: 900,
               fontSize: 'clamp(32px, 4.5vw, 62px)',
               lineHeight: 1,
               margin: 0,
@@ -206,7 +206,7 @@ export default function Footer() {
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ fontFamily: fonts.display, fontWeight: 700, fontSize: 16 }}>OUTTA THE BOX™</div>
+          <div style={{ fontFamily: fonts.display, fontWeight: 900, fontSize: 16 }}>OUTTA THE BOX™</div>
           <div style={{ fontSize: 14, lineHeight: 1.6, color: colors.muted }}>
             Branding agency, Kuala Lumpur. Think outta the box.
           </div>

@@ -145,7 +145,7 @@ export default function TrustedBy() {
             <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.4em', color: colors.muted, marginBottom: 12 }}>
               {label}
             </div>
-            <div style={{ fontFamily: fonts.display, fontWeight: 700, fontSize: 40, color: colors.fg }}>{val}</div>
+            <div style={{ fontFamily: fonts.display, fontWeight: 900, fontSize: 40, color: colors.fg }}>{val}</div>
           </div>
         ))}
       </div>

@@ -37,7 +37,7 @@ export default function OpenGraphImage() {
             style={{
               color: '#FFFFFF',
               fontSize: 34,
-              fontWeight: 700,
+              fontWeight: 900,
               letterSpacing: '0.04em',
               fontFamily: 'system-ui, sans-serif'
             }}
@@ -65,7 +65,7 @@ export default function OpenGraphImage() {
               flexWrap: 'wrap',
               color: '#FFFFFF',
               fontSize: 82,
-              fontWeight: 700,
+              fontWeight: 900,
               lineHeight: 1.02,
               letterSpacing: '-0.01em',
               textTransform: 'uppercase',

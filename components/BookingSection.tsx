@@ -24,7 +24,7 @@ export default function BookingSection() {
       <h2
         style={{
           fontFamily: fonts.display,
-          fontWeight: 700,
+          fontWeight: 900,
           fontSize: 'clamp(34px, 5vw, 68px)',
           lineHeight: 1.02,
           margin: 0,

@@ -21,7 +21,7 @@ export default async function LeadsAdminPage() {
             <h1
               style={{
                 fontFamily: fonts.display,
-                fontWeight: 700,
+                fontWeight: 900,
                 fontSize: 36,
                 margin: 0,
                 textTransform: 'uppercase'

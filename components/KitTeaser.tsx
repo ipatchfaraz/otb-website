@@ -159,7 +159,7 @@ export default function KitTeaser() {
               <h2
                 style={{
                   fontFamily: fonts.display,
-                  fontWeight: 700,
+                  fontWeight: 900,
                   fontSize: 'clamp(30px, 3.6vw, 52px)',
                   lineHeight: 1.02,
                   margin: 0,
@@ -273,7 +273,7 @@ export default function KitTeaser() {
                     style={{
                       position: 'relative',
                       fontFamily: fonts.display,
-                      fontWeight: 700,
+                      fontWeight: 900,
                       fontSize: 56,
                       letterSpacing: '0.04em',
                       color: colors.yellow,

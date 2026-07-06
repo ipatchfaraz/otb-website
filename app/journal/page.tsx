@@ -45,7 +45,7 @@ export default async function JournalPage() {
           <h1
             style={{
               fontFamily: fonts.display,
-              fontWeight: 700,
+              fontWeight: 900,
               fontSize: 'clamp(44px, 7vw, 96px)',
               lineHeight: 0.96,
               margin: 0,

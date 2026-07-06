@@ -52,7 +52,7 @@ export default function HeroSection({ started }: { started: boolean }) {
           <h1
             style={{
               fontFamily: fonts.display,
-              fontWeight: 700,
+              fontWeight: 900,
               fontSize: 'clamp(52px, 7.5vw, 110px)',
               lineHeight: 0.98,
               letterSpacing: '-0.01em',

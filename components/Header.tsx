@@ -54,7 +54,7 @@ export default function Header({ homeHref = '/' }: { homeHref?: string }) {
           <span
             style={{
               fontFamily: fonts.display,
-              fontWeight: 700,
+              fontWeight: 900,
               fontSize: 16,
               letterSpacing: '0.02em',
               color: colors.fg
