@@ -82,7 +82,7 @@ export default function KitDownload() {
         <h1
           style={{
             fontFamily: fonts.display,
-            fontWeight: 900,
+            fontWeight: 700,
             fontSize: 'clamp(40px, 6vw, 84px)',
             lineHeight: 0.98,
             margin: 0,
@@ -301,7 +301,7 @@ export default function KitDownload() {
                   <div
                     style={{
                       fontFamily: fonts.display,
-                      fontWeight: 900,
+                      fontWeight: 700,
                       fontSize: 58,
                       letterSpacing: '0.04em',
                       color: colors.yellow,

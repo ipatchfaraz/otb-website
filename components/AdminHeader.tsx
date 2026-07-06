@@ -32,8 +32,8 @@ export default function AdminHeader({ subtitle }: { subtitle?: string }) {
         <div style={{ width: 1, height: 30, background: '#2A2A2A' }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 3, lineHeight: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontFamily: fonts.display, fontWeight: 900, fontSize: 16, letterSpacing: '0.04em' }}>OTB</span>
-            <span style={{ fontFamily: fonts.display, fontWeight: 900, fontSize: 16, letterSpacing: '0.04em', color: colors.yellow }}>
+            <span style={{ fontFamily: fonts.display, fontWeight: 700, fontSize: 16, letterSpacing: '0.04em' }}>OTB</span>
+            <span style={{ fontFamily: fonts.display, fontWeight: 700, fontSize: 16, letterSpacing: '0.04em', color: colors.yellow }}>
               CONTENT OS
             </span>
           </div>

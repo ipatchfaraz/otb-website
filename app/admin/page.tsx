@@ -93,7 +93,7 @@ export default async function AdminDashboard() {
         <h1
           style={{
             fontFamily: fonts.display,
-            fontWeight: 900,
+            fontWeight: 700,
             fontSize: 'clamp(38px, 6vw, 68px)',
             lineHeight: 0.98,
             margin: 0,

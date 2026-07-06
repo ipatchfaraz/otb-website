@@ -49,7 +49,7 @@ export default function KitPage() {
           <span
             style={{
               fontFamily: fonts.display,
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: 16,
               letterSpacing: '0.02em'
             }}

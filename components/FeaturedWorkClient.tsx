@@ -136,7 +136,7 @@ function DesktopPan({ cards }: { cards: FeaturedCard[] }) {
             <h2
               style={{
                 fontFamily: fonts.display,
-                fontWeight: 900,
+                fontWeight: 700,
                 fontSize: 'clamp(30px, 4vw, 56px)',
                 lineHeight: 1.02,
                 margin: 0,
@@ -202,7 +202,7 @@ function DesktopPan({ cards }: { cards: FeaturedCard[] }) {
             <span
               style={{
                 fontFamily: fonts.display,
-                fontWeight: 900,
+                fontWeight: 700,
                 fontSize: 32,
                 textTransform: 'uppercase',
                 textAlign: 'center',
@@ -270,7 +270,7 @@ function MobileStack({ cards }: { cards: FeaturedCard[] }) {
           <h2
             style={{
               fontFamily: fonts.display,
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: 'clamp(28px, 8vw, 42px)',
               lineHeight: 1.02,
               margin: 0,
@@ -311,7 +311,7 @@ function MobileStack({ cards }: { cards: FeaturedCard[] }) {
           <span
             style={{
               fontFamily: fonts.display,
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: 28,
               textTransform: 'uppercase',
               textAlign: 'center',

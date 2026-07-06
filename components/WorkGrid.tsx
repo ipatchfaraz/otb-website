@@ -35,7 +35,7 @@ export default function WorkGrid({ projects }: { projects: ProjectListing[] }) {
         <h1
           style={{
             fontFamily: fonts.display,
-            fontWeight: 900,
+            fontWeight: 700,
             fontSize: 'clamp(44px, 6.5vw, 96px)',
             lineHeight: 1,
             margin: 0,

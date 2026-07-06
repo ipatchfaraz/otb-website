@@ -44,7 +44,7 @@ export default async function CaseStudy({ slug }: { slug: string }) {
         <h1
           style={{
             fontFamily: fonts.display,
-            fontWeight: 900,
+            fontWeight: 700,
             fontSize: 'clamp(44px, 6.5vw, 96px)',
             lineHeight: 1,
             margin: 0,
@@ -126,7 +126,7 @@ export default async function CaseStudy({ slug }: { slug: string }) {
             <h2
               style={{
                 fontFamily: fonts.display,
-                fontWeight: 900,
+                fontWeight: 700,
                 fontSize: 'clamp(28px, 3.6vw, 48px)',
                 lineHeight: 1.05,
                 margin: 0,
@@ -161,7 +161,7 @@ export default async function CaseStudy({ slug }: { slug: string }) {
               data-insight-q
               style={{
                 fontFamily: fonts.display,
-                fontWeight: 900,
+                fontWeight: 700,
                 fontSize: 'clamp(30px, 4.2vw, 60px)',
                 lineHeight: 1.08,
                 color: colors.bg,
@@ -183,7 +183,7 @@ export default async function CaseStudy({ slug }: { slug: string }) {
             <h2
               style={{
                 fontFamily: fonts.display,
-                fontWeight: 900,
+                fontWeight: 700,
                 fontSize: 'clamp(28px, 3.6vw, 48px)',
                 lineHeight: 1.05,
                 margin: 0,
@@ -291,7 +291,7 @@ export default async function CaseStudy({ slug }: { slug: string }) {
               <div
                 style={{
                   fontFamily: fonts.display,
-                  fontWeight: 900,
+                  fontWeight: 700,
                   fontSize: 'clamp(28px, 4vw, 44px)',
                   textTransform: 'uppercase'
                 }}

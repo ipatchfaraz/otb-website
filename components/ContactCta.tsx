@@ -24,7 +24,7 @@ export default function ContactCta() {
       <h2
         style={{
           fontFamily: fonts.display,
-          fontWeight: 900,
+          fontWeight: 700,
           fontSize: 'clamp(34px, 5vw, 68px)',
           lineHeight: 1.04,
           margin: 0,

@@ -34,7 +34,7 @@ export default function LogoVaultTeaser() {
             <h2
               style={{
                 fontFamily: fonts.display,
-                fontWeight: 900,
+                fontWeight: 700,
                 fontSize: 'clamp(26px, 3.2vw, 44px)',
                 lineHeight: 1.02,
                 margin: 0,

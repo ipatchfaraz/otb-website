@@ -59,7 +59,7 @@ export default function AboutTeam() {
           <h2
             style={{
               fontFamily: fonts.display,
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: 'clamp(34px, 5vw, 68px)',
               lineHeight: 1.02,
               margin: 0,
@@ -250,7 +250,7 @@ export default function AboutTeam() {
               alignItems: 'center',
               justifyContent: 'center',
               fontFamily: fonts.display,
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: 28,
               color: colors.yellow,
               lineHeight: 1
@@ -349,7 +349,7 @@ export default function AboutTeam() {
               <h3
                 style={{
                   fontFamily: fonts.display,
-                  fontWeight: 900,
+                  fontWeight: 700,
                   fontSize: 28,
                   margin: '0 0 8px 0',
                   textTransform: 'uppercase'
@@ -371,7 +371,7 @@ export default function AboutTeam() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontFamily: fonts.display,
-                        fontWeight: 900,
+                        fontWeight: 700,
                         fontSize: 16,
                         color: colors.yellow
                       }}

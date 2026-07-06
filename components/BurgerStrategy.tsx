@@ -48,7 +48,7 @@ export default function BurgerStrategy() {
         <h2
           style={{
             fontFamily: fonts.display,
-            fontWeight: 900,
+            fontWeight: 700,
             fontSize: 'clamp(34px, 5vw, 68px)',
             lineHeight: 1.02,
             margin: '0 0 24px 0',

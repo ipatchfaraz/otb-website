@@ -216,7 +216,7 @@ export default function KitPopup({ booted }: { booted: boolean }) {
           <h2
             style={{
               fontFamily: fonts.display,
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: 'clamp(34px, 6vw, 52px)',
               lineHeight: 0.98,
               margin: 0,

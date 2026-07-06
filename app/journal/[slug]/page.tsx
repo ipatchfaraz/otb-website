@@ -64,7 +64,7 @@ export default async function JournalEntryPage({ params }: Props) {
           <h1
             style={{
               fontFamily: fonts.display,
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: 'clamp(34px, 5.4vw, 62px)',
               lineHeight: 1,
               margin: 0,
@@ -252,7 +252,7 @@ export default async function JournalEntryPage({ params }: Props) {
                 <span
                   style={{
                     fontFamily: fonts.display,
-                    fontWeight: 900,
+                    fontWeight: 700,
                     fontSize: 26,
                     color: colors.yellow,
                     flex: 'none'
