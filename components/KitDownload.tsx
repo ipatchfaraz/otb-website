@@ -57,7 +57,7 @@ export default function KitDownload() {
     // Ships the real PDF from public/downloads/. Direct <a> click keeps the
     // download attribute honored across browsers.
     const a = document.createElement('a');
-    a.href = '/downloads/OTB-Brand-Starter-Kit.pdf';
+    a.href = '/downloads/OTB-Brand-Starter-Kit.pdf?v=2';
     a.download = 'OTB-Brand-Starter-Kit.pdf';
     document.body.appendChild(a);
     a.click();
@@ -263,7 +263,7 @@ export default function KitDownload() {
                   <span style={{ animation: anims.blink }}>{ready ? '↓' : '█'}</span>
                 </button>
                 <span style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.12em', color: colors.muted }}>
-                  {ready ? 'PDF · 24 PP · 9.7 MB' : 'STANDBY...'}
+                  {ready ? 'PDF · 24 PP · 9.0 MB' : 'STANDBY...'}
                 </span>
               </div>
             </div>
@@ -333,7 +333,7 @@ export default function KitDownload() {
                     <span>PAGES</span><span style={{ color: colors.mutedSoft }}>24</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>SIZE</span><span style={{ color: colors.mutedSoft }}>4.2 MB</span>
+                    <span>SIZE</span><span style={{ color: colors.mutedSoft }}>9.0 MB</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ color: ready ? colors.yellow : colors.muted }}>
