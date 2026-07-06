@@ -5,6 +5,7 @@ import Cursor from './Cursor';
 import { EdgeMeta, ScanBar, Scanlines } from './Overlays';
 import Header from './Header';
 import HeroSection from './HeroSection';
+import KitPopup from './KitPopup';
 
 /** Client shell that owns the boot animation state and gates the hero
  *  typing animation until the loader finishes. Everything below the hero
@@ -20,6 +21,9 @@ export default function HomeShell() {
       <EdgeMeta />
       <Header />
       <HeroSection started={booted} />
+      {/* Auto-appearing lead-magnet modal — waits ~650ms after boot,
+          respects a 30-day dismissal cooldown stored in localStorage. */}
+      <KitPopup booted={booted} />
     </>
   );
 }

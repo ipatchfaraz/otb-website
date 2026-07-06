@@ -32,6 +32,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--otb-yellow); ou
 }
 @keyframes otbGuideSweep { 0% { top: -12%; } 100% { top: 112%; } }
 @keyframes otbBarPulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+@keyframes otbKitPopupFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes otbKitPopupRise {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
 @keyframes otbGlitchReveal {
   0%   { opacity: 0; transform: translateY(30px) skewX(-2deg); clip-path: inset(0 0 100% 0); filter: blur(6px) brightness(1.7) drop-shadow(6px 0 rgba(255,0,80,0.6)) drop-shadow(-6px 0 rgba(0,220,255,0.6)); }
   30%  { opacity: 1; transform: translateY(8px) skewX(1deg); clip-path: inset(0 0 0 0); filter: blur(2.5px) brightness(1.28) drop-shadow(3px 0 rgba(255,0,80,0.42)) drop-shadow(-3px 0 rgba(0,220,255,0.42)); }
