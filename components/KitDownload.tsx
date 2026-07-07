@@ -102,7 +102,8 @@ export default function KitDownload() {
         style={{
           position: 'relative',
           padding: 1,
-          background: 'linear-gradient(135deg, #5A5A3C 0%, #2A2A2A 40%, #2A2A2A 60%, #5A5A3C 100%)',
+          background: colors.yellow,
+          animation: 'otbCardOutlineFlicker 3.6s steps(1) infinite',
           clipPath: 'polygon(28px 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%, 0 28px)'
         }}
       >
@@ -112,7 +113,7 @@ export default function KitDownload() {
             background: '#161616',
             overflow: 'hidden',
             clipPath: 'polygon(27px 0, 100% 0, 100% calc(100% - 27px), calc(100% - 27px) 100%, 0 100%, 0 27px)',
-            boxShadow: '0 0 60px rgba(255,229,0,0.05)'
+            boxShadow: '0 0 60px rgba(255,229,0,0.15)'
           }}
         >
           <div
