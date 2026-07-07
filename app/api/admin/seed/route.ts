@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/require-admin';
@@ -9,13 +9,68 @@ import { STATIC_JOURNAL } from '@/lib/journal';
 const FEATURED_SET = new Set<string>(FEATURED_ORDER);
 
 // POST /api/admin/seed
-// Populates empty Project + JournalEntry tables from the compiled static data
-// so admins can start editing immediately instead of typing everything.
-// Idempotent skips rows that already exist.
-export async function POST() {
+//   → Populates empty Project + JournalEntry tables from the compiled
+//     static data. Idempotent: skips rows that already exist.
+// POST /api/admin/seed?resync=<slug>,<slug>,...
+//   → OVERWRITES the case-study text + gallery + heroImg fields on the
+//     named project rows with the current static content. Preserves
+//     `featured`, `order` and the coverImage the admin may have set.
+//     Journal entries are untouched in resync mode.
+export async function POST(req: NextRequest) {
   const unauth = await requireAdmin();
   if (unauth) return unauth;
   if (!prisma) return NextResponse.json({ error: 'NO_DB' }, { status: 503 });
+
+  const resyncParam = new URL(req.url).searchParams.get('resync') || '';
+  const resyncSlugs = resyncParam
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+
+  if (resyncSlugs.length > 0) {
+    let updated = 0;
+    const skipped: string[] = [];
+    for (const slug of resyncSlugs) {
+      const c = CASES[slug as CaseSlug];
+      if (!c) { skipped.push(slug); continue; }
+      const existing = await prisma.project.findUnique({ where: { slug } });
+      if (!existing) { skipped.push(slug); continue; }
+      await prisma.project.update({
+        where: { slug },
+        data: {
+          caseLabel: c.caseLabel,
+          title: c.title,
+          client: c.client,
+          tagline: c.tagline,
+          sector: c.sector,
+          scope: c.scope,
+          year: c.year,
+          brief: c.brief,
+          problemHead: c.problemHead,
+          problemBody: c.problemBody,
+          digBody: c.digBody,
+          insight: c.insight,
+          leapHead: c.leapHead,
+          leapBody: c.leapBody,
+          solutionBody: c.solutionBody,
+          payoff: c.payoff,
+          heroImg: c.heroImg,
+          gallery: c.gallery ?? []
+        }
+      });
+      updated += 1;
+    }
+    revalidatePath('/');
+    revalidatePath('/work');
+    for (const slug of resyncSlugs) revalidatePath(`/work/${slug}`);
+    return NextResponse.json({
+      ok: true,
+      mode: 'resync',
+      updated,
+      skipped,
+      message: `Resynced ${updated} project(s) from static. ${skipped.length ? `Skipped: ${skipped.join(', ')}` : ''}`
+    });
+  }
 
   let projectsCreated = 0;
   let journalCreated = 0;

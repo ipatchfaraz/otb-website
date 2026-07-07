@@ -1,5 +1,6 @@
 import AdminHeader from '@/components/AdminHeader';
 import SeedButton from '@/components/SeedButton';
+import ResyncCasesButton from '@/components/ResyncCasesButton';
 import DashboardCard from '@/components/DashboardCard';
 import { colors, fonts } from '@/lib/tokens';
 import { getJournalList, getProjects } from '@/lib/content';
@@ -165,6 +166,32 @@ export default async function AdminDashboard() {
             />
           ))}
         </div>
+
+        {dbConfigured && !dbEmpty && (
+          <div
+            style={{
+              marginTop: 28,
+              border: '1px solid #242424',
+              background: '#0F0F0F',
+              padding: '18px 22px',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 20,
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxWidth: 640 }}>
+              <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.2em', color: '#5A5A5A' }}>
+                MAINTENANCE
+              </div>
+              <div style={{ fontFamily: fonts.mono, fontSize: 12, color: colors.mutedSoft, letterSpacing: '0.08em', lineHeight: 1.5 }}>
+                RESYNC 5 CASE STUDIES (BARAKAH, REVIVERS, GRAINER, SIFA, QURAANY) FROM THE STATIC FILE. USE ONCE AFTER A CONTENT UPDATE THAT LANDED IN CODE BUT NOT IN THE DB. PRESERVES ORDER, FEATURED STATE AND COVER IMAGE.
+              </div>
+            </div>
+            <ResyncCasesButton />
+          </div>
+        )}
       </section>
 
       <footer
