@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import GlitchReveals from '@/components/GlitchReveals';
 
 export const metadata: Metadata = {
   title: 'Outta The Box™ Branding & Design Agency, Kuala Lumpur',
@@ -24,7 +25,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=block"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <GlitchReveals />
+      </body>
     </html>
   );
 }
