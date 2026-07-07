@@ -10,6 +10,11 @@ export const alt = 'Outta The Box™ — Ideas this good don’t stay in the box
 // without the size cap of the edge runtime.
 export const runtime = 'nodejs';
 
+// Revalidate the CDN cache every hour so future OG tweaks propagate.
+// Next.js defaults to max-age=1yr immutable on OG images, which means
+// changes never appear without this override.
+export const revalidate = 3600;
+
 /**
  * Fetch a Google Font at request time and return raw bytes for Satori.
  * The `text` param scopes the CSS response to just the glyphs we render
