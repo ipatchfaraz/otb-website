@@ -30,6 +30,15 @@ const nextConfig = {
       // Webflow's portfolio index → new work index.
       { source: '/portfolio',                destination: '/work',          permanent: true }
     ];
+  },
+  async rewrites() {
+    return [
+      // Many crawlers (Google, Bing, some social) still fetch
+      // /favicon.ico directly regardless of what the HTML <link> says.
+      // Serve them the same image our /favicon route produces so the
+      // brand mark appears in every SERP / share preview.
+      { source: '/favicon.ico', destination: '/favicon' }
+    ];
   }
 };
 
