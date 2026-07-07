@@ -6,6 +6,11 @@ import { ImageResponse } from 'next/og';
 // tweaks stopped propagating. This route handler lets us control the
 // cache headers ourselves.
 export const runtime = 'nodejs';
+// Skip build-time prerendering — otherwise Next.js tries to generate
+// this route during `next build`, and if the Google-Fonts fetch or
+// the Satori render throws for any reason, the whole build fails.
+// We still cache the response for an hour via cache-control headers.
+export const dynamic = 'force-dynamic';
 
 const size = { width: 1200, height: 630 };
 
@@ -99,6 +104,8 @@ export async function GET() {
           </div>
           <div
             style={{
+              display: 'flex',
+              flexWrap: 'wrap',
               color: '#FFFFFF',
               fontSize: 92,
               fontWeight: 700,
@@ -109,7 +116,11 @@ export async function GET() {
               fontFamily: '"Chakra Petch"'
             }}
           >
-            Ideas this good don’t stay in the <span style={{ color: '#FFE500' }}>box.</span>
+            {/* Two flex items so Satori is happy — each wraps
+                independently and the yellow "box." can flow onto the
+                next line when the tagline gets too long. */}
+            <span style={{ marginRight: 24 }}>Ideas this good don’t stay in the</span>
+            <span style={{ color: '#FFE500' }}>box.</span>
           </div>
         </div>
 
