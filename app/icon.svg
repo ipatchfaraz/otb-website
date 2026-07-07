@@ -1,20 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <style>
-    .bg   { fill: #141414; }
-    .mark { fill: #FFE500; }
-    @media (prefers-color-scheme: light) {
-      .bg   { fill: #FFE500; }
-      .mark { fill: #141414; }
-    }
-  </style>
-  <!-- Rounded dark background (inverted yellow in light mode) so the
-       icon is visible on any tab-bar background. -->
-  <rect class="bg" x="0" y="0" width="100" height="100" rx="18" ry="18" />
-  <!-- Four inward-pointing arrows + central diamond — the OTB mark
-       stripped down so it reads at 16px. -->
-  <polygon class="mark" points="35,7 65,7 50,22" />
-  <polygon class="mark" points="93,35 93,65 78,50" />
-  <polygon class="mark" points="35,93 65,93 50,78" />
-  <polygon class="mark" points="7,35 7,65 22,50" />
-  <polygon class="mark" points="50,30 70,50 50,70 30,50" />
+  <!-- Always dark box + yellow OTB mark (no light-mode inversion). -->
+  <rect x="0" y="0" width="100" height="100" rx="18" ry="18" fill="#141414" />
+  <polygon fill="#FFE500" points="35,7 65,7 50,22" />
+  <polygon fill="#FFE500" points="93,35 93,65 78,50" />
+  <polygon fill="#FFE500" points="35,93 65,93 50,78" />
+  <polygon fill="#FFE500" points="7,35 7,65 22,50" />
+  <polygon fill="#FFE500" points="50,30 70,50 50,70 30,50" />
 </svg>
