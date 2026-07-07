@@ -1,19 +1,13 @@
 import { ImageResponse } from 'next/og';
 
-// OG image shown when the URL is shared on WhatsApp / Slack / LinkedIn / X.
-// Next.js auto-injects og:image and twitter:image meta tags.
-export const size = { width: 1200, height: 630 };
-export const contentType = 'image/png';
-export const alt = 'Outta The Box™ — Ideas this good don’t stay in the box.';
-
-// Force Node runtime so we can fetch external fonts at build/request time
-// without the size cap of the edge runtime.
+// Custom OG image route at /og. We used to serve this via Next.js's
+// built-in opengraph-image.tsx convention, but that URL got fossilised
+// by Vercel's CDN with cache-control: immutable max-age=1yr, so any
+// tweaks stopped propagating. This route handler lets us control the
+// cache headers ourselves.
 export const runtime = 'nodejs';
 
-// Revalidate the CDN cache every hour so future OG tweaks propagate.
-// Next.js defaults to max-age=1yr immutable on OG images, which means
-// changes never appear without this override.
-export const revalidate = 3600;
+const size = { width: 1200, height: 630 };
 
 /**
  * Fetch a Google Font at request time and return raw bytes for Satori.
@@ -35,7 +29,7 @@ async function loadGoogleFont(family: string, weight: number, text: string): Pro
   return buf;
 }
 
-export default async function OpenGraphImage() {
+export async function GET() {
   // Only the characters that appear on the card — keeps the fetch tiny.
   // Includes both the curly apostrophe (’) and the straight one just
   // in case Satori normalises differently across runs.
@@ -141,7 +135,12 @@ export default async function OpenGraphImage() {
       fonts: [
         { name: 'Chakra Petch', data: displayFont, weight: 700, style: 'normal' },
         { name: 'JetBrains Mono', data: monoFont, weight: 700, style: 'normal' }
-      ]
+      ],
+      // Explicit short CDN cache so future OG tweaks propagate within
+      // an hour instead of getting stuck for a year.
+      headers: {
+        'cache-control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400'
+      }
     }
   );
 }

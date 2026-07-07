@@ -56,7 +56,7 @@ export const metadata: Metadata = {
       'Ideas this good don’t stay in the box. A branding agency in Kuala Lumpur building purpose-driven, humanised brands.',
     images: [
       {
-        url: '/opengraph-image',
+        url: '/og',
         width: 1200,
         height: 630,
         alt: 'Outta The Box™ branding & design agency'
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: 'Outta The Box™ | Branding & Design Agency',
     description:
       'Ideas this good don’t stay in the box. A branding agency in Kuala Lumpur building purpose-driven, humanised brands.',
-    images: ['/opengraph-image']
+    images: ['/og']
   },
   // Icons are auto-picked up by Next.js from app/icon.svg + app/apple-icon.tsx
   // and app/opengraph-image.tsx — no need to declare them explicitly.
