@@ -99,9 +99,9 @@ export default function KitDownload() {
       </div>
 
       <div
+        className="otb-kitdl-outline"
         style={{
           position: 'relative',
-          padding: 1,
           background: colors.yellow,
           animation: 'otbCardOutlineFlicker 3.6s steps(1) infinite',
           clipPath: 'polygon(28px 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%, 0 28px)'

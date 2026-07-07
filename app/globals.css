@@ -55,6 +55,17 @@ footer {
 }
 @keyframes otbGuideSweep { 0% { top: -12%; } 100% { top: 112%; } }
 @keyframes otbBarPulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+/* Kit download card outline thickness — 1px on desktop, 2px on mobile
+   so the yellow border stays legible on small screens. */
+.otb-kitdl-outline {
+  padding: 1px;
+}
+@media (max-width: 640px) {
+  .otb-kitdl-outline {
+    padding: 2px;
+  }
+}
+
 /* Kit download card outline — sporadic yellow flicker, mostly on with
    a couple of quick dropouts per cycle so it feels like a CRT sign. */
 @keyframes otbCardOutlineFlicker {
