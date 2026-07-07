@@ -70,8 +70,13 @@ export const metadata: Metadata = {
       'Ideas this good don’t stay in the box. A branding agency in Kuala Lumpur building purpose-driven, humanised brands.',
     images: ['/og']
   },
-  // Icons are auto-picked up by Next.js from app/icon.svg + app/apple-icon.tsx
-  // and app/opengraph-image.tsx — no need to declare them explicitly.
+  // Point favicon at our custom /favicon route (route handler at
+  // app/favicon/route.ts) so we control cache-control ourselves. The
+  // built-in app/icon.svg convention got locked into a stale Vercel
+  // CDN cache. Apple touch icon still uses the built-in convention.
+  icons: {
+    icon: [{ url: '/favicon', type: 'image/svg+xml' }]
+  },
   verification: {
     // Populate GOOGLE_SITE_VERIFICATION in Vercel to prove ownership
     // to Google Search Console. Falls back to undefined if unset.
