@@ -75,6 +75,14 @@ model AdminUser {
   createdAt    DateTime @default(now())
 }
 
+// Small key/value store for site-wide config the admin can change
+// without a code deploy. Currently holds favicon_url.
+model SiteConfig {
+  key       String   @id
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
 model Lead {
   id             String    @id @default(cuid())
   email          String    @unique

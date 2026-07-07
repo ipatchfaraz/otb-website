@@ -1,10 +1,13 @@
-// Custom favicon route at /favicon (no extension). We serve the SVG
-// directly with a short CDN cache header so future logo tweaks
-// propagate — Next.js's built-in app/icon.svg convention was locked
-// into cache-control: immutable at the CDN edge and stopped picking
-// up changes.
+import { prisma } from '@/lib/prisma';
 
-const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+export const runtime = 'nodejs';
+// Short cache — 1 hour on the CDN, revalidatePath('/favicon') from the
+// admin uploader will bust it immediately after a change.
+export const revalidate = 3600;
+
+// Built-in fallback served when the admin hasn't uploaded anything.
+// Real OTB logomark inside a dark rounded box.
+const DEFAULT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
   <rect x="0" y="0" width="800" height="800" rx="140" ry="140" fill="#141414" />
   <g transform="translate(81 81)">
     <path d="M319 83.5459L235.453 0H402.547L319 83.5459ZM278.836 17L307.836 46H307.865L336.785 17H278.836ZM346.672 17L317.752 46H330.162L359.163 17H346.672Z" fill="#F9D916"/>
@@ -15,11 +18,39 @@ const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
   </g>
 </svg>`;
 
-export function GET() {
-  return new Response(SVG, {
+export async function GET() {
+  // Check the CMS-managed favicon URL first. If the admin uploaded
+  // something, fetch it from Blob and stream it back. This keeps the
+  // browser-visible URL stable (/favicon) even as the underlying image
+  // changes — so we don't have to touch code every time the brand
+  // wants a new tab icon.
+  try {
+    if (prisma) {
+      const row = await prisma.siteConfig.findUnique({
+        where: { key: 'favicon_url' }
+      });
+      if (row?.value) {
+        const upstream = await fetch(row.value);
+        if (upstream.ok) {
+          const body = await upstream.arrayBuffer();
+          const contentType = upstream.headers.get('content-type') || 'image/svg+xml';
+          return new Response(body, {
+            headers: {
+              'content-type': contentType,
+              'cache-control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400'
+            }
+          });
+        }
+      }
+    }
+  } catch {
+    // If the DB read or upstream fetch fails, fall through to the
+    // built-in SVG so we always serve something valid.
+  }
+
+  return new Response(DEFAULT_SVG, {
     headers: {
       'content-type': 'image/svg+xml',
-      // Short CDN cache — tweaks propagate within an hour.
       'cache-control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400'
     }
   });
