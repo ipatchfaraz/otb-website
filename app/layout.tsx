@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import GlitchReveals from '@/components/GlitchReveals';
 
-const SITE_URL = 'https://outtathebox.design';
+const SITE_URL = 'https://www.outtathebox.design';
 const SITE_NAME = 'Outta The Box';
 
 export const metadata: Metadata = {

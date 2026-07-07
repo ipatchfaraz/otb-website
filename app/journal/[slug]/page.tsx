@@ -55,7 +55,7 @@ export default async function JournalEntryPage({ params }: Props) {
     '@type': 'BlogPosting',
     headline: a.title,
     description: a.dek,
-    image: a.thumb ? [`https://outtathebox.design${a.thumb}`] : undefined,
+    image: a.thumb ? [`https://www.outtathebox.design${a.thumb}`] : undefined,
     datePublished: a.date?.replace(/\./g, '-'),
     author: a.author
       ? { '@type': 'Person', name: a.author, jobTitle: a.authorRole }
@@ -65,12 +65,12 @@ export default async function JournalEntryPage({ params }: Props) {
       name: 'Outta The Box',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://outtathebox.design/assets/otb-logomark.svg'
+        url: 'https://www.outtathebox.design/assets/otb-logomark.svg'
       }
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://outtathebox.design/journal/${a.slug}`
+      '@id': `https://www.outtathebox.design/journal/${a.slug}`
     }
   };
 

@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin', '/admin/*', '/api', '/api/*']
       }
     ],
-    sitemap: 'https://outtathebox.design/sitemap.xml',
-    host: 'https://outtathebox.design'
+    sitemap: 'https://www.outtathebox.design/sitemap.xml',
+    host: 'https://www.outtathebox.design'
   };
 }

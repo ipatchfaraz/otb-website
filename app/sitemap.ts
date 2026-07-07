@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { ORDER } from '@/lib/case-studies';
 import { STATIC_JOURNAL } from '@/lib/journal';
 
-const BASE = 'https://outtathebox.design';
+const BASE = 'https://www.outtathebox.design';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

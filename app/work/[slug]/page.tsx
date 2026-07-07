@@ -57,13 +57,13 @@ export default async function CaseStudyPage({ params }: Props) {
     creator: {
       '@type': 'Organization',
       name: 'Outta The Box',
-      url: 'https://outtathebox.design'
+      url: 'https://www.outtathebox.design'
     },
     about: c.client,
     keywords: [c.client, 'branding', 'case study', 'brand identity'].join(', '),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://outtathebox.design/work/${params.slug}`
+      '@id': `https://www.outtathebox.design/work/${params.slug}`
     }
   };
 
