@@ -20,10 +20,26 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = await getJournalEntry(params.slug);
-  if (!a) return { title: 'Entry not found The Journal // Outta The Box™' };
+  if (!a) return { title: 'Entry not found | The Journal' };
   return {
-    title: `${a.title} The Journal // Outta The Box™`,
-    description: a.dek
+    title: `${a.title} | The Journal`,
+    description: a.dek,
+    alternates: { canonical: `/journal/${a.slug}` },
+    openGraph: {
+      type: 'article',
+      title: a.title,
+      description: a.dek,
+      url: `/journal/${a.slug}`,
+      publishedTime: a.date?.replace(/\./g, '-'),
+      authors: a.author ? [a.author] : undefined,
+      images: a.thumb ? [{ url: a.thumb, alt: a.title }] : undefined
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: a.title,
+      description: a.dek,
+      images: a.thumb ? [a.thumb] : undefined
+    }
   };
 }
 
@@ -34,8 +50,36 @@ export default async function JournalEntryPage({ params }: Props) {
   const all = await getJournalList();
   const more = all.filter((x) => x.slug !== a.slug);
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: a.title,
+    description: a.dek,
+    image: a.thumb ? [`https://outtathebox.design${a.thumb}`] : undefined,
+    datePublished: a.date?.replace(/\./g, '-'),
+    author: a.author
+      ? { '@type': 'Person', name: a.author, jobTitle: a.authorRole }
+      : undefined,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Outta The Box',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://outtathebox.design/assets/otb-logomark.svg'
+      }
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://outtathebox.design/journal/${a.slug}`
+    }
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <Cursor />
       <Scanlines />
       <ScanBar />
