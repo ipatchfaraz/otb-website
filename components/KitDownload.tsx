@@ -12,13 +12,13 @@ const LOGS = [
 
 const MANIFEST = [
   { code: '01', name: 'Positioning Worksheet',   desc: 'Pin down who the brand is for and the belief it won’t compromise on.' },
-  { code: '02', name: 'Voice & Tone Checklist',  desc: 'Define how the brand sounds — the words it uses and the ones it never does.' },
+  { code: '02', name: 'Voice & Tone Checklist',  desc: 'Define how the brand sounds the words it uses and the ones it never does.' },
   { code: '03', name: '12 Brand Prompts',        desc: 'Twelve sharp questions that pull the brand’s story into the open.' },
   { code: '04', name: 'Type Pairing Cheatsheet', desc: 'Scale ratios and five battle-tested type pairings to steal.' }
 ];
 
 // The real download is a PDF at /public/downloads/OTB-Brand-Starter-Kit.pdf
-// served directly by Next — see the download() handler below.
+// served directly by Next see the download() handler below.
 
 export default function KitDownload() {
   const [pct, setPct] = useState(0);
@@ -94,7 +94,7 @@ export default function KitDownload() {
           THE KIT.
         </h1>
         <p style={{ margin: 0, maxWidth: '56ch', fontSize: 16, lineHeight: 1.6, color: colors.muted }}>
-          Your copy of the Brand Starter Kit is being packaged. Transfer completes automatically — then the payload is yours to deploy.
+          Your copy of the Brand Starter Kit is being packaged. Transfer completes automatically then the payload is yours to deploy.
         </p>
       </div>
 

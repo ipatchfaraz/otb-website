@@ -4,7 +4,7 @@ import { ImageResponse } from 'next/og';
 // Next.js auto-injects og:image and twitter:image meta tags.
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'Outta The Box™ — Ideas this good don’t stay in the box.';
+export const alt = 'Outta The Box™ Ideas this good don’t stay in the box.';
 
 export default function OpenGraphImage() {
   return new ImageResponse(
@@ -24,7 +24,7 @@ export default function OpenGraphImage() {
           backgroundSize: '38px 38px'
         }}
       >
-        {/* Top row — logomark + wordmark */}
+        {/* Top row logomark + wordmark */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <svg width={64} height={64} viewBox="0 0 638 638" fill="none">
             <path d="M319 83.5459L235.453 0H402.547L319 83.5459Z" fill="#FFE500" />
@@ -46,7 +46,7 @@ export default function OpenGraphImage() {
           </div>
         </div>
 
-        {/* Middle — the tagline */}
+        {/* Middle the tagline */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
           <div
             style={{
@@ -57,7 +57,7 @@ export default function OpenGraphImage() {
               fontFamily: 'monospace'
             }}
           >
-            [ BRANDING &amp; DESIGN AGENCY — KUALA LUMPUR ]
+            [ BRANDING &amp; DESIGN AGENCY KUALA LUMPUR ]
           </div>
           <div
             style={{
@@ -77,7 +77,7 @@ export default function OpenGraphImage() {
           </div>
         </div>
 
-        {/* Bottom row — yellow accent + url */}
+        {/* Bottom row yellow accent + url */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <div style={{ width: 8, height: 8, background: '#FFE500', borderRadius: 8 }} />
           <div

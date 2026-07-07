@@ -24,7 +24,7 @@ export type FeaturedCard = {
  *   inner wrapper is `position: sticky`, so cards translate horizontally
  *   as the page scrolls vertically.
  *
- * - Mobile (< 900px): plain vertical stack. No sticky pin, no pan —
+ * - Mobile (< 900px): plain vertical stack. No sticky pin, no pan  
  *   each card is a full-width tile the user scrolls past normally.
  */
 export default function FeaturedWorkClient({ cards }: { cards: FeaturedCard[] }) {
@@ -40,7 +40,7 @@ export default function FeaturedWorkClient({ cards }: { cards: FeaturedCard[] })
     return () => mql.removeEventListener('change', apply);
   }, []);
 
-  // Render the mobile stack until we know for sure — avoids a flash of
+  // Render the mobile stack until we know for sure avoids a flash of
   // the horizontal-pan layout on narrow viewports during hydration.
   if (!ready || isMobile) {
     return <MobileStack cards={cards} />;
@@ -241,7 +241,7 @@ function DesktopPan({ cards }: { cards: FeaturedCard[] }) {
 }
 
 /**
- * Mobile layout — vertical stack. Same card visuals as desktop but
+ * Mobile layout vertical stack. Same card visuals as desktop but
  * full-width, one per row, scrolls normally with the page. No sticky
  * pin, no horizontal pan.
  */

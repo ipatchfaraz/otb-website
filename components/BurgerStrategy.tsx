@@ -7,7 +7,7 @@ const PHASES: Array<{ code: string; title: string; body: string }> = [
   { code: 'PHASE_02', title: 'RESEARCH',            body: 'Customer and competitive analysis: interviews, surveys, and a full landscape scan.' },
   { code: 'PHASE_03', title: 'DIFFERENTIATION',     body: 'Isolating the unique position only this brand can own.' },
   { code: 'PHASE_04', title: 'BRAND',               body: 'Heart, purpose and messaging: the trueline, voice and personality across every touchpoint.' },
-  { code: 'PHASE_05', title: 'IDENTITY & TESTING',  body: 'Logo, typography, colour and imagery — validated with real audiences before launch.' }
+  { code: 'PHASE_05', title: 'IDENTITY & TESTING',  body: 'Logo, typography, colour and imagery validated with real audiences before launch.' }
 ];
 
 export default function BurgerStrategy() {
@@ -17,7 +17,7 @@ export default function BurgerStrategy() {
   return (
     <section
       id="process"
-      data-screen-label="Process — Burger Strategy"
+      data-screen-label="Process Burger Strategy"
       style={{
         borderTop: `1px solid ${colors.line}`,
         position: 'relative',
@@ -58,7 +58,7 @@ export default function BurgerStrategy() {
           THE BURGER STRATEGY™.
         </h2>
         <p style={{ margin: '0 0 56px 0', maxWidth: '58ch', fontSize: 17, lineHeight: 1.65, color: colors.muted }}>
-          Our brand creation process, divided into five phases — each an in-depth layer of the whole. Built in order. Never half-baked.
+          Our brand creation process, divided into five phases each an in-depth layer of the whole. Built in order. Never half-baked.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 56, alignItems: 'center' }}>
           <div style={{ flex: '0 1 380px', minWidth: 280, display: 'flex', justifyContent: 'center' }} aria-hidden>

@@ -17,7 +17,7 @@ export default function LogoVaultGrid({ count = 63 }: { count?: number }) {
         gap: 0,
         borderTop: `1px solid ${colors.line}`,
         borderLeft: `1px solid ${colors.line}`,
-        // Inline safety net — same reason as LogoVaultTeaser above.
+        // Inline safety net same reason as LogoVaultTeaser above.
         maxWidth: '100%',
         minWidth: 0,
         boxSizing: 'border-box'

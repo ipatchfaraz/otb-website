@@ -8,9 +8,9 @@ export type Figure = {
   col: '1 / -1' | 'auto';
   tag: string;
   caption: string;
-  /** True on exactly one figure — the image used for the work-grid card cover. */
+  /** True on exactly one figure the image used for the work-grid card cover. */
   isCover?: boolean;
-  /** True on any number of figures — those cycle on hover over the work-grid card. */
+  /** True on any number of figures those cycle on hover over the work-grid card. */
   inHoverCycle?: boolean;
 };
 
@@ -46,7 +46,7 @@ export default function GalleryEditor({
     onChange(next);
   };
   const setCover = (i: number) => {
-    // Radio semantic — only one cover at a time.
+    // Radio semantic only one cover at a time.
     const next = figures.map((f, idx) => ({ ...f, isCover: idx === i }));
     onChange(next);
     if (onCoverChange && next[i]?.img) onCoverChange(next[i].img);
@@ -457,7 +457,7 @@ function FigureRow({
           <input
             value={figure.caption}
             onChange={(e) => onPatch({ caption: e.target.value })}
-            placeholder="THE MARK — …"
+            placeholder="THE MARK …"
             style={{ ...inputStyle, letterSpacing: '0.06em' }}
           />
         </label>

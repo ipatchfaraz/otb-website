@@ -1,5 +1,5 @@
 // NextAuth configuration for the /admin panel.
-// Credentials provider — email + bcrypt-hashed password stored in AdminUser.
+// Credentials provider email + bcrypt-hashed password stored in AdminUser.
 // Bootstrap: if no AdminUser rows exist yet, seed one from
 // ADMIN_EMAIL + ADMIN_PASSWORD_HASH env vars on first successful auth attempt.
 
@@ -9,7 +9,7 @@ import bcrypt from 'bcryptjs';
 import { prisma } from './prisma';
 
 export const authOptions: NextAuthOptions = {
-  // Explicit — even though NextAuth auto-reads NEXTAUTH_SECRET, some
+  // Explicit even though NextAuth auto-reads NEXTAUTH_SECRET, some
   // Next.js runtimes (Vercel edge, minified serverless) don't resolve
   // it early enough. Passing it here is belt-and-suspenders.
   secret: process.env.NEXTAUTH_SECRET,

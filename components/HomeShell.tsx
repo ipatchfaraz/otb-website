@@ -21,7 +21,7 @@ export default function HomeShell() {
       <EdgeMeta />
       <Header />
       <HeroSection started={booted} />
-      {/* Auto-appearing lead-magnet modal — waits ~650ms after boot,
+      {/* Auto-appearing lead-magnet modal waits ~650ms after boot,
           respects a 30-day dismissal cooldown stored in localStorage. */}
       <KitPopup booted={booted} />
     </>

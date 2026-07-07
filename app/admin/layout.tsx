@@ -1,4 +1,4 @@
-// The /admin subtree uses its own layout — different chrome from the
+// The /admin subtree uses its own layout different chrome from the
 // public site (no reticle cursor, no scanlines, no ticker footer).
 // Auth is enforced by middleware.ts.
 

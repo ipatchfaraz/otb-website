@@ -11,7 +11,7 @@ const FEATURED_SET = new Set<string>(FEATURED_ORDER);
 // POST /api/admin/seed
 // Populates empty Project + JournalEntry tables from the compiled static data
 // so admins can start editing immediately instead of typing everything.
-// Idempotent — skips rows that already exist.
+// Idempotent skips rows that already exist.
 export async function POST() {
   const unauth = await requireAdmin();
   if (unauth) return unauth;

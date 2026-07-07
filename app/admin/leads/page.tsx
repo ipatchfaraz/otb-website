@@ -71,7 +71,7 @@ export default async function LeadsAdminPage() {
             <div style={{ padding: '20px 16px', color: colors.muted, fontFamily: fonts.mono, fontSize: 11 }}>
               {prisma
                 ? 'No leads captured yet.'
-                : 'DB not configured — set DATABASE_URL to start capturing leads.'}
+                : 'DB not configured set DATABASE_URL to start capturing leads.'}
             </div>
           )}
           {leads.map((l) => (

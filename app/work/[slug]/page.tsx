@@ -18,9 +18,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = await getCase(params.slug);
-  if (!c) return { title: 'Case Study — Outta The Box™' };
+  if (!c) return { title: 'Case Study Outta The Box™' };
   return {
-    title: `${c.title.replace(/\.$/, '')} — Case File // Outta The Box™`,
+    title: `${c.title.replace(/\.$/, '')} Case File // Outta The Box™`,
     description: c.tagline
   };
 }

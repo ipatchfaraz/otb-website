@@ -8,7 +8,7 @@ export default function LogoVaultTeaser() {
       data-screen-label="Logo vault"
       style={{
         borderTop: `1px solid ${colors.line}`,
-        // Inline safety net — iOS Safari sometimes serves stale CSS
+        // Inline safety net iOS Safari sometimes serves stale CSS
         // that lets the vault grid overflow horizontally. Inline styles
         // beat any cached CSS, so this can't fall out of sync with the
         // stylesheet.

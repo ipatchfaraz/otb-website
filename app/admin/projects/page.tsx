@@ -60,7 +60,7 @@ export default function ProjectsAdminPage() {
       if (!keepSelected || !selected) {
         if (data.projects[0]) setSelected(data.projects[0].slug);
       } else if (!data.projects.find((p) => p.slug === selected)) {
-        // Selected project was deleted — fall back to the first row
+        // Selected project was deleted fall back to the first row
         setSelected(data.projects[0]?.slug ?? null);
       }
     } catch (e) {
@@ -477,28 +477,28 @@ export default function ProjectsAdminPage() {
                 <Field label="BRIEF">
                   <Textarea rows={3} value={current.brief} onChange={(v) => patchCurrent({ brief: v })} />
                 </Field>
-                <Field label="CH.01 — PROBLEM HEADLINE">
+                <Field label="CH.01 PROBLEM HEADLINE">
                   <input style={inputStyle} value={current.problemHead} onChange={(e) => patchCurrent({ problemHead: e.target.value })} />
                 </Field>
-                <Field label="CH.01 — PROBLEM BODY">
+                <Field label="CH.01 PROBLEM BODY">
                   <Textarea rows={4} value={current.problemBody} onChange={(v) => patchCurrent({ problemBody: v })} />
                 </Field>
-                <Field label="CH.02 — DIG BODY">
+                <Field label="CH.02 DIG BODY">
                   <Textarea rows={4} value={current.digBody} onChange={(v) => patchCurrent({ digBody: v })} />
                 </Field>
-                <Field label="CH.02 — INSIGHT (YELLOW PULLQUOTE)">
+                <Field label="CH.02 INSIGHT (YELLOW PULLQUOTE)">
                   <Textarea rows={2} value={current.insight} onChange={(v) => patchCurrent({ insight: v })} />
                 </Field>
-                <Field label="CH.03 — LEAP HEADLINE">
+                <Field label="CH.03 LEAP HEADLINE">
                   <input style={inputStyle} value={current.leapHead} onChange={(e) => patchCurrent({ leapHead: e.target.value })} />
                 </Field>
-                <Field label="CH.03 — LEAP BODY">
+                <Field label="CH.03 LEAP BODY">
                   <Textarea rows={4} value={current.leapBody} onChange={(v) => patchCurrent({ leapBody: v })} />
                 </Field>
-                <Field label="CH.04 — SOLUTION BODY">
+                <Field label="CH.04 SOLUTION BODY">
                   <Textarea rows={3} value={current.solutionBody} onChange={(v) => patchCurrent({ solutionBody: v })} />
                 </Field>
-                <Field label="CH.05 — PAYOFF">
+                <Field label="CH.05 PAYOFF">
                   <Textarea rows={3} value={current.payoff} onChange={(v) => patchCurrent({ payoff: v })} />
                 </Field>
                 <ImagePicker

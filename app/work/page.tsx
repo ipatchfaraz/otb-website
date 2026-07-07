@@ -9,7 +9,7 @@ import LogoVaultTeaser from '@/components/LogoVaultTeaser';
 import { getProjects } from '@/lib/content';
 
 export const metadata: Metadata = {
-  title: 'The Unboxed Archive — Outta The Box™',
+  title: 'The Unboxed Archive Outta The Box™',
   description: 'Every case file, declassified. Selected work from Outta The Box.'
 };
 

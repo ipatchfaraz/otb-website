@@ -102,7 +102,7 @@ export default function KitPopup({ booted }: { booted: boolean }) {
           marginBottom: 20
         }}
       >
-        {/* Status bar — dark, sits above the yellow body */}
+        {/* Status bar dark, sits above the yellow body */}
         <div
           style={{
             display: 'flex',
@@ -169,7 +169,7 @@ export default function KitPopup({ booted }: { booted: boolean }) {
           }}
         />
 
-        {/* Body — yellow */}
+        {/* Body yellow */}
         <div className="otb-kit-body" style={{ padding: '36px 32px 32px 32px', display: 'flex', flexDirection: 'column', gap: 22 }}>
           <div style={{ fontFamily: fonts.mono, fontSize: 12, letterSpacing: '0.2em', color: colors.bg }}>
             [ FREE INTEL ]
@@ -188,7 +188,7 @@ export default function KitPopup({ booted }: { booted: boolean }) {
             THE BRAND STARTER KIT.
           </h2>
           <p style={{ margin: 0, maxWidth: '46ch', fontSize: 16, lineHeight: 1.55, color: '#1a1a1a' }}>
-            A free field guide to unboxing your brand — the same worksheets we run in our Discovery Workshops, compressed into one download.
+            A free field guide to unboxing your brand the same worksheets we run in our Discovery Workshops, compressed into one download.
           </p>
 
           <div className="otb-kit-items">

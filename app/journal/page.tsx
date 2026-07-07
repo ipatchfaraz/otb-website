@@ -9,9 +9,9 @@ import { colors, fonts } from '@/lib/tokens';
 import { getJournalList } from '@/lib/content';
 
 export const metadata: Metadata = {
-  title: 'The Journal — Branding 101 // Outta The Box™',
+  title: 'The Journal Branding 101 // Outta The Box™',
   description:
-    'Field notes from the studio — strategy, identity and naming, written the way we actually work.'
+    'Field notes from the studio strategy, identity and naming, written the way we actually work.'
 };
 
 // Revalidate every 60s so CMS edits show up quickly without full rebuild
@@ -55,7 +55,7 @@ export default async function JournalPage() {
             BRANDING 101.
           </h1>
           <p style={{ margin: 0, maxWidth: '60ch', fontSize: 17, lineHeight: 1.6, color: colors.muted }}>
-            Field notes from the studio — strategy, identity and naming, written the way we actually work. No jargon, no filler.
+            Field notes from the studio strategy, identity and naming, written the way we actually work. No jargon, no filler.
           </p>
           <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.16em', color: '#6A6A6A' }}>
             {String(entries.length).padStart(2, '0')} ENTRIES // ARCHIVE OPEN

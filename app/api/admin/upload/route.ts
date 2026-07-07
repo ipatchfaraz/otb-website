@@ -58,6 +58,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// Bump the body size limit — default is 4MB which is too small for
+// Bump the body size limit default is 4MB which is too small for
 // typical case-study source images.
 export const runtime = 'nodejs';

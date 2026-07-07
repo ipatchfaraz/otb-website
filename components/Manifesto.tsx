@@ -31,7 +31,7 @@ export default function Manifesto() {
         <span style={{ color: colors.yellow, animation: anims.flicker }}>SAFE</span> IS THE RISKIEST THING A BRAND CAN BE.
       </h2>
       <p style={{ margin: 0, maxWidth: '62ch', fontSize: 17, lineHeight: 1.7, color: colors.muted }}>
-        Templates get ignored. Trends expire. We build purpose-driven, humanised brands from the inside out — so they hold up long after the hype ships out.
+        Templates get ignored. Trends expire. We build purpose-driven, humanised brands from the inside out so they hold up long after the hype ships out.
       </p>
     </section>
   );

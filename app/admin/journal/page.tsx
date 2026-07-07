@@ -304,7 +304,7 @@ export default function JournalAdminPage() {
                     style={{ ...inputStyle, resize: 'vertical' }}
                   />
                 </FieldSm>
-                <FieldSm label="BODY BLOCKS (JSON) — types: p, h, quote, list">
+                <FieldSm label="BODY BLOCKS (JSON) types: p, h, quote, list">
                   <textarea
                     value={JSON.stringify(current.body ?? [], null, 2)}
                     rows={20}

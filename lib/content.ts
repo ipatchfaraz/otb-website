@@ -22,7 +22,7 @@ import {
 
 export type PublicCase = CaseStudy & { slug: string; coverImage: string };
 
-/** All projects for the /work grid — sorted by manual order (DB) or FEATURED_ORDER (static). */
+/** All projects for the /work grid sorted by manual order (DB) or FEATURED_ORDER (static). */
 export async function getProjects(): Promise<ProjectListing[]> {
   if (prisma) {
     try {
@@ -63,7 +63,7 @@ export async function getFeaturedProjects(): Promise<PublicCase[]> {
 
   if (prisma) {
     try {
-      // Prefer projects explicitly flagged as featured — the admin's
+      // Prefer projects explicitly flagged as featured the admin's
       // curated homepage strip. If none are flagged yet (e.g. before
       // the first save after upgrade), fall back to the top 6 by order
       // so the strip never renders empty.
@@ -173,7 +173,7 @@ export async function getAllCaseSlugs(): Promise<string[]> {
   return [...ORDER];
 }
 
-/** Next slug in the order carousel — used on case study pages. */
+/** Next slug in the order carousel used on case study pages. */
 export async function getNextCase(slug: string): Promise<PublicCase | null> {
   const list = await getAllCaseSlugs();
   const i = list.indexOf(slug);

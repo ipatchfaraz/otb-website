@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/require-admin';
 
-// GET /api/admin/leads — returns a CSV of every captured lead.
+// GET /api/admin/leads returns a CSV of every captured lead.
 export async function GET() {
   const unauth = await requireAdmin();
   if (unauth) return unauth;

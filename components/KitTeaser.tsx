@@ -80,7 +80,7 @@ export default function KitTeaser() {
         />
 
         <div className="otb-kit-body">
-          {/* Left column — copy + form */}
+          {/* Left column copy + form */}
           <div className="otb-kit-main">
             <div style={{ fontFamily: fonts.mono, fontSize: 11, letterSpacing: '0.2em', color: colors.bg, fontWeight: 700 }}>
               [ FREE INTEL ]
@@ -99,7 +99,7 @@ export default function KitTeaser() {
               THE BRAND STARTER KIT.
             </h2>
             <p style={{ margin: 0, maxWidth: '52ch', fontSize: 16, lineHeight: 1.6, color: '#1a1a1a' }}>
-              A free field guide to unboxing your brand — the same worksheets we run in our Discovery Workshops, compressed into one download.
+              A free field guide to unboxing your brand the same worksheets we run in our Discovery Workshops, compressed into one download.
             </p>
 
             {/* Desktop pill list */}
@@ -171,7 +171,7 @@ export default function KitTeaser() {
             </div>
           </div>
 
-          {/* Right column — dark PDF card (desktop only) */}
+          {/* Right column dark PDF card (desktop only) */}
           <aside className="otb-kit-aside" aria-hidden>
             <div className="otb-kit-pdf">
               <div style={{ position: 'relative', padding: '13px 15px', fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.14em', color: colors.muted, borderBottom: `1px solid ${colors.line}` }}>

@@ -6,7 +6,7 @@ import { getJournalList, getProjects } from '@/lib/content';
 import { prisma } from '@/lib/prisma';
 
 // This page reads the session cookie via middleware guard + Prisma at
-// request time — don't try to prerender it.
+// request time don't try to prerender it.
 export const dynamic = 'force-dynamic';
 
 // Server-rendered so we can pull counts directly from the DB.
@@ -27,7 +27,7 @@ export default async function AdminDashboard() {
     {
       tag: 'MODULE_01',
       title: 'JOURNAL',
-      desc: 'Blog entries — headline, dek, body blocks and cover imagery. Write in flowing text or structured blocks.',
+      desc: 'Blog entries headline, dek, body blocks and cover imagery. Write in flowing text or structured blocks.',
       count: `${jCount} ENTRIES`,
       href: '/admin/journal',
       viewHref: '/journal',
@@ -43,7 +43,7 @@ export default async function AdminDashboard() {
     {
       tag: 'MODULE_02',
       title: 'PROJECTS',
-      desc: 'Each project in one place — the case-study story plus its Work-grid card (cover, tags, order).',
+      desc: 'Each project in one place the case-study story plus its Work-grid card (cover, tags, order).',
       count: `${pCount} PROJECTS`,
       href: '/admin/projects',
       viewHref: '/work',
@@ -59,7 +59,7 @@ export default async function AdminDashboard() {
     {
       tag: 'MODULE_03',
       title: 'LEADS',
-      desc: 'Kit downloads — every email captured by the brand starter kit form on the homepage.',
+      desc: 'Kit downloads every email captured by the brand starter kit form on the homepage.',
       count: 'CSV EXPORT',
       href: '/admin/leads',
       viewHref: '/',
@@ -105,7 +105,7 @@ export default async function AdminDashboard() {
           ARCHIVE.
         </h1>
         <p style={{ margin: 0, maxWidth: '56ch', fontSize: 16, lineHeight: 1.6, color: '#9A9A9A' }}>
-          One panel for everything that ships to the site — journal entries, the work grid and the deep case files. Pick a system to edit.
+          One panel for everything that ships to the site journal entries, the work grid and the deep case files. Pick a system to edit.
         </p>
       </section>
 
@@ -123,7 +123,7 @@ export default async function AdminDashboard() {
               letterSpacing: '0.1em'
             }}
           >
-            ✕ DATABASE_URL is not configured. The CMS panels will show 503 errors — set the env var in Vercel and redeploy.
+            ✕ DATABASE_URL is not configured. The CMS panels will show 503 errors set the env var in Vercel and redeploy.
           </div>
         )}
         {dbEmpty && (
@@ -140,7 +140,7 @@ export default async function AdminDashboard() {
             }}
           >
             <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.yellow, letterSpacing: '0.1em' }}>
-              DB IS EMPTY — POPULATE IT WITH THE EXISTING STATIC CONTENT (13 CASE STUDIES + 3 JOURNAL ENTRIES) TO START EDITING.
+              DB IS EMPTY POPULATE IT WITH THE EXISTING STATIC CONTENT (13 CASE STUDIES + 3 JOURNAL ENTRIES) TO START EDITING.
             </div>
             <SeedButton />
           </div>
@@ -179,7 +179,7 @@ export default async function AdminDashboard() {
         }}
       >
         <span style={{ fontFamily: fonts.mono, fontSize: 9, letterSpacing: '0.16em', color: '#5A5A5A' }}>
-          OUTTA THE BOX — CONTENT OPERATING SYSTEM
+          OUTTA THE BOX CONTENT OPERATING SYSTEM
         </span>
         <span style={{ fontFamily: fonts.mono, fontSize: 9, letterSpacing: '0.16em', color: '#5A5A5A' }}>
           {jCount} ENTRIES + {pCount} PROJECTS MANAGED

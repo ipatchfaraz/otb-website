@@ -6,8 +6,8 @@ import KitDownload from '@/components/KitDownload';
 import { colors, fonts } from '@/lib/tokens';
 
 export const metadata: Metadata = {
-  title: 'Download the Kit — Outta The Box™',
-  description: 'The Brand Starter Kit — a free field guide to unboxing your brand.'
+  title: 'Download the Kit Outta The Box™',
+  description: 'The Brand Starter Kit a free field guide to unboxing your brand.'
 };
 
 export default function KitPage() {

@@ -8,7 +8,7 @@ import BookingSection from '@/components/BookingSection';
 import { colors, fonts } from '@/lib/tokens';
 
 export const metadata: Metadata = {
-  title: 'The Logo Vault — Outta The Box™',
+  title: 'The Logo Vault Outta The Box™',
   description: 'Marks archive. Every logo drawn, refined and shipped by the studio.'
 };
 

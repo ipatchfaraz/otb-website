@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { requireAdmin } from '@/lib/require-admin';
 
-// GET /api/admin/projects — list all (published + drafts)
+// GET /api/admin/projects list all (published + drafts)
 export async function GET() {
   const unauth = await requireAdmin();
   if (unauth) return unauth;
@@ -12,7 +12,7 @@ export async function GET() {
   return NextResponse.json({ projects: rows });
 }
 
-// POST /api/admin/projects — create a new empty project
+// POST /api/admin/projects create a new empty project
 export async function POST(req: NextRequest) {
   const unauth = await requireAdmin();
   if (unauth) return unauth;

@@ -34,7 +34,7 @@ export default function BookingSection() {
         PICK A SLOT.
       </h2>
       <p style={{ margin: 0, maxWidth: '58ch', fontSize: 17, lineHeight: 1.65, color: colors.muted }}>
-        A 30-minute call. No pitch, no deck — just your idea and how we&rsquo;d unbox it.
+        A 30-minute call. No pitch, no deck just your idea and how we&rsquo;d unbox it.
       </p>
       <div style={{ position: 'relative', border: `1px solid ${colors.line}`, marginTop: 16 }}>
         <CornerBrackets outside />
@@ -56,7 +56,7 @@ export default function BookingSection() {
         </div>
         <iframe
           src={url}
-          title="Book a call with Outta The Box — Cal.com"
+          title="Book a call with Outta The Box Cal.com"
           loading="lazy"
           style={{
             display: 'block',

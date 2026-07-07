@@ -20,9 +20,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = await getJournalEntry(params.slug);
-  if (!a) return { title: 'Entry not found — The Journal // Outta The Box™' };
+  if (!a) return { title: 'Entry not found The Journal // Outta The Box™' };
   return {
-    title: `${a.title} — The Journal // Outta The Box™`,
+    title: `${a.title} The Journal // Outta The Box™`,
     description: a.dek
   };
 }
@@ -217,7 +217,7 @@ export default async function JournalEntryPage({ params }: Props) {
               PUT THIS INTO PRACTICE.
             </div>
             <div style={{ fontSize: 14, color: colors.muted }}>
-              Grab the Brand Starter Kit — the worksheets behind this entry.
+              Grab the Brand Starter Kit the worksheets behind this entry.
             </div>
           </div>
           <Link

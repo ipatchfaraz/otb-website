@@ -34,7 +34,7 @@ function LoginForm() {
     });
     setLoading(false);
     if (res?.ok) router.push(callbackUrl);
-    else setError('INVALID CREDENTIALS — ACCESS DENIED');
+    else setError('INVALID CREDENTIALS ACCESS DENIED');
   };
 
   return (
@@ -199,7 +199,7 @@ function LoginForm() {
             textAlign: 'center'
           }}
         >
-          OUTTA THE BOX — CONTENT OPERATING SYSTEM
+          OUTTA THE BOX CONTENT OPERATING SYSTEM
         </div>
       </form>
     </div>
