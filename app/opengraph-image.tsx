@@ -32,8 +32,10 @@ async function loadGoogleFont(family: string, weight: number, text: string): Pro
 
 export default async function OpenGraphImage() {
   // Only the characters that appear on the card — keeps the fetch tiny.
-  const displayText = 'OUTTATHEBOX™IDESTHGON‘Y.[BRANDIG&EGCYKUALMPR]';
-  const monoText = '[BRANDING&DESIGNAGENCY—KUALALUMPUR]OUTTATHEBOX.DESIGN';
+  // Includes both the curly apostrophe (’) and the straight one just
+  // in case Satori normalises differently across runs.
+  const displayText = "OUTTATHEBOX™IDESTHGON’'Y.-[BRANDIG&EGCYKUALMPR]";
+  const monoText = "[BRANDING&DESIGNAGENCY—KUALALUMPUR]OUTTATHEBOX.DESIGN";
 
   const [displayFont, monoFont] = await Promise.all([
     loadGoogleFont('Chakra Petch', 700, displayText),
@@ -50,15 +52,15 @@ export default async function OpenGraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: '72px',
+          padding: '64px 72px',
           fontFamily: '"Chakra Petch", sans-serif',
           backgroundImage: 'radial-gradient(#242414 2px, transparent 2px)',
           backgroundSize: '38px 38px'
         }}
       >
         {/* Top row — logomark + wordmark */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-          <svg width={80} height={80} viewBox="0 0 638 638" fill="none">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+          <svg width={52} height={52} viewBox="0 0 638 638" fill="none">
             {/* 4 yellow diamond arrows */}
             <path d="M319 83.5459L235.453 0H402.547L319 83.5459Z" fill="#FFE500" />
             <path d="M319 554.001L402.547 637.547L235.453 637.547L319 554.001Z" fill="#FFE500" />
@@ -73,7 +75,7 @@ export default async function OpenGraphImage() {
           <div
             style={{
               color: '#FFFFFF',
-              fontSize: 38,
+              fontSize: 30,
               fontWeight: 700,
               letterSpacing: '0.04em',
               fontFamily: '"Chakra Petch"'
@@ -84,11 +86,11 @@ export default async function OpenGraphImage() {
         </div>
 
         {/* Middle — the tagline */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div
             style={{
               color: '#FFE500',
-              fontSize: 22,
+              fontSize: 20,
               fontWeight: 700,
               letterSpacing: '0.18em',
               fontFamily: '"JetBrains Mono"'
@@ -98,30 +100,27 @@ export default async function OpenGraphImage() {
           </div>
           <div
             style={{
-              display: 'flex',
-              flexWrap: 'wrap',
               color: '#FFFFFF',
-              fontSize: 96,
+              fontSize: 92,
               fontWeight: 700,
-              lineHeight: 1.0,
+              lineHeight: 0.98,
               letterSpacing: '-0.01em',
               textTransform: 'uppercase',
               maxWidth: 1000,
               fontFamily: '"Chakra Petch"'
             }}
           >
-            <span style={{ marginRight: 26 }}>Ideas this good don’t stay in the</span>
-            <span style={{ color: '#FFE500' }}>box.</span>
+            Ideas this good don’t stay in the <span style={{ color: '#FFE500' }}>box.</span>
           </div>
         </div>
 
         {/* Bottom row — yellow accent + url */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <div style={{ width: 10, height: 10, background: '#FFE500', borderRadius: 10 }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{ width: 8, height: 8, background: '#FFE500', borderRadius: 8 }} />
           <div
             style={{
               color: '#8A8A8A',
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: 700,
               letterSpacing: '0.22em',
               fontFamily: '"JetBrains Mono"'
