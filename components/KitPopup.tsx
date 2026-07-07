@@ -83,31 +83,8 @@ export default function KitPopup({ booted }: { booted: boolean }) {
     <div
       role="presentation"
       onClick={close}
-      style={{
-        display: 'flex',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        // 100dvh so iOS Safari respects its URL bar (iOS 15.4+).
-        height: '100dvh',
-        zIndex: 130,
-        background: 'rgba(6,6,6,0.88)',
-        // Align to top so tall modals never clip above the fold; the
-        // overlay itself scrolls if the modal exceeds viewport height.
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        overflowY: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        // Padding includes safe-area-inset so the modal never sits
-        // under the iPhone notch / Dynamic Island / status bar.
-        paddingTop: 'max(20px, env(safe-area-inset-top))',
-        paddingRight: 'max(14px, env(safe-area-inset-right))',
-        paddingBottom: 'max(20px, env(safe-area-inset-bottom))',
-        paddingLeft: 'max(14px, env(safe-area-inset-left))',
-        boxSizing: 'border-box',
-        animation: 'otbKitPopupFade 0.35s ease-out'
-      }}
+      className="otb-kit-overlay"
+      style={{ animation: 'otbKitPopupFade 0.35s ease-out' }}
     >
       <div
         role="dialog"

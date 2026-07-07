@@ -60,6 +60,35 @@ footer {
   from { opacity: 0; transform: translateY(20px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* Kit popup overlay — vertically centered on desktop, top-aligned on
+   mobile so tall modals never clip above the fold on iOS Safari. */
+.otb-kit-overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 130;
+  background: rgba(6, 6, 6, 0.88);
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 24px;
+  box-sizing: border-box;
+}
+@media (max-width: 768px) {
+  .otb-kit-overlay {
+    align-items: flex-start;
+    padding-top: max(20px, env(safe-area-inset-top));
+    padding-right: max(14px, env(safe-area-inset-right));
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    padding-left: max(14px, env(safe-area-inset-left));
+  }
+}
 @keyframes otbGlitchReveal {
   0%   { opacity: 0; transform: translateY(30px) skewX(-2deg); clip-path: inset(0 0 100% 0); filter: blur(6px) brightness(1.7) drop-shadow(6px 0 rgba(255,0,80,0.6)) drop-shadow(-6px 0 rgba(0,220,255,0.6)); }
   30%  { opacity: 1; transform: translateY(8px) skewX(1deg); clip-path: inset(0 0 0 0); filter: blur(2.5px) brightness(1.28) drop-shadow(3px 0 rgba(255,0,80,0.42)) drop-shadow(-3px 0 rgba(0,220,255,0.42)); }
