@@ -83,10 +83,60 @@ footer {
 @media (max-width: 768px) {
   .otb-kit-overlay {
     align-items: flex-start;
-    padding-top: max(20px, env(safe-area-inset-top));
-    padding-right: max(14px, env(safe-area-inset-right));
-    padding-bottom: max(20px, env(safe-area-inset-bottom));
-    padding-left: max(14px, env(safe-area-inset-left));
+    padding: 0;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .otb-kit-modal {
+    margin-bottom: 0 !important;
+  }
+  .otb-kit-body {
+    padding: 28px 22px 26px 22px !important;
+  }
+}
+
+/* Kit items — 2 columns on desktop, 1 column on mobile */
+.otb-kit-items {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 560px) {
+  .otb-kit-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+.otb-kit-input::placeholder {
+  color: #8A8A8A;
+}
+.otb-kit-submit:hover:not(:disabled) {
+  background: #2A2A2A !important;
+}
+
+/* Kit form — input + button inline on desktop, stacked full-width on mobile */
+.otb-kit-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: stretch;
+}
+.otb-kit-input {
+  flex: 1 1 240px;
+  min-width: 180px;
+}
+.otb-kit-submit {
+  flex: 0 0 auto;
+}
+@media (max-width: 560px) {
+  .otb-kit-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .otb-kit-input,
+  .otb-kit-submit {
+    width: 100%;
+    flex: none;
   }
 }
 @keyframes otbGlitchReveal {
