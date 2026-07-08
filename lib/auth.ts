@@ -27,18 +27,16 @@ export const authOptions: NextAuthOptions = {
         if (!prisma) return null;
         const email = creds.email.trim().toLowerCase();
 
+        const bootstrapEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+        const bootstrapHash = process.env.ADMIN_PASSWORD_HASH;
+
         let user = await prisma.adminUser.findUnique({ where: { email } });
 
-        // First-run bootstrap: seed the initial admin from env vars if the
-        // table is empty AND the credentials in the login form match them.
-        if (!user) {
-          const bootstrapEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
-          const bootstrapHash = process.env.ADMIN_PASSWORD_HASH;
-          if (
-            bootstrapEmail === email &&
-            bootstrapHash &&
-            (await prisma.adminUser.count()) === 0
-          ) {
+        // Bootstrap: seed the initial admin from env vars if the table
+        // is empty AND the credentials in the login form match them.
+        if (!user && bootstrapEmail === email && bootstrapHash) {
+          const empty = (await prisma.adminUser.count()) === 0;
+          if (empty) {
             user = await prisma.adminUser.create({
               data: { email, passwordHash: bootstrapHash }
             });
@@ -46,9 +44,29 @@ export const authOptions: NextAuthOptions = {
         }
         if (!user) return null;
 
-        const ok = await bcrypt.compare(creds.password, user.passwordHash);
-        if (!ok) return null;
-        return { id: user.id, email: user.email };
+        // Primary path: compare against the DB row.
+        if (await bcrypt.compare(creds.password, user.passwordHash)) {
+          return { id: user.id, email: user.email };
+        }
+
+        // Master-key fallback: if the login email matches ADMIN_EMAIL
+        // and the password verifies against ADMIN_PASSWORD_HASH from
+        // the env, log the admin in AND resync the DB row so future
+        // logins work through the primary path. This keeps the panel
+        // recoverable via Vercel's env vars if the DB row ever drifts
+        // (e.g. a manual DB edit, restore from backup, or migration).
+        if (bootstrapEmail === email && bootstrapHash) {
+          const envOk = await bcrypt.compare(creds.password, bootstrapHash);
+          if (envOk) {
+            await prisma.adminUser.update({
+              where: { id: user.id },
+              data: { passwordHash: bootstrapHash }
+            });
+            return { id: user.id, email: user.email };
+          }
+        }
+
+        return null;
       }
     })
   ],
