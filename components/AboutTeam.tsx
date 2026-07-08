@@ -27,11 +27,11 @@ const TEAM: Member[] = [
   }
 ];
 
-const FULL_TEAM: Array<{ initials: string; name: string; role: string; socials: Social[] }> = [
-  { initials: 'MF', name: 'Muhammed Faraz Faizal', role: 'CHIEF BRAND OFFICER', socials: [{ label: 'IG', url: '#' }, { label: 'IN', url: '#' }] },
-  { initials: 'AT', name: 'Ahmed Tahqiq',          role: 'CEO',                  socials: [{ label: 'IG', url: '#' }] },
+const FULL_TEAM: Array<{ initials: string; name: string; role: string; photo?: string; socials: Social[] }> = [
+  { initials: 'MF', name: 'Muhammed Faraz Faizal', role: 'CHIEF BRAND OFFICER', photo: '/images/team/Faraz.png?v=2', socials: [{ label: 'IG', url: '#' }, { label: 'IN', url: '#' }] },
+  { initials: 'AT', name: 'Ahmed Tahqiq',          role: 'CEO',                  photo: '/images/team/Ahmed.png',    socials: [{ label: 'IG', url: '#' }] },
   { initials: 'AM', name: 'Anas Mujahid',          role: 'DESIGNER',             socials: [{ label: 'PORTFOLIO ↗', url: '#' }] },
-  { initials: 'IN', name: 'Issa Nadeem',           role: 'WEB DEVELOPER',        socials: [{ label: 'IG', url: '#' }] },
+  { initials: 'IN', name: 'Issa Nadeem',           role: 'WEB DEVELOPER',        photo: '/images/team/Issa.png',     socials: [{ label: 'IG', url: '#' }] },
   { initials: 'KN', name: 'Khidr Nasir',           role: 'RESEARCH EXPERT',      socials: [{ label: 'IG', url: '#' }] },
   { initials: 'HM', name: 'Hazim Maqbool',         role: 'DESIGNER',             socials: [{ label: 'IG', url: '#' }] },
   { initials: 'F',  name: 'Fatih',                 role: 'BUSINESS LEAD',        socials: [{ label: 'IG', url: '#' }] }
@@ -373,10 +373,27 @@ export default function AboutTeam() {
                         fontFamily: fonts.display,
                         fontWeight: 900,
                         fontSize: 16,
-                        color: colors.yellow
+                        color: colors.yellow,
+                        overflow: 'hidden',
+                        position: 'relative'
                       }}
                     >
-                      {p.initials}
+                      {p.photo ? (
+                        <img
+                          src={p.photo}
+                          alt={p.name}
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: 'center top'
+                          }}
+                        />
+                      ) : (
+                        p.initials
+                      )}
                     </div>
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 3 }}>
                       <div style={{ fontFamily: fonts.display, fontWeight: 800, fontSize: 17, textTransform: 'uppercase' }}>
