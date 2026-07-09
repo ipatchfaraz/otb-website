@@ -170,7 +170,7 @@ export default function KitPopup({ booted }: { booted: boolean }) {
         />
 
         {/* Body yellow */}
-        <div className="otb-kit-body" style={{ padding: '36px 32px 32px 32px', display: 'flex', flexDirection: 'column', gap: 22 }}>
+        <div className="otb-kit-popup-body" style={{ padding: '36px 32px 32px 32px', display: 'flex', flexDirection: 'column', gap: 22 }}>
           <div style={{ fontFamily: fonts.mono, fontSize: 12, letterSpacing: '0.2em', color: colors.bg }}>
             [ FREE INTEL ]
           </div>
