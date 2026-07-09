@@ -359,8 +359,9 @@ export default function AboutTeam() {
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {FULL_TEAM.map((p) => (
-                  <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '16px 0', borderTop: `1px solid ${colors.line}` }}>
+                  <div key={p.name} className="otb-team-row" style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '16px 0', borderTop: `1px solid ${colors.line}`, position: 'relative' }}>
                     <div
+                      className={p.photo ? 'otb-team-avatar has-photo' : 'otb-team-avatar'}
                       style={{
                         flex: '0 0 46px',
                         width: 46,
@@ -375,7 +376,8 @@ export default function AboutTeam() {
                         fontSize: 16,
                         color: colors.yellow,
                         overflow: 'hidden',
-                        position: 'relative'
+                        position: 'relative',
+                        cursor: p.photo ? 'zoom-in' : 'default'
                       }}
                     >
                       {p.photo ? (
@@ -395,6 +397,15 @@ export default function AboutTeam() {
                         p.initials
                       )}
                     </div>
+                    {p.photo && (
+                      <div className="otb-team-preview" aria-hidden>
+                        <img src={p.photo} alt="" />
+                        <div className="otb-team-preview-caption">
+                          <span>{p.name}</span>
+                          <span>{p.role}</span>
+                        </div>
+                      </div>
+                    )}
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 3 }}>
                       <div style={{ fontFamily: fonts.display, fontWeight: 800, fontSize: 17, textTransform: 'uppercase' }}>
                         {p.name}

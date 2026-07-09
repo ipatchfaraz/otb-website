@@ -687,3 +687,60 @@ footer {
   #book { padding: 44px 20px !important; }
 }
 
+
+/* --- Team roster hover preview ---
+   The tiny 46px avatar in the "Meet the team" modal reveals a larger
+   photo card on hover so visitors can actually see the face. Only
+   fires for members with an actual photo (has-photo class); the ones
+   still using initials stay non-interactive. */
+.otb-team-row { isolation: isolate; }
+.otb-team-preview {
+  position: absolute;
+  left: 62px;
+  top: 50%;
+  transform: translate(0, -50%) scale(0.94);
+  transform-origin: left center;
+  width: 220px;
+  z-index: 10;
+  background: #0F0F0F;
+  border: 1px solid #FFE500;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,229,0,0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease-out, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.otb-team-preview img {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  object-position: center top;
+}
+.otb-team-preview-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px 12px 14px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  border-top: 1px solid #2A2A2A;
+}
+.otb-team-preview-caption span:first-child {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.otb-team-preview-caption span:last-child {
+  color: #8A8A8A;
+}
+.otb-team-avatar.has-photo:hover ~ .otb-team-preview {
+  opacity: 1;
+  transform: translate(0, -50%) scale(1);
+}
+/* Turn off on touch devices (no real hover — the peek would be
+   stuck open after tap). */
+@media (hover: none) {
+  .otb-team-preview { display: none; }
+}
