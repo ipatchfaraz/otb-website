@@ -39,6 +39,10 @@ const FULL_TEAM: Array<{ initials: string; name: string; role: string; photo?: s
 
 export default function AboutTeam() {
   const [open, setOpen] = useState(false);
+  // Which member's photo is popped up in the lightbox (mobile tap).
+  const [preview, setPreview] = useState<{ photo: string; name: string; role: string } | null>(
+    null
+  );
 
   return (
     <section
@@ -360,7 +364,13 @@ export default function AboutTeam() {
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {FULL_TEAM.map((p) => (
                   <div key={p.name} className="otb-team-row" style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '16px 0', borderTop: `1px solid ${colors.line}`, position: 'relative' }}>
-                    <div
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (p.photo) setPreview({ photo: p.photo, name: p.name, role: p.role });
+                      }}
+                      aria-label={p.photo ? `View photo of ${p.name}` : p.name}
+                      disabled={!p.photo}
                       className={p.photo ? 'otb-team-avatar has-photo' : 'otb-team-avatar'}
                       style={{
                         flex: '0 0 46px',
@@ -377,7 +387,8 @@ export default function AboutTeam() {
                         color: colors.yellow,
                         overflow: 'hidden',
                         position: 'relative',
-                        cursor: p.photo ? 'zoom-in' : 'default'
+                        cursor: p.photo ? 'zoom-in' : 'default',
+                        padding: 0
                       }}
                     >
                       {p.photo ? (
@@ -396,7 +407,7 @@ export default function AboutTeam() {
                       ) : (
                         p.initials
                       )}
-                    </div>
+                    </button>
                     {p.photo && (
                       <div className="otb-team-preview" aria-hidden>
                         <img src={p.photo} alt="" />
@@ -438,6 +449,35 @@ export default function AboutTeam() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {preview && (
+        <div
+          onClick={() => setPreview(null)}
+          className="otb-team-lightbox"
+          role="presentation"
+        >
+          <div
+            className="otb-team-lightbox-inner"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-label={`Photo of ${preview.name}`}
+            aria-modal="true"
+          >
+            <button
+              type="button"
+              onClick={() => setPreview(null)}
+              aria-label="Close"
+              className="otb-team-lightbox-close"
+            >
+              ✕
+            </button>
+            <img src={preview.photo} alt={preview.name} />
+            <div className="otb-team-lightbox-caption">
+              <span>{preview.name}</span>
+              <span>{preview.role}</span>
             </div>
           </div>
         </div>
