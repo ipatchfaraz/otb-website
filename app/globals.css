@@ -839,16 +839,25 @@ footer {
   0%, 100% { text-shadow: 0 0 8px rgba(255, 229, 0, 0.15); }
   50%      { text-shadow: 0 0 18px rgba(255, 229, 0, 0.35); }
 }
-.otb-footer-logo {
+.otb-footer-logo,
+.otb-header-logo {
   animation:
     otbLogoGlitch 5.3s steps(1) infinite,
     otbLogoGlow   3.1s ease-in-out infinite;
   transform-origin: left center;
   will-change: opacity, transform, filter;
 }
+/* Hover suspends the header glitch so the click target holds still. */
+.otb-header-logo:hover {
+  animation-play-state: paused;
+  opacity: 1;
+  transform: none;
+  filter: drop-shadow(0 0 8px rgba(255, 229, 0, 0.3));
+}
 /* Respect users who've asked for less motion */
 @media (prefers-reduced-motion: reduce) {
-  .otb-footer-logo {
+  .otb-footer-logo,
+  .otb-header-logo {
     animation: none;
     filter: drop-shadow(0 0 8px rgba(255, 229, 0, 0.2));
   }

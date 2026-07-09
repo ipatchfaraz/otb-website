@@ -36,6 +36,7 @@ export default function Header({ homeHref = '/' }: { homeHref?: string }) {
         <Link
           href={homeHref}
           aria-label="Outta The Box home"
+          className="otb-header-logo"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
