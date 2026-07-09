@@ -769,35 +769,80 @@ footer {
   }
 }
 
-/* --- Footer logo cyberpunk flicker ---
-   Two layered animations on the wordmark SVG in the footer:
-   1. `otbLogoFlicker`: opacity dropouts + brief horizontal jitter,
-      like a busted CRT sign catching on the last of its power.
-      steps(1) timing keeps the transitions hard-cut, no smoothing.
-   2. `otbLogoGlow`: subtle yellow drop-shadow pulse so even during
-      the "on" frames the mark has ambient neon warmth. Separate
-      cycle length so the two never sync — feels less mechanical. */
-@keyframes otbLogoFlicker {
-  0%, 12%, 14%, 33%, 35%, 66%, 68%, 100% {
+/* --- Footer logo cyberpunk glitch ---
+   Aggressive multi-layered animation on the wordmark SVG so it reads
+   like a busted holographic sign board catching on the last of its
+   power:
+   1. `otbLogoGlitch` (steps(1), hard cuts) — the main sequence.
+      Chromatic-aberration flashes (offset red + cyan drop-shadows),
+      big horizontal band shifts, brief skew tears, sudden opacity
+      dropouts. Mostly ON with three concentrated glitch bursts per
+      cycle at roughly random intervals.
+   2. `otbLogoGlow` (smooth) — ambient yellow neon pulse that persists
+      during the "clean" frames so the mark feels alive even between
+      bursts. Different cycle length so the two never sync. */
+@keyframes otbLogoGlitch {
+  /* CLEAN frames (yellow ambient) — 0–14, 18–32, 40–52, 60–74, 82–100 */
+  0%, 14%, 18%, 32%, 40%, 52%, 60%, 74%, 82%, 100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(0, 0) skewX(0);
+    filter:
+      drop-shadow(0 0 4px rgba(255, 229, 0, 0.35));
   }
-  13%                     { opacity: 0.28; transform: translateX(-1.5px); }
-  34%                     { opacity: 0.55; transform: translateX(1px); }
-  67%                     { opacity: 0.15; transform: translateX(-2px); }
-  83%                     { opacity: 0.7;  transform: translateX(0); }
-  84%                     { opacity: 1;    transform: translateX(0); }
-  92%                     { opacity: 0.85; transform: translateX(1px); }
-  93%                     { opacity: 1;    transform: translateX(0); }
+
+  /* --- BURST 1 (fast RGB split + jitter) --- */
+  15%  { opacity: 0.85; transform: translate(-3px, 0)  skewX(0);
+         filter: drop-shadow(2px 0 0 rgba(255, 0, 90, 0.85))
+                 drop-shadow(-2px 0 0 rgba(0, 220, 255, 0.85)); }
+  16%  { opacity: 0.35; transform: translate(4px, 0)   skewX(-4deg);
+         filter: drop-shadow(4px 0 0 rgba(255, 0, 90, 0.9))
+                 drop-shadow(-4px 0 0 rgba(0, 220, 255, 0.9)); }
+  17%  { opacity: 1;    transform: translate(-1px, 0)  skewX(0);
+         filter: drop-shadow(1px 0 0 rgba(255, 0, 90, 0.6))
+                 drop-shadow(-1px 0 0 rgba(0, 220, 255, 0.6)); }
+
+  /* --- BURST 2 (slice + fade) --- */
+  33%  { opacity: 0.15; transform: translate(-6px, 1px) skewX(3deg);
+         filter: drop-shadow(0 0 0 rgba(255, 229, 0, 0)); }
+  34%  { opacity: 0.9;  transform: translate(3px, -1px) skewX(0);
+         filter: drop-shadow(3px 0 0 rgba(0, 220, 255, 0.8))
+                 drop-shadow(-3px 0 0 rgba(255, 0, 90, 0.8)); }
+  35%  { opacity: 0.6;  transform: translate(0, 2px)   skewX(-1.5deg);
+         filter: drop-shadow(0 0 6px rgba(255, 229, 0, 0.3)); }
+  36%  { opacity: 1;    transform: translate(0, 0)     skewX(0);
+         filter: drop-shadow(0 0 4px rgba(255, 229, 0, 0.35)); }
+
+  /* --- BURST 3 (heavy RGB + slice + total dropout) --- */
+  53%  { opacity: 1;    transform: translate(5px, 0)   skewX(0);
+         filter: drop-shadow(5px 0 0 rgba(255, 0, 90, 0.9))
+                 drop-shadow(-5px 0 0 rgba(0, 220, 255, 0.9)); }
+  54%  { opacity: 0.05; transform: translate(-2px, 0)  skewX(2deg);
+         filter: none; }
+  55%  { opacity: 1;    transform: translate(2px, 0)   skewX(0);
+         filter: drop-shadow(2px 0 0 rgba(0, 220, 255, 0.7))
+                 drop-shadow(-2px 0 0 rgba(255, 0, 90, 0.7)); }
+  56%  { opacity: 0.45; transform: translate(-4px, 0)  skewX(-2deg);
+         filter: drop-shadow(0 0 8px rgba(255, 229, 0, 0.4)); }
+  57%  { opacity: 1;    transform: translate(0, 0)     skewX(0);
+         filter: drop-shadow(0 0 4px rgba(255, 229, 0, 0.35)); }
+
+  /* --- MICRO glitch 1 (quick single-frame RGB flash) --- */
+  75%  { opacity: 0.9;  transform: translate(1px, 0)   skewX(0);
+         filter: drop-shadow(1.5px 0 0 rgba(255, 0, 90, 0.55))
+                 drop-shadow(-1.5px 0 0 rgba(0, 220, 255, 0.55)); }
+
+  /* --- MICRO glitch 2 (quick flicker only) --- */
+  83.5% { opacity: 0.3; }
+  84%   { opacity: 1;   }
 }
 @keyframes otbLogoGlow {
-  0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 229, 0, 0.15)); }
-  50%      { filter: drop-shadow(0 0 14px rgba(255, 229, 0, 0.35)); }
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 229, 0, 0.15); }
+  50%      { text-shadow: 0 0 18px rgba(255, 229, 0, 0.35); }
 }
 .otb-footer-logo {
   animation:
-    otbLogoFlicker 4.7s steps(1) infinite,
-    otbLogoGlow    3.1s ease-in-out infinite;
+    otbLogoGlitch 5.3s steps(1) infinite,
+    otbLogoGlow   3.1s ease-in-out infinite;
   transform-origin: left center;
   will-change: opacity, transform, filter;
 }
