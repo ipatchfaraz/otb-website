@@ -212,7 +212,7 @@ export default function Footer() {
             style={{
               display: 'block',
               alignSelf: 'flex-start',
-              height: 72,
+              height: 100,
               width: 'auto',
               maxWidth: '100%'
             }}
