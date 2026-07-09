@@ -693,18 +693,23 @@ footer {
    photo card on hover so visitors can actually see the face. Only
    fires for members with an actual photo (has-photo class); the ones
    still using initials stay non-interactive. */
-.otb-team-row { isolation: isolate; }
+.otb-team-row {
+  /* NOTE: no `isolation: isolate` — that made every row its own
+     stacking context, so a popup from row N rendered behind rows
+     N+1..N+M. Leaving it out lets the popup's high z-index win
+     against everything else in the modal. */
+}
 .otb-team-preview {
   position: absolute;
-  left: 62px;
+  left: 78px;
   top: 50%;
   transform: translate(0, -50%) scale(0.94);
   transform-origin: left center;
-  width: 220px;
-  z-index: 10;
+  width: 340px;
+  z-index: 1000;
   background: #0F0F0F;
   border: 1px solid #FFE500;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,229,0,0.15);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,229,0,0.15);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.16s ease-out, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
@@ -712,24 +717,26 @@ footer {
 .otb-team-preview img {
   display: block;
   width: 100%;
-  height: 260px;
+  height: 400px;
   object-fit: cover;
   object-position: center top;
+  background: #0F0F0F;
 }
 .otb-team-preview-caption {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 10px 14px 12px 14px;
+  gap: 5px;
+  padding: 14px 18px 16px 18px;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   border-top: 1px solid #2A2A2A;
+  background: #0F0F0F;
 }
 .otb-team-preview-caption span:first-child {
   color: #FFFFFF;
   font-weight: 700;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
 }
 .otb-team-preview-caption span:last-child {
@@ -743,4 +750,21 @@ footer {
    stuck open after tap). */
 @media (hover: none) {
   .otb-team-preview { display: none; }
+}
+/* Narrower screens: shrink the popup + tuck it above the row instead
+   of to the right so it doesn't overflow the modal. */
+@media (max-width: 620px) {
+  .otb-team-preview {
+    width: 260px;
+    left: 0;
+    top: auto;
+    bottom: calc(100% + 8px);
+    transform: translate(0, 0) scale(0.94);
+  }
+  .otb-team-preview img {
+    height: 320px;
+  }
+  .otb-team-avatar.has-photo:hover ~ .otb-team-preview {
+    transform: translate(0, 0) scale(1);
+  }
 }
