@@ -205,9 +205,13 @@ export default function Footer() {
           gap: 32
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ fontFamily: fonts.display, fontWeight: 900, fontSize: 16 }}>OUTTA THE BOX™</div>
-          <div style={{ fontSize: 14, lineHeight: 1.6, color: colors.muted }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <img
+            src="/assets/otb-wordmark.svg"
+            alt="Outta The Box™"
+            style={{ display: 'block', height: 44, width: 'auto', maxWidth: '100%' }}
+          />
+          <div style={{ fontSize: 14, lineHeight: 1.6, color: colors.muted, marginTop: 6 }}>
             Branding agency, Kuala Lumpur. Think outta the box.
           </div>
           <div
