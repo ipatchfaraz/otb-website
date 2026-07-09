@@ -209,7 +209,13 @@ export default function Footer() {
           <img
             src="/assets/otb-wordmark.svg"
             alt="Outta The Box™"
-            style={{ display: 'block', height: 44, width: 'auto', maxWidth: '100%' }}
+            style={{
+              display: 'block',
+              alignSelf: 'flex-start',
+              height: 72,
+              width: 'auto',
+              maxWidth: '100%'
+            }}
           />
           <div style={{ fontSize: 14, lineHeight: 1.6, color: colors.muted, marginTop: 6 }}>
             Branding agency, Kuala Lumpur. Think outta the box.
