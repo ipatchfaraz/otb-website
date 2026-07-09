@@ -768,3 +768,43 @@ footer {
     transform: translate(0, 0) scale(1);
   }
 }
+
+/* --- Footer logo cyberpunk flicker ---
+   Two layered animations on the wordmark SVG in the footer:
+   1. `otbLogoFlicker`: opacity dropouts + brief horizontal jitter,
+      like a busted CRT sign catching on the last of its power.
+      steps(1) timing keeps the transitions hard-cut, no smoothing.
+   2. `otbLogoGlow`: subtle yellow drop-shadow pulse so even during
+      the "on" frames the mark has ambient neon warmth. Separate
+      cycle length so the two never sync — feels less mechanical. */
+@keyframes otbLogoFlicker {
+  0%, 12%, 14%, 33%, 35%, 66%, 68%, 100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  13%                     { opacity: 0.28; transform: translateX(-1.5px); }
+  34%                     { opacity: 0.55; transform: translateX(1px); }
+  67%                     { opacity: 0.15; transform: translateX(-2px); }
+  83%                     { opacity: 0.7;  transform: translateX(0); }
+  84%                     { opacity: 1;    transform: translateX(0); }
+  92%                     { opacity: 0.85; transform: translateX(1px); }
+  93%                     { opacity: 1;    transform: translateX(0); }
+}
+@keyframes otbLogoGlow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 229, 0, 0.15)); }
+  50%      { filter: drop-shadow(0 0 14px rgba(255, 229, 0, 0.35)); }
+}
+.otb-footer-logo {
+  animation:
+    otbLogoFlicker 4.7s steps(1) infinite,
+    otbLogoGlow    3.1s ease-in-out infinite;
+  transform-origin: left center;
+  will-change: opacity, transform, filter;
+}
+/* Respect users who've asked for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .otb-footer-logo {
+    animation: none;
+    filter: drop-shadow(0 0 8px rgba(255, 229, 0, 0.2));
+  }
+}

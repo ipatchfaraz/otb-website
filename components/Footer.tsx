@@ -209,6 +209,7 @@ export default function Footer() {
           <img
             src="/assets/otb-wordmark.svg"
             alt="Outta The Box™"
+            className="otb-footer-logo"
             style={{
               display: 'block',
               alignSelf: 'flex-start',
