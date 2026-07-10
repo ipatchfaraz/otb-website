@@ -7,7 +7,7 @@ export async function GET() {
   const unauth = await requireAdmin();
   if (unauth) return unauth;
   const CSV_HEADER =
-    'email,source,referrer,referrer_raw,country,city,created_at_utc,downloaded_at_utc,synced_at,resend_error\n';
+    'email,source,referrer,referrer_raw,device,country,city,created_at_utc,downloaded_at_utc,synced_at,resend_error\n';
   if (!prisma)
     return new Response(CSV_HEADER, {
       headers: {
@@ -24,6 +24,7 @@ export async function GET() {
         esc(r.source),
         esc(r.referrer ?? ''),
         esc(r.referrerRaw ?? ''),
+        esc(r.device ?? ''),
         esc(r.country ?? ''),
         esc(r.city ?? ''),
         r.createdAt.toISOString(),

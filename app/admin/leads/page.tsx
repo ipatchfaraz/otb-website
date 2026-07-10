@@ -35,6 +35,16 @@ const sourceColor = (source: string): string => {
   return '#8A8A8A';
 };
 
+/** Compact device glyph — icon + one-letter tag so the DEVICE cell
+ *  stays readable at any width. Unknown / missing UA renders as an
+ *  em-dash. */
+const deviceGlyph = (d: string | null): string => {
+  if (d === 'mobile') return '📱 M';
+  if (d === 'tablet') return '📟 T';
+  if (d === 'desktop') return '🖥 D';
+  return '—';
+};
+
 export default async function LeadsAdminPage() {
   const leads = prisma
     ? await prisma.lead.findMany({ orderBy: { createdAt: 'desc' }, take: 200 })
@@ -83,7 +93,7 @@ export default async function LeadsAdminPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: '2fr 0.7fr 0.9fr 0.9fr 1.1fr 0.9fr 0.9fr',
+              gridTemplateColumns: '2fr 0.7fr 0.9fr 0.7fr 0.9fr 1.1fr 0.9fr 0.9fr',
               padding: '12px 16px',
               background: '#121212',
               borderBottom: `1px solid ${colors.line}`,
@@ -97,6 +107,7 @@ export default async function LeadsAdminPage() {
             <span>EMAIL</span>
             <span>SOURCE</span>
             <span>REFERRER</span>
+            <span>DEVICE</span>
             <span>COUNTRY</span>
             <span>CAPTURED</span>
             <span>DOWNLOADED</span>
@@ -114,7 +125,7 @@ export default async function LeadsAdminPage() {
               key={l.id}
               style={{
                 display: 'grid',
-                gridTemplateColumns: '2fr 0.7fr 0.9fr 0.9fr 1.1fr 0.9fr 0.9fr',
+                gridTemplateColumns: '2fr 0.7fr 0.9fr 0.7fr 0.9fr 1.1fr 0.9fr 0.9fr',
                 padding: '12px 16px',
                 borderBottom: `1px solid ${colors.line}`,
                 fontFamily: fonts.mono,
@@ -130,6 +141,12 @@ export default async function LeadsAdminPage() {
                 title={l.referrerRaw ?? ''}
               >
                 {l.referrer ?? 'direct'}
+              </span>
+              <span
+                style={{ color: colors.mutedSoft }}
+                title={l.device ?? ''}
+              >
+                {deviceGlyph(l.device)}
               </span>
               <span style={{ color: colors.mutedSoft }}>
                 {l.country ? `${flagFor(l.country)} ${l.country}${l.city ? ` · ${l.city}` : ''}` : '—'}

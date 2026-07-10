@@ -99,6 +99,10 @@ model Lead {
   // Raw referrer URL kept alongside for detail.
   referrer       String?
   referrerRaw    String?
+  // Device class inferred server-side from sec-ch-ua-mobile client
+  // hint (preferred) or the raw User-Agent string. One of 'mobile',
+  // 'tablet', 'desktop', or null when the request had no signal.
+  device         String?
   // When (if ever) the user actually clicked DOWNLOAD KIT after
   // submitting the form. Null = form-only lead; a date = confirmed
   // download.

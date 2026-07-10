@@ -15,6 +15,25 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ALLOWED_SOURCES = new Set(['popup', 'teaser', 'kit-download']);
 
+/** Infer device class from request headers.
+ *  Prefers the modern sec-ch-ua-mobile / sec-ch-ua-platform client
+ *  hints (populated by Chromium browsers), and falls back to a
+ *  regex on the User-Agent string for Safari / Firefox / older UAs.
+ *  Returns 'mobile' | 'tablet' | 'desktop' | null. */
+function detectDevice(headers: Headers): string | null {
+  const chMobile = headers.get('sec-ch-ua-mobile'); // '?1' = mobile, '?0' = not
+  if (chMobile === '?1') return 'mobile';
+  const ua = headers.get('user-agent') || '';
+  if (!ua) return null;
+  // Order matters — check tablet first so an iPad UA that also
+  // contains "Mobile" gets classified as tablet.
+  if (/iPad|Tablet|PlayBook|Silk|Kindle/i.test(ua)) return 'tablet';
+  if (/Android/i.test(ua) && !/Mobile/i.test(ua)) return 'tablet';
+  if (/Mobi|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) return 'mobile';
+  if (chMobile === '?0') return 'desktop';
+  return 'desktop';
+}
+
 /** Classify the incoming referrer URL into a coarse traffic-source
  *  bucket. Everything else falls into 'other' — the raw URL is kept
  *  in referrerRaw so we can still inspect the long tail. */
@@ -67,6 +86,9 @@ export async function POST(req: NextRequest) {
   const cityRaw = req.headers.get('x-vercel-ip-city');
   const city = cityRaw ? decodeURIComponent(cityRaw) : null;
 
+  // Device class inferred from client-hint + UA.
+  const device = detectDevice(req.headers);
+
   // Save to DB if configured.
   let lead: { id: string; email: string } | null = null;
   if (prisma) {
@@ -75,8 +97,8 @@ export async function POST(req: NextRequest) {
         where: { email },
         // On duplicate, refresh the metadata — new source / new referrer
         // is the most recent meaningful signal.
-        update: { source, country, city, referrer, referrerRaw },
-        create: { email, source, country, city, referrer, referrerRaw },
+        update: { source, country, city, referrer, referrerRaw, device },
+        create: { email, source, country, city, referrer, referrerRaw, device },
         select: { id: true, email: true }
       });
     } catch (e) {
