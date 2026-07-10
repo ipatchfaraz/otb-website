@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import GlitchReveals from '@/components/GlitchReveals';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const SITE_URL = 'https://www.outtathebox.design';
 const SITE_NAME = 'Outta The Box';
@@ -135,6 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <GlitchReveals />
+        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }}

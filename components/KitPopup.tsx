@@ -72,6 +72,15 @@ export default function KitPopup({ booted }: { booted: boolean }) {
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong');
       setStatus('sent');
+      // GA4 conversion event so Faraz can see the popup as a source in
+      // the Analytics dashboard alongside the Resend / DB records.
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          method: 'popup',
+          source: 'popup',
+          value: 1
+        });
+      }
       // Auto-redirect to the download page after a beat so the user sees
       // the confirmation message.
       setTimeout(() => router.push(`/kit?email=${encodeURIComponent(email)}`), 1400);

@@ -35,6 +35,15 @@ export default function KitTeaser() {
       });
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong');
+      // GA4 conversion event so Faraz can see the teaser section as a
+      // source in the Analytics dashboard alongside the DB records.
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          method: 'teaser',
+          source: 'teaser',
+          value: 1
+        });
+      }
       router.push(`/kit?email=${encodeURIComponent(email)}`);
     } catch (err) {
       setStatus('error');
