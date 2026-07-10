@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import Cursor from '@/components/Cursor';
 import { EdgeMeta, ScanBar, Scanlines } from '@/components/Overlays';
@@ -73,7 +74,13 @@ export default function KitPage() {
         </Link>
       </header>
 
-      <KitDownload />
+      {/* KitDownload uses useSearchParams (to read ?email=), which Next.js
+          requires be inside a Suspense boundary so the surrounding page
+          can still be statically prerendered. Fallback is empty because
+          the boot animation inside KitDownload handles its own paint. */}
+      <Suspense fallback={null}>
+        <KitDownload />
+      </Suspense>
 
       <footer
         style={{
