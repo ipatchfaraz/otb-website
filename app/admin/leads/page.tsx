@@ -4,6 +4,21 @@ import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
+/** Format a Date as `YYYY-MM-DD HH:mm MYT` in Malaysia Time (UTC+8).
+ *  The `sv-SE` locale gives us the ISO-like `YYYY-MM-DD HH:mm` output
+ *  natively; we just pin the timezone to `Asia/Kuala_Lumpur` and
+ *  append the MYT suffix so admins reading from anywhere know which
+ *  clock the timestamp is on. */
+const fmtMYT = (d: Date): string => {
+  const s = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Asia/Kuala_Lumpur',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit',
+    hour12: false
+  }).format(d);
+  return `${s} MYT`;
+};
+
 export default async function LeadsAdminPage() {
   const leads = prisma
     ? await prisma.lead.findMany({ orderBy: { createdAt: 'desc' }, take: 200 })
@@ -88,7 +103,7 @@ export default async function LeadsAdminPage() {
             >
               <span style={{ color: colors.fg }}>{l.email}</span>
               <span style={{ color: colors.muted }}>{l.source}</span>
-              <span style={{ color: colors.muted }}>{l.createdAt.toISOString().slice(0, 16).replace('T', ' ')}</span>
+              <span style={{ color: colors.muted }}>{fmtMYT(l.createdAt)}</span>
               <span style={{ color: l.resendSyncedAt ? '#57C7A0' : '#E5484D' }}>
                 {l.resendSyncedAt ? '✓ SYNCED' : l.resendError ? '✕ ' + l.resendError.slice(0, 20) : '· pending'}
               </span>
