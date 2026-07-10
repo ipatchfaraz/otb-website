@@ -3,16 +3,46 @@ import { Resend } from 'resend';
 import { prisma } from '@/lib/prisma';
 
 // POST /api/leads
-// Body: { email: string }
+// Body: { email: string, source?: 'popup'|'teaser'|..., referrer?: string }
 // 1. validates email
-// 2. inserts (or upserts) into the Lead table
-// 3. syncs to Resend Audience (best-effort; DB row still saved on failure)
-// Response: { ok: true } the form redirects to /kit/download on success.
+// 2. records source (which lead-magnet form), country/city (from Vercel
+//    IP headers) and referrer (parsed from the client-provided URL)
+// 3. inserts / upserts into the Lead table
+// 4. syncs to Resend Audience (best-effort; DB row still saved on
+//    Resend failure)
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const ALLOWED_SOURCES = new Set(['popup', 'teaser', 'kit-download']);
+
+/** Classify the incoming referrer URL into a coarse traffic-source
+ *  bucket. Everything else falls into 'other' — the raw URL is kept
+ *  in referrerRaw so we can still inspect the long tail. */
+function classifyReferrer(raw: string | null | undefined): string {
+  if (!raw) return 'direct';
+  let host: string;
+  try {
+    host = new URL(raw).hostname.toLowerCase().replace(/^www\./, '');
+  } catch {
+    return 'other';
+  }
+  if (host.includes('instagram.com') || host === 'l.instagram.com') return 'instagram';
+  if (host.includes('google.')) return 'google';
+  if (host.includes('facebook.com') || host === 'l.facebook.com' || host === 'lm.facebook.com' || host === 'm.facebook.com') return 'facebook';
+  if (host === 't.co' || host.includes('twitter.com') || host === 'x.com' || host.endsWith('.x.com')) return 'twitter';
+  if (host.includes('tiktok.com')) return 'tiktok';
+  if (host.includes('linkedin.com') || host === 'lnkd.in') return 'linkedin';
+  if (host === 'wa.me' || host.includes('whatsapp.com')) return 'whatsapp';
+  if (host === 't.me' || host.includes('telegram.org')) return 'telegram';
+  if (host.includes('youtube.com') || host === 'youtu.be') return 'youtube';
+  if (host.includes('reddit.com')) return 'reddit';
+  if (host.includes('bing.com')) return 'bing';
+  if (host.includes('duckduckgo.com')) return 'duckduckgo';
+  return 'other';
+}
+
 export async function POST(req: NextRequest) {
-  let body: { email?: string };
+  let body: { email?: string; source?: string; referrer?: string };
   try {
     body = await req.json();
   } catch {
@@ -23,27 +53,38 @@ export async function POST(req: NextRequest) {
   if (!EMAIL_RE.test(email))
     return NextResponse.json({ ok: false, error: 'INVALID_EMAIL' }, { status: 400 });
 
-  const source = 'kit-download';
+  // Source: only accept known values; fall back to legacy default so
+  // the column is never blank.
+  const rawSource = (body.source ?? '').trim().toLowerCase();
+  const source = ALLOWED_SOURCES.has(rawSource) ? rawSource : 'kit-download';
 
-  // Save to DB if configured. If not, we still hand back OK so the site
-  // works pre-DB the user gets the download, we just don't record them.
+  // Referrer: bucket into a category, keep the raw URL alongside.
+  const referrerRaw = (body.referrer ?? '').slice(0, 1000) || null;
+  const referrer = classifyReferrer(referrerRaw);
+
+  // Geo comes from Vercel edge headers. Non-Vercel traffic returns null.
+  const country = req.headers.get('x-vercel-ip-country') || null;
+  const cityRaw = req.headers.get('x-vercel-ip-city');
+  const city = cityRaw ? decodeURIComponent(cityRaw) : null;
+
+  // Save to DB if configured.
   let lead: { id: string; email: string } | null = null;
   if (prisma) {
     try {
       lead = await prisma.lead.upsert({
         where: { email },
-        update: { source },
-        create: { email, source },
+        // On duplicate, refresh the metadata — new source / new referrer
+        // is the most recent meaningful signal.
+        update: { source, country, city, referrer, referrerRaw },
+        create: { email, source, country, city, referrer, referrerRaw },
         select: { id: true, email: true }
       });
     } catch (e) {
       console.error('[leads] db upsert failed', e);
-      // fall through email service can still capture them
     }
   }
 
-  // Fire-and-await Resend sync (fast, ~200ms). Best-effort don't block
-  // the user's download if Resend is down.
+  // Fire-and-await Resend sync — best-effort.
   const apiKey = process.env.RESEND_API_KEY;
   const audienceId = process.env.RESEND_AUDIENCE_ID;
   if (apiKey && audienceId) {

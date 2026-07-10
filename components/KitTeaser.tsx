@@ -27,7 +27,11 @@ export default function KitTeaser() {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({
+          email,
+          source: 'teaser',
+          referrer: typeof document !== 'undefined' ? document.referrer : ''
+        })
       });
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong');

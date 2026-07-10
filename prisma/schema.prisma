@@ -86,7 +86,19 @@ model SiteConfig {
 model Lead {
   id             String    @id @default(cuid())
   email          String    @unique
-  source         String    @default("kit-download") // where the lead came from
+  // Where in the site the form was submitted: 'popup', 'teaser', or a
+  // legacy 'kit-download' for rows captured before the split.
+  source         String    @default("kit-download")
+  // Vercel geo headers (ISO country code, city name). Nullable because
+  // dev / non-Vercel traffic won't have them.
+  country        String?
+  city           String?
+  // Traffic-source category derived from document.referrer:
+  // 'instagram' | 'google' | 'facebook' | 'twitter' | 'tiktok' |
+  // 'linkedin' | 'whatsapp' | 'telegram' | 'direct' | 'other'.
+  // Raw referrer URL kept alongside for detail.
+  referrer       String?
+  referrerRaw    String?
   createdAt      DateTime  @default(now())
   resendSyncedAt DateTime?
   resendError    String?

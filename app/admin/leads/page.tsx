@@ -19,6 +19,22 @@ const fmtMYT = (d: Date): string => {
   return `${s} MYT`;
 };
 
+/** Convert a 2-letter ISO country code to its emoji flag. Falls back
+ *  to a globe if the code isn't a valid pair of letters. */
+const flagFor = (iso: string): string => {
+  const code = iso.trim().toUpperCase();
+  if (!/^[A-Z]{2}$/.test(code)) return '🌐';
+  return String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
+};
+
+/** Colour-code the SOURCE column so popup vs teaser is skimmable at
+ *  a glance. Anything unknown just stays muted. */
+const sourceColor = (source: string): string => {
+  if (source === 'popup') return '#FFE500';
+  if (source === 'teaser') return '#57C7A0';
+  return '#8A8A8A';
+};
+
 export default async function LeadsAdminPage() {
   const leads = prisma
     ? await prisma.lead.findMany({ orderBy: { createdAt: 'desc' }, take: 200 })
@@ -27,7 +43,7 @@ export default async function LeadsAdminPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <AdminHeader subtitle="LEADS // v1.0" />
-      <main style={{ padding: '32px 40px 80px', maxWidth: 1180, width: '100%', margin: '0 auto' }}>
+      <main style={{ padding: '32px 40px 80px', maxWidth: 1400, width: '100%', margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 20 }}>
           <div>
             <div style={{ fontFamily: fonts.mono, fontSize: 11, letterSpacing: '0.16em', color: colors.yellow }}>
@@ -63,22 +79,25 @@ export default async function LeadsAdminPage() {
           </a>
         </div>
 
-        <div style={{ border: `1px solid ${colors.line}`, background: '#141414', overflow: 'hidden' }}>
+        <div style={{ border: `1px solid ${colors.line}`, background: '#141414', overflow: 'auto' }}>
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: '2fr 1fr 1fr 1fr',
+              gridTemplateColumns: '2fr 0.7fr 0.9fr 0.9fr 1.1fr 0.9fr',
               padding: '12px 16px',
               background: '#121212',
               borderBottom: `1px solid ${colors.line}`,
               fontFamily: fonts.mono,
               fontSize: 10,
               letterSpacing: '0.14em',
-              color: colors.muted
+              color: colors.muted,
+              minWidth: 900
             }}
           >
             <span>EMAIL</span>
             <span>SOURCE</span>
+            <span>REFERRER</span>
+            <span>COUNTRY</span>
             <span>CAPTURED</span>
             <span>RESEND</span>
           </div>
@@ -94,15 +113,26 @@ export default async function LeadsAdminPage() {
               key={l.id}
               style={{
                 display: 'grid',
-                gridTemplateColumns: '2fr 1fr 1fr 1fr',
+                gridTemplateColumns: '2fr 0.7fr 0.9fr 0.9fr 1.1fr 0.9fr',
                 padding: '12px 16px',
                 borderBottom: `1px solid ${colors.line}`,
                 fontFamily: fonts.mono,
-                fontSize: 12
+                fontSize: 12,
+                minWidth: 900,
+                alignItems: 'center'
               }}
             >
-              <span style={{ color: colors.fg }}>{l.email}</span>
-              <span style={{ color: colors.muted }}>{l.source}</span>
+              <span style={{ color: colors.fg, overflow: 'hidden', textOverflow: 'ellipsis' }}>{l.email}</span>
+              <span style={{ color: sourceColor(l.source) }}>{l.source}</span>
+              <span
+                style={{ color: colors.mutedSoft }}
+                title={l.referrerRaw ?? ''}
+              >
+                {l.referrer ?? 'direct'}
+              </span>
+              <span style={{ color: colors.mutedSoft }}>
+                {l.country ? `${flagFor(l.country)} ${l.country}${l.city ? ` · ${l.city}` : ''}` : '—'}
+              </span>
               <span style={{ color: colors.muted }}>{fmtMYT(l.createdAt)}</span>
               <span style={{ color: l.resendSyncedAt ? '#57C7A0' : '#E5484D' }}>
                 {l.resendSyncedAt ? '✓ SYNCED' : l.resendError ? '✕ ' + l.resendError.slice(0, 20) : '· pending'}

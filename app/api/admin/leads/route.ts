@@ -6,28 +6,33 @@ import { requireAdmin } from '@/lib/require-admin';
 export async function GET() {
   const unauth = await requireAdmin();
   if (unauth) return unauth;
+  const CSV_HEADER =
+    'email,source,referrer,referrer_raw,country,city,created_at_utc,synced_at,resend_error\n';
   if (!prisma)
-    return new Response('email,source,created_at,synced_at\n', {
+    return new Response(CSV_HEADER, {
       headers: {
         'content-type': 'text/csv; charset=utf-8',
         'content-disposition': 'attachment; filename="leads-empty.csv"'
       }
     });
   const rows = await prisma.lead.findMany({ orderBy: { createdAt: 'desc' } });
-  const header = 'email,source,created_at,synced_at,resend_error\n';
   const body = rows
     .map((r) => {
       const esc = (v: string) => `"${v.replace(/"/g, '""')}"`;
       return [
         esc(r.email),
         esc(r.source),
+        esc(r.referrer ?? ''),
+        esc(r.referrerRaw ?? ''),
+        esc(r.country ?? ''),
+        esc(r.city ?? ''),
         r.createdAt.toISOString(),
         r.resendSyncedAt?.toISOString() ?? '',
         esc(r.resendError ?? '')
       ].join(',');
     })
     .join('\n');
-  return new Response(header + body + (body ? '\n' : ''), {
+  return new Response(CSV_HEADER + body + (body ? '\n' : ''), {
     headers: {
       'content-type': 'text/csv; charset=utf-8',
       'content-disposition': `attachment; filename="otb-leads-${new Date()
