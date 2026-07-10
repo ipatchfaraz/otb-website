@@ -99,6 +99,10 @@ model Lead {
   // Raw referrer URL kept alongside for detail.
   referrer       String?
   referrerRaw    String?
+  // When (if ever) the user actually clicked DOWNLOAD KIT after
+  // submitting the form. Null = form-only lead; a date = confirmed
+  // download.
+  downloadedAt   DateTime?
   createdAt      DateTime  @default(now())
   resendSyncedAt DateTime?
   resendError    String?

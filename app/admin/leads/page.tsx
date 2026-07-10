@@ -83,7 +83,7 @@ export default async function LeadsAdminPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: '2fr 0.7fr 0.9fr 0.9fr 1.1fr 0.9fr',
+              gridTemplateColumns: '2fr 0.7fr 0.9fr 0.9fr 1.1fr 0.9fr 0.9fr',
               padding: '12px 16px',
               background: '#121212',
               borderBottom: `1px solid ${colors.line}`,
@@ -99,6 +99,7 @@ export default async function LeadsAdminPage() {
             <span>REFERRER</span>
             <span>COUNTRY</span>
             <span>CAPTURED</span>
+            <span>DOWNLOADED</span>
             <span>RESEND</span>
           </div>
           {leads.length === 0 && (
@@ -113,7 +114,7 @@ export default async function LeadsAdminPage() {
               key={l.id}
               style={{
                 display: 'grid',
-                gridTemplateColumns: '2fr 0.7fr 0.9fr 0.9fr 1.1fr 0.9fr',
+                gridTemplateColumns: '2fr 0.7fr 0.9fr 0.9fr 1.1fr 0.9fr 0.9fr',
                 padding: '12px 16px',
                 borderBottom: `1px solid ${colors.line}`,
                 fontFamily: fonts.mono,
@@ -134,6 +135,9 @@ export default async function LeadsAdminPage() {
                 {l.country ? `${flagFor(l.country)} ${l.country}${l.city ? ` · ${l.city}` : ''}` : '—'}
               </span>
               <span style={{ color: colors.muted }}>{fmtMYT(l.createdAt)}</span>
+              <span style={{ color: l.downloadedAt ? '#57C7A0' : '#6A6A6A' }}>
+                {l.downloadedAt ? `✓ ${fmtMYT(l.downloadedAt).slice(5, 16)}` : '· no'}
+              </span>
               <span style={{ color: l.resendSyncedAt ? '#57C7A0' : '#E5484D' }}>
                 {l.resendSyncedAt ? '✓ SYNCED' : l.resendError ? '✕ ' + l.resendError.slice(0, 20) : '· pending'}
               </span>

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { anims, colors, fonts } from '@/lib/tokens';
 
 const LOGS = [
@@ -21,6 +22,8 @@ const MANIFEST = [
 // served directly by Next see the download() handler below.
 
 export default function KitDownload() {
+  const searchParams = useSearchParams();
+  const email = searchParams?.get('email') ?? '';
   const [pct, setPct] = useState(0);
   const [lines, setLines] = useState<string[]>([LOGS[0]]);
   const shownLineIdx = useRef(1);
@@ -54,6 +57,27 @@ export default function KitDownload() {
 
   const download = () => {
     if (!ready) return;
+
+    // Fire-and-forget: mark this lead as downloaded in our DB. Never
+    // blocks the actual download — if the ping fails, the user still
+    // gets the file.
+    if (email) {
+      fetch('/api/leads/downloaded', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email }),
+        keepalive: true
+      }).catch(() => {});
+    }
+    // GA4 conversion event so we can see download rate per source in
+    // Analytics alongside form-submit rate.
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'file_download', {
+        file_name: 'OTB-Brand-Starter-Kit.pdf',
+        file_extension: 'pdf'
+      });
+    }
+
     // Ships the real PDF from public/downloads/. Direct <a> click keeps the
     // download attribute honored across browsers.
     const a = document.createElement('a');
