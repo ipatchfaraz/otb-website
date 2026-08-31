@@ -4,9 +4,10 @@ import LogoVaultGrid from './LogoVaultGrid';
 import { getLogos } from '@/lib/content';
 
 export default async function LogoVaultTeaser() {
-  // Homepage teaser: first 25 marks (top 5 rows on the wide viewport).
-  const all = await getLogos();
-  const teaser = all.slice(0, 25);
+  // Homepage teaser shows every published mark so the archive feels
+  // full at a glance — matches the pre-CMS behaviour that rendered
+  // all 63 static SVGs.
+  const teaser = await getLogos();
   return (
     <section
       data-screen-label="Logo vault"
