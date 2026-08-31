@@ -250,3 +250,36 @@ export async function getJournalSlugs(): Promise<string[]> {
   }
   return STATIC_JOURNAL.map((a) => a.slug);
 }
+
+/** Logo Vault marks. DB-first with a fallback to the compiled list of
+ *  63 static SVGs in /public/images/logos/. Public callers get a
+ *  simple `{ url, alt }[]` shape ready to drop into <img>. */
+export type PublicLogo = { url: string; alt: string };
+
+const STATIC_LOGO_COUNT = 63;
+
+export async function getLogos(): Promise<PublicLogo[]> {
+  if (prisma) {
+    try {
+      const rows = await prisma.logo.findMany({
+        where: { published: true },
+        orderBy: { order: 'asc' }
+      });
+      if (rows.length) {
+        return rows.map((r, i) => ({
+          url: r.imageUrl,
+          alt: r.title || `Logo mark ${String(i + 1).padStart(2, '0')} from the OTB archive`
+        }));
+      }
+    } catch {
+      /* fall through */
+    }
+  }
+  return Array.from({ length: STATIC_LOGO_COUNT }, (_, i) => {
+    const n = String(i + 1).padStart(2, '0');
+    return {
+      url: `/images/logos/logo-${n}.svg`,
+      alt: `Logo mark ${n} from the OTB archive`
+    };
+  });
+}

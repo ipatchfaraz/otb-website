@@ -68,6 +68,25 @@ model JournalEntry {
   updatedAt DateTime @updatedAt
 }
 
+// Marks in the Logo Vault. Admin can add / remove / reorder from the
+// panel. The static /public/images/logos/logo-NN.svg files stay as
+// the fallback for anyone visiting before the first admin edit.
+model Logo {
+  id        String   @id @default(cuid())
+  // Position in the vault grid (0-indexed, ascending). Admin reorders
+  // rewrite this per row.
+  order     Int      @default(0)
+  // Public URL (Vercel Blob or /images/logos/*.svg).
+  imageUrl  String
+  // Short human title — shown as alt text and in the admin list.
+  title     String   @default("")
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([order])
+}
+
 model AdminUser {
   id           String   @id @default(cuid())
   email        String   @unique

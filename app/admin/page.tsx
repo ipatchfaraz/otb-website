@@ -17,6 +17,10 @@ export default async function AdminDashboard() {
   const [journal, projects] = await Promise.all([getJournalList(), getProjects()]);
   const jCount = String(journal.length).padStart(2, '0');
   const pCount = String(projects.length).padStart(2, '0');
+  // Logo count: DB row count (fallback to the 63 static bundled marks
+  // if the vault hasn't been seeded from the admin yet).
+  const logoDbCount = prisma ? await prisma.logo.count().catch(() => 0) : 0;
+  const lCount = String(logoDbCount || 63).padStart(2, '0');
   // Show the one-shot seed button when the DB is configured but empty.
   const dbConfigured = !!prisma;
   const dbEmpty =
@@ -69,6 +73,22 @@ export default async function AdminDashboard() {
         <svg width={34} height={34} viewBox="0 0 24 24" fill="none" stroke={colors.yellow} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
           <rect x={3} y={5} width={18} height={14} rx={1} />
           <path d="M3 6l9 8 9-8" />
+        </svg>
+      )
+    },
+    {
+      tag: 'MODULE_04',
+      title: 'LOGO VAULT',
+      desc: 'Marks archive. Add, remove and reorder the logos shown on the Logo Vault teaser and full page.',
+      count: `${lCount} MARKS`,
+      href: '/admin/logos',
+      viewHref: '/logo-vault',
+      icon: (
+        <svg width={34} height={34} viewBox="0 0 24 24" fill="none" stroke={colors.yellow} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+          <rect x={3.5} y={3.5} width={7} height={7} />
+          <rect x={13.5} y={3.5} width={7} height={7} />
+          <rect x={3.5} y={13.5} width={7} height={7} />
+          <rect x={13.5} y={13.5} width={7} height={7} />
         </svg>
       )
     }

@@ -12,7 +12,10 @@ export const metadata: Metadata = {
   description: 'Marks archive. Every logo drawn, refined and shipped by the studio.'
 };
 
-export default function LogoVaultPage() {
+// Revalidate every 60s so admin edits show up quickly.
+export const revalidate = 60;
+
+export default async function LogoVaultPage() {
   return (
     <>
       <Cursor />

@@ -1,13 +1,20 @@
 import { colors } from '@/lib/tokens';
+import { getLogos, type PublicLogo } from '@/lib/content';
 
 /**
- * Grid of every SVG mark in public/images/logos/. Uses per-cell
- * borders instead of the previous `gap: 1px` + parent background
- * trick. That kept the parent's dark-grey fill from bleeding through
- * the empty slots on rows that don't fill every column (e.g. 63 ÷ 5
- * = 12 full rows + 3 marks on the last row = 2 ghost grey blocks).
+ * Grid of every mark in the vault. Admin-managed via /admin/logos
+ * (DB rows) with a fallback to the 63 static SVGs in
+ * public/images/logos/. Consumers can either:
+ *   - `<LogoVaultGrid />`  — server-fetches DB / static internally
+ *   - `<LogoVaultGrid logos={[...]} />` — pass a slice yourself
+ *     (e.g. the first 25 for the homepage teaser).
  */
-export default function LogoVaultGrid({ count = 63 }: { count?: number }) {
+export default async function LogoVaultGrid({
+  logos
+}: {
+  logos?: PublicLogo[];
+}) {
+  const list = logos ?? (await getLogos());
   return (
     <div
       data-vault-grid
@@ -23,38 +30,33 @@ export default function LogoVaultGrid({ count = 63 }: { count?: number }) {
         boxSizing: 'border-box'
       }}
     >
-      {Array.from({ length: count }, (_, i) => {
-        const n = String(i + 1).padStart(2, '0');
-        return (
-          <div
-            key={n}
-            className="hover-border"
-            style={{
-              background: colors.bg,
-              aspectRatio: '1 / 1',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 12,
-              borderRight: `1px solid ${colors.line}`,
-              borderBottom: `1px solid ${colors.line}`,
-              transition: 'background 0.15s',
-              // Explicit box-sizing + overflow so cells stay square
-              // and content can't escape their bounds on iOS Safari.
-              boxSizing: 'border-box',
-              overflow: 'hidden',
-              minWidth: 0
-            }}
-          >
-            <img
-              src={`/images/logos/logo-${n}.svg`}
-              alt={`Logo mark ${n} from the OTB archive`}
-              loading="lazy"
-              style={{ maxWidth: '80%', maxHeight: '80%', width: 'auto', height: 'auto' }}
-            />
-          </div>
-        );
-      })}
+      {list.map((l, i) => (
+        <div
+          key={`${l.url}-${i}`}
+          className="hover-border"
+          style={{
+            background: colors.bg,
+            aspectRatio: '1 / 1',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 12,
+            borderRight: `1px solid ${colors.line}`,
+            borderBottom: `1px solid ${colors.line}`,
+            transition: 'background 0.15s',
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+            minWidth: 0
+          }}
+        >
+          <img
+            src={l.url}
+            alt={l.alt}
+            loading="lazy"
+            style={{ maxWidth: '80%', maxHeight: '80%', width: 'auto', height: 'auto' }}
+          />
+        </div>
+      ))}
     </div>
   );
 }

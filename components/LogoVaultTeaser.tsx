@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import { colors, fonts } from '@/lib/tokens';
 import LogoVaultGrid from './LogoVaultGrid';
+import { getLogos } from '@/lib/content';
 
-export default function LogoVaultTeaser() {
+export default async function LogoVaultTeaser() {
+  // Homepage teaser: first 25 marks (top 5 rows on the wide viewport).
+  const all = await getLogos();
+  const teaser = all.slice(0, 25);
   return (
     <section
       data-screen-label="Logo vault"
@@ -59,7 +63,7 @@ export default function LogoVaultTeaser() {
             FULL ARCHIVE →
           </Link>
         </div>
-        <LogoVaultGrid />
+        <LogoVaultGrid logos={teaser} />
       </div>
     </section>
   );
