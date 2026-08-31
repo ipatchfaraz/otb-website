@@ -13,10 +13,21 @@ export async function POST(req: NextRequest) {
   if (unauth) return unauth;
 
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    // Diagnostic: list every BLOB_-prefixed env var name (values
+    // redacted) so we can see if Vercel injected under a custom name
+    // (e.g. when the store has a non-default prefix in Settings).
+    const blobKeys = Object.keys(process.env)
+      .filter((k) => k.startsWith('BLOB_'))
+      .join(', ');
     return NextResponse.json(
       {
         error:
-          'BLOB_READ_WRITE_TOKEN not set. In Vercel → project → Storage → Create Blob store → connect to project. Then redeploy.'
+          'BLOB_READ_WRITE_TOKEN not set. In Vercel → project → Storage → Create Blob store → connect to project. Then redeploy.',
+        diagnostics: {
+          blobEnvKeys: blobKeys || '(none)',
+          vercel: process.env.VERCEL ?? null,
+          env: process.env.VERCEL_ENV ?? null
+        }
       },
       { status: 503 }
     );
