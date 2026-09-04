@@ -126,6 +126,111 @@ export const STATIC_JOURNAL: JournalArticle[] = [
       { t: 'h', v: 'Why it looks like magic anyway' },
       { t: 'p', v: "When the process is done properly, the final name feels inevitable as if it were always the answer. That inevitability is the whole trick. It isn't sorcery. It's a wide net, a brutal filter, and the discipline to fall in love last." }
     ]
+  },
+  {
+    log: '04',
+    slug: 'edutech-brands',
+    category: 'EDUTECH',
+    readMin: '6 MIN READ',
+    date: '2026.07.10',
+    author: 'AHMED TAHQIQ',
+    authorRole: 'CEO',
+    thumb: null,
+    title: 'BUILDING EDUTECH BRANDS THAT ACTUALLY TEACH.',
+    dek: 'The best edutech brands do not sound like tech companies with a mission bolted on. They sound like teachers who happen to run software.',
+    body: [
+      { t: 'p', v: "Every other edutech brand looks the same, and there is a reason. The category was built by engineers who inherited a marketing template: friendly sans-serif, three primary colours, a hero photo of a student smiling at a laptop, the word learning in a large weight. It ships, it scales, it converts a bit. It also teaches you nothing about who the brand actually is." },
+      { t: 'p', v: "We think about edutech branding differently. In this category the brand is not the wrapper around the product. It IS the product. A learner opens your app on a bad day, alone, at 11pm, and every micro-decision you have made about tone, pacing, colour, weight of voice, size of button, cost of a mistake, that entire brand system decides whether they keep going or close the tab. In edutech, brand is the teacher in the room." },
+      { t: 'h', v: 'Start with a stance on learning, not a stance on tech' },
+      { t: 'p', v: "The strongest edutech brands do not begin with what they teach or what tech they run. They begin with what they believe learning is. Is it curiosity? Is it repetition? Is it public? Is it playful? Is it earned? The answer becomes a Trueline that governs everything after: the copy tone, the pace of onboarding, the way you celebrate a correct answer, the way you handle a wrong one." },
+      { t: 'p', v: "Duolingo believes learning is a streak. Khan Academy believes it is a right. Brilliant believes it is a puzzle. None of those beliefs were reverse-engineered from a moodboard. Each one made the rest of the brand obvious." },
+      { t: 'quote', v: 'In edutech, brand is not the wrapper around the product. Brand IS the teacher in the room.' },
+      { t: 'h', v: 'Design for the moment the learner almost quits' },
+      { t: 'p', v: "The tone of your success screens is easy. The tone of your failure states is your entire brand. Almost every edutech brand ships confident colour, confident language, confident celebration and then falls back on generic Something went wrong copy the moment the learner stalls. That is where the trust is won or lost." },
+      { t: 'p', v: "We design a brand system around that moment first. What does the brand say when the learner gets it wrong? When they skip a day? When they cannot afford the next tier? When the AI grader flags something they thought was right? A brand that has answers to those four questions has a soul. A brand that has answers only to the happy path has a landing page." },
+      { t: 'h', v: 'Warm up the systemness' },
+      { t: 'p', v: "Edutech ships at scale, so the brand naturally drifts toward systemness. Grids, tokens, states, components, all critical. But too much systemness kills the teacher in the room. A student in a masjid, a mother learning at the kitchen table, a professional retraining after a layoff, none of them are talking to a design system. They are talking to a voice." },
+      { t: 'p', v: "The warmth comes from small deliberate defections. A handwritten mark inside a rigid grid. One typographic choice that feels human amid a stack of geometric sans. A colour that is your teacher, not your interface. Copy that says now let's try that again instead of ERROR: RETRY. The brand should look like a system and feel like a person." },
+      { t: 'h', v: 'Price is a brand decision' },
+      { t: 'p', v: "In edutech, the price page is the loudest sentence a brand ever writes. Free forever means one thing. 30-day trial means another. Pay-what-you-can means a third. Whatever you choose, the pricing model reveals what you actually believe about who deserves to learn. Do not outsource that decision to the growth team. It is a brand decision that happens to have revenue attached." },
+      { t: 'h', v: 'Own the outcome, not the tool' },
+      { t: 'p', v: "The weakest edutech positioning describes the tool: an AI-powered adaptive learning platform for. The strongest positioning describes the person after: someone who can now do the thing they could not do before. Own the after-state and every touchpoint has something to point at. Own the tool and you are competing on features forever." },
+      { t: 'h', v: 'The audit we run on ourselves' },
+      { t: 'list', v: [
+        'If you cover our name, could the identity belong to any edutech brand? If yes, we have not built one.',
+        'Does our failure state sound like the same person who wrote our success state? If not, the brand is a costume.',
+        'Would a learner describe our brand voice the same way a teammate would? If not, the internal and external are out of sync.',
+        'Can a stranger tell what we believe about learning after 60 seconds on the homepage? If not, we have a product page, not a brand.'
+      ] },
+      { t: 'p', v: "An edutech brand that gets those four right is a compounding asset. The category is loud and cheap to enter and easy to blur into. Distinctiveness plus warmth is the moat. Everyone else is building an interface. Build a teacher." }
+    ]
+  },
+  {
+    log: '05',
+    slug: 'reputation',
+    category: 'REPUTATION',
+    readMin: '5 MIN READ',
+    date: '2026.07.10',
+    author: 'MUHAMMED FARAZ FAIZAL',
+    authorRole: 'CHIEF BRAND OFFICER',
+    thumb: null,
+    title: 'REPUTATION IS THE ONLY BRAND METRIC THAT COMPOUNDS.',
+    dek: 'Reputation is what people say when you leave the room. A brand is how you decide to walk in.',
+    body: [
+      { t: 'p', v: "There is a version of branding that treats reputation as the exhaust of good work. Ship a good product, be nice on the phone, and reputation happens on its own. That is true for a while. It is also why so many strong products end up with weak reputations and why so many weaker products end up with strong ones." },
+      { t: 'p', v: "Reputation is the compound interest of every promise a brand has made and either kept or dropped. Every unanswered email, every over-promised timeline, every silent price rise, every quiet fix all of it accrues. A brand can outrun its reputation for maybe two funding rounds. After that, it becomes the ceiling on everything: hiring, pricing, partnerships, headline features, the entire pipeline." },
+      { t: 'h', v: 'Brand is a bet. Reputation is the receipt.' },
+      { t: 'p', v: "A brand is the story you tell about what kind of company you intend to be. A reputation is the story other people tell about what kind of company you actually are. In steady state, they should be within touching distance of each other. When they drift apart, one always wins: the reputation. Every time." },
+      { t: 'p', v: "That is why the smartest brands we work with treat the gap between brand and reputation as the only KPI that matters. Not awareness. Not favourability. The delta between what we say we are and what our customers, ex-employees and partners say we are when we are not in the room." },
+      { t: 'quote', v: 'A brand can outrun its reputation for two funding rounds. After that, reputation is the ceiling on everything.' },
+      { t: 'h', v: 'Reputation is built where nobody is watching' },
+      { t: 'p', v: "The moments that build or break reputation are almost never the moments a brand invests in. It is not the launch film. It is the refund request. It is not the product page. It is the fifth support reply. It is not the ad campaign. It is what the account manager tells a client honestly when the roadmap slips." },
+      { t: 'p', v: "Which is exactly why reputation is so unfair and so valuable at the same time. It rewards the boring, sustained behaviour that nobody thinks is worth writing a brand book about. The founders who answer their inbox for years past when they need to. The teams that fix a small bug six months after launch because they said they would. The brands that under-promise loudly enough that keeping the promise looks generous." },
+      { t: 'h', v: 'Three practical audits' },
+      { t: 'list', v: [
+        "Read your last 20 outbound emails to customers. Do they sound like the brand you spent money to build? If not, the reputation people are forming is off-brand and you paid to make it worse.",
+        "Ask five recent customers to describe you in one sentence to a friend. If the sentence is not close to your Trueline, your reputation and your brand are drifting. Close the gap before your competitors notice it.",
+        "Talk to two people who left, on good terms, more than a year ago. What do they still say about you? Ex-employees are the most credible narrators of your reputation, and the ones you cannot spin."
+      ] },
+      { t: 'h', v: 'Reputation compounds. So does the opposite.' },
+      { t: 'p', v: "The reason to protect a reputation aggressively is not that it takes time to build, though it does. It is that the compounding runs in both directions. A brand with a strong reputation gets the benefit of the doubt when it launches something risky, mis-fires publicly, or raises its price. A brand with a weak reputation gets the opposite: every neutral action gets read uncharitably, every mistake confirms what people already suspected." },
+      { t: 'p', v: "Which means the best possible time to invest in reputation is when you do not yet need it. The worst time is when you finally do." },
+      { t: 'p', v: "You cannot design a reputation. You can only design a brand that behaves reputably enough, often enough, in the small moments, for the reputation to land where you wanted the brand to be." }
+    ]
+  },
+  {
+    log: '06',
+    slug: 'brand-actions',
+    category: 'BRAND STRATEGY',
+    readMin: '5 MIN READ',
+    date: '2026.07.10',
+    author: 'MUHAMMED FARAZ FAIZAL',
+    authorRole: 'CHIEF BRAND OFFICER',
+    thumb: null,
+    title: 'A BRAND IS WHAT A BRAND DOES.',
+    dek: 'Every taste-lift and colour-swap dies against the wall of one behaviour a customer actually experiences.',
+    body: [
+      { t: 'p', v: "The most expensive lie in branding is that a brand is what a brand says. Whole industries are built on that lie: tone-of-voice decks, manifesto videos, values posters in the lobby, cool typographic systems that will absolutely make the growth chart go up. They rarely do, and when they do not, the standard response is more of the same but louder." },
+      { t: 'p', v: "A brand is what a brand does. Everything else is a rumour the brand is trying to spread about itself." },
+      { t: 'h', v: 'Actions are the only signal customers cannot fake-read' },
+      { t: 'p', v: "Customers have been marketed to their entire adult lives. They discount everything a brand says by default. They cannot discount what a brand does, because the doing is happening to them. The refund policy is not a story about how the brand feels about customers. It IS how the brand feels about customers. The waiting time on support is not a proxy for the brand's respect for people's time. It IS the respect." },
+      { t: 'p', v: "This is why the strongest brands in almost every category over the last twenty years won on behaviour, not on message. Zappos won on returns. Stripe won on documentation. Patagonia won on repairs. Ritz-Carlton won on staff empowerment. None of those are copy lines. All of them are decisions somebody had to make and keep making." },
+      { t: 'quote', v: 'A brand is what a brand does. Everything else is a rumour the brand is trying to spread about itself.' },
+      { t: 'h', v: 'The behaviour audit' },
+      { t: 'p', v: "Every rebrand we run starts with a behaviour audit before it touches a colour. We list the ten most frequent moments a customer, an employee, or a partner interacts with the brand not the ten most impressive, the ten most frequent. Then we ask, for each one, what the brand actually did in that moment across the last quarter." },
+      { t: 'p', v: "It is uncomfortable because the answers rarely match the deck. The brand said honest and warm. The brand actually sent a passive-aggressive dunning email at day seven. The brand said craft. The brand actually let a bug live for four months because the fix was not on the roadmap. The brand said community. The brand actually never replied to a comment that was not a compliment." },
+      { t: 'p', v: "Every one of those gaps costs more than the rebrand you were considering paying for." },
+      { t: 'h', v: 'Fix the behaviours, then design for them' },
+      { t: 'list', v: [
+        'Change one repeated behaviour that is off-brand. Ship it before you touch a logo. This alone will move perception faster than any campaign.',
+        'Then find the two behaviours that are on-brand and under-signalled. Turn up the volume on those. The design system exists to make those moments more legible, not to hide the ones that are broken.',
+        'Only then invest in the visual layer. It has something to carry now. Before, it was just wallpaper hanging over the wiring.'
+      ] },
+      { t: 'h', v: 'Why this is unpopular advice' },
+      { t: 'p', v: "Behaviour change is slow and expensive and requires operational courage. Rebrands are fast and expensive and require a design agency. Almost every internal incentive pushes toward the second and away from the first. Which is exactly why the brands that pick the first end up owning categories the second-picker cannot dislodge." },
+      { t: 'p', v: "The next time your team is about to spend six figures on a visual refresh, ask a simpler question first. What are three things the brand does today that would embarrass the brand book we are about to write? Fix those. Then, if you still want the refresh, at least it will land on something real." },
+      { t: 'p', v: "A brand is not a promise made in a deck. It is a promise kept in the small moments that nobody put a KPI on. Get those right and you barely need branding. Get them wrong and the branding cannot save you." }
+    ]
   }
 ];
 

@@ -1,6 +1,7 @@
 import AdminHeader from '@/components/AdminHeader';
 import SeedButton from '@/components/SeedButton';
 import ResyncCasesButton from '@/components/ResyncCasesButton';
+import SyncJournalButton from '@/components/SyncJournalButton';
 import FaviconUploader from '@/components/FaviconUploader';
 import DashboardCard from '@/components/DashboardCard';
 import { colors, fonts } from '@/lib/tokens';
@@ -213,6 +214,18 @@ export default async function AdminDashboard() {
                 </div>
               </div>
               <FaviconUploader />
+            </div>
+
+            <div style={{ borderTop: '1px solid #242424', paddingTop: 22, display: 'flex', flexWrap: 'wrap', gap: 24, alignItems: 'flex-start', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxWidth: 420 }}>
+                <div style={{ fontFamily: fonts.mono, fontSize: 12, color: colors.mutedSoft, letterSpacing: '0.1em', fontWeight: 700 }}>
+                  PUBLISH NEW JOURNAL ENTRIES
+                </div>
+                <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.muted, letterSpacing: '0.08em', lineHeight: 1.5 }}>
+                  PUBLISH ANY ARTICLES DEFINED IN CODE BUT NOT YET IN THE DB. IDEMPOTENT: NEVER OVERWRITES EXISTING ENTRIES, SO ADMIN EDITS ARE SAFE. USE ONCE AFTER A CODE UPDATE THAT ADDS NEW STATIC ARTICLES.
+                </div>
+              </div>
+              <SyncJournalButton />
             </div>
 
             <div style={{ borderTop: '1px solid #242424', paddingTop: 22, display: 'flex', flexWrap: 'wrap', gap: 24, alignItems: 'flex-start', justifyContent: 'space-between' }}>
