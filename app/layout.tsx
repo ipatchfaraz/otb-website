@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import GlitchReveals from '@/components/GlitchReveals';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import SiteStructuredData from '@/components/SiteStructuredData';
 
 const SITE_URL = 'https://www.outtathebox.design';
 const SITE_NAME = 'Outta The Box';
@@ -85,43 +86,6 @@ export const metadata: Metadata = {
   }
 };
 
-// JSON-LD structured data for Google to understand the agency as an
-// Organization and the site as a searchable WebSite. Rendered as a raw
-// <script> tag in <body> — safe because the JSON is generated at build
-// time from constants.
-const ORGANIZATION_SCHEMA = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: SITE_NAME,
-  alternateName: 'OTB',
-  url: SITE_URL,
-  logo: `${SITE_URL}/assets/otb-logomark.svg`,
-  description:
-    'Branding and design agency in Kuala Lumpur building purpose-driven, humanised brands.',
-  foundingDate: '2016',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Kuala Lumpur',
-    addressCountry: 'MY'
-  },
-  sameAs: [
-    // Add real social profile URLs when live
-    'https://www.instagram.com/outtathebox.design/'
-  ]
-};
-
-const WEBSITE_SCHEMA = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE_NAME,
-  url: SITE_URL,
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE_URL}/journal?q={search_term_string}`,
-    'query-input': 'required name=search_term_string'
-  }
-};
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -137,14 +101,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <GlitchReveals />
         <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_SCHEMA) }}
-        />
+        {/* Organization + LocalBusiness + WebSite JSON-LD. Richer local
+            signals (Kuala Lumpur geo) help OTB surface in the Google
+            Maps / local pack for "branding agency Kuala Lumpur". */}
+        <SiteStructuredData />
       </body>
     </html>
   );

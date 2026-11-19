@@ -2,6 +2,7 @@ import AdminHeader from '@/components/AdminHeader';
 import SeedButton from '@/components/SeedButton';
 import ResyncCasesButton from '@/components/ResyncCasesButton';
 import SyncJournalButton from '@/components/SyncJournalButton';
+import MigrateIouButton from '@/components/MigrateIouButton';
 import FaviconUploader from '@/components/FaviconUploader';
 import DashboardCard from '@/components/DashboardCard';
 import { colors, fonts } from '@/lib/tokens';
@@ -238,6 +239,18 @@ export default async function AdminDashboard() {
                 </div>
               </div>
               <ResyncCasesButton />
+            </div>
+
+            <div style={{ borderTop: '1px solid #242424', paddingTop: 22, display: 'flex', flexWrap: 'wrap', gap: 24, alignItems: 'flex-start', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxWidth: 420 }}>
+                <div style={{ fontFamily: fonts.mono, fontSize: 12, color: colors.mutedSoft, letterSpacing: '0.1em', fontWeight: 700 }}>
+                  SEO MIGRATION · IOU CASE STUDY
+                </div>
+                <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.muted, letterSpacing: '0.08em', lineHeight: 1.5 }}>
+                  RENAMES THE IOU CASE STUDY SLUG TO /WORK/INTERNATIONAL-OPEN-UNIVERSITY AND OVERWRITES ITS BODY COPY WITH THE SEO-ENRICHED VERSION. RUN ONCE AFTER DEPLOY. IDEMPOTENT.
+                </div>
+              </div>
+              <MigrateIouButton />
             </div>
           </div>
         )}

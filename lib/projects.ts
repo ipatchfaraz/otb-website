@@ -22,7 +22,7 @@ export const PROJECTS: ProjectListing[] = [
   { slug: 'bayaan',    name: 'BAYAAN ACADEMY',     discipline: 'CLIENT // IDENTITY & COLLATERALS',       line: 'An online school for Muslim children joyful to kids, credible to parents.',     tags: ['IDENTITY'],                        img: '/images/bayaan/32.png' },
   { slug: 'indiaverse',name: 'INDIAVERSE',         discipline: 'CLIENT // NAMING & IDENTITY',            line: 'Naming & Brand Identity Design for Indiaverse.',                                  tags: ['IDENTITY'],                        img: CDN_P + '638c4723b9a23c2e78cdf774_Thumbnail.png' },
   { slug: 'trueilm',   name: 'TRUE ILM',           discipline: 'CLIENT // STRATEGY & IDENTITY',          line: 'Islamic audiobooks & ebooks for the modern Muslim.',                              tags: ['STRATEGY', 'IDENTITY'],            img: CDN_P + '6871589b841ef6679c9a666f_True%20Ilm%20CS%20-%20Thumbnail.png' },
-  { slug: 'iou',       name: 'IOU',                discipline: 'CLIENT // STRATEGY & IDENTITY',          line: 'Brand strategy & identity for the International Open University.',                tags: ['STRATEGY', 'IDENTITY'],            img: CDN_P + '68715b4c4c674742c4ea24f1_IOU%20CS%20-%20Thumbnail.png' },
+  { slug: 'international-open-university', name: 'INTERNATIONAL OPEN UNIVERSITY (IOU)', discipline: 'CLIENT // STRATEGY & IDENTITY', line: 'Brand strategy, identity and visual system for the International Open University (IOU) — a pioneer in online Islamic higher education.', tags: ['STRATEGY', 'IDENTITY'], img: CDN_P + '68715b4c4c674742c4ea24f1_IOU%20CS%20-%20Thumbnail.png' },
   { slug: 'dunes',     name: 'DUNES',              discipline: 'CLIENT // STRATEGY & IDENTITY',          line: 'Brand strategy & identity for Dunes water.',                                       tags: ['STRATEGY', 'IDENTITY', 'PACKAGING'], img: CDN_P + '638c4d6d57859fe324d864be_Dunes.png' },
   { slug: 'marookha',  name: 'MAROOKHA',           discipline: 'CLIENT // STRATEGY, IDENTITY & WEB',     line: 'A safe haven for women to grow an oasis for empowerment.',                       tags: ['STRATEGY', 'IDENTITY'],            img: CDN_P + '638c50d59a16183b69adf97b_Marookha.png' },
   { slug: 'barakah',   name: 'THE BARAKAH EFFECT', discipline: 'CLIENT // STRATEGY, IDENTITY & WEB',     line: 'Brand strategy, identity & website for The Barakah Effect.',                       tags: ['STRATEGY', 'IDENTITY'],            img: CDN_P + '638c523595fb430bf43e5877_The%20Barakah%20Effect.png' },
@@ -33,5 +33,5 @@ export const PROJECTS: ProjectListing[] = [
 ];
 
 export const FEATURED_ORDER: string[] = [
-  'trueilm', 'iou', 'kalemah', 'marookha', 'bayaan', 'dunes'
+  'trueilm', 'international-open-university', 'kalemah', 'marookha', 'bayaan', 'dunes'
 ];

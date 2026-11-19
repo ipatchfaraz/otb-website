@@ -48,7 +48,7 @@ const g = (raw: Omit<Gallery, 'img'> & { img: string }): Gallery => ({
 
 export const ORDER = [
   'bayaan', 'paradise', 'kalemah', 'indiaverse',
-  'trueilm', 'iou', 'dunes', 'marookha',
+  'trueilm', 'international-open-university', 'dunes', 'marookha',
   'barakah', 'revivers', 'grainer', 'sifa', 'quraany'
 ] as const;
 
@@ -197,20 +197,20 @@ export const CASES: Record<CaseSlug, CaseStudy> = {
       g({ img: '6871591cbd024d7791eff12f_True%20Ilm%20CS%20-%20Logo%20Mockup%205.png', alt: 'True Ilm brand identity mockup', col: 'auto', tag: '[ FIG.08 ]', caption: 'ACTIVATION IN THE WILD' })
     ]
   },
-  iou: {
-    caseLabel: '[ CASE_FILE: IOU // STRATEGY & IDENTITY ]',
-    title: 'IOU.', client: 'INTERNATIONAL OPEN UNIVERSITY',
-    tagline: 'A comprehensive rebrand repositioning the International Open University as a bold, modern force in Islamic higher education.',
-    sector: 'HIGHER EDUCATION', scope: 'STRATEGY / IDENTITY / BRAND GUIDE / WEBSITE', year: '2025',
-    brief: 'A pioneer of online Islamic education had outgrown its own identity fragmented, dated, and too weak to carry its mission. The rebrand made it confident, contemporary, and unmistakably IOU.',
+  'international-open-university': {
+    caseLabel: '[ CASE_FILE: INTERNATIONAL OPEN UNIVERSITY (IOU) // STRATEGY & IDENTITY ]',
+    title: 'INTERNATIONAL OPEN UNIVERSITY.', client: 'INTERNATIONAL OPEN UNIVERSITY (IOU)',
+    tagline: 'A comprehensive rebrand of the International Open University (IOU) — repositioning one of the world’s largest online Islamic universities as a bold, modern force in Islamic higher education.',
+    sector: 'HIGHER EDUCATION / ISLAMIC EDUTECH', scope: 'STRATEGY / IDENTITY / BRAND GUIDE / WEBSITE', year: '2025',
+    brief: 'The International Open University (IOU) — a pioneer of online Islamic education with students in 220+ countries — had outgrown its own identity: fragmented, dated, and too weak to carry its mission. The IOU rebrand made it confident, contemporary, and unmistakably IOU.',
     problemHead: 'A GLOBAL MISSION. A FRAGMENTED IDENTITY.',
-    problemBody: 'Founded in 2001, IOU pioneered online Islamic education globally. But as it scaled, its identity fell behind visually dated, inconsistent in application, and lacking the strength to carry its vision into the next chapter. It needed a brand that would resonate with a global Muslim audience, inspire trust, and reflect the depth of its mission: changing the Ummah through education.',
-    digBody: 'The brief carried a real tension: preserve IOU’s legacy while modernising; enhance clarity without losing the essence of the original mark; build one cohesive system for digital, print, merchandise and global campuses; and position IOU as a credible academic institution on par with international universities yet distinctly Islamic in ethos.',
+    problemBody: 'Founded in 2001 by Dr. Bilal Philips, the International Open University (IOU) pioneered online Islamic higher education, offering accredited Bachelor’s, Master’s, and Diploma programs in Islamic Studies, Arabic, Education, Psychology, Business and more to a global Muslim audience. But as IOU scaled to serve hundreds of thousands of students worldwide, its visual identity fell behind: dated in appearance, inconsistent in application, and lacking the strength to carry its vision into the next chapter. IOU needed a brand that would resonate with a global Muslim audience, inspire trust, and reflect the depth of its mission — changing the Ummah through authentic, accessible Islamic education.',
+    digBody: 'The brief for the International Open University rebrand carried a real tension: preserve IOU’s decades of legacy while modernising; enhance clarity without losing the essence of the original IOU mark; build one cohesive brand system across digital platforms, print collateral, student merchandise and global campuses; and position IOU as a credible academic institution on par with leading international universities — yet distinctly, unapologetically Islamic in ethos. For a university educating the next generation of Muslim scholars, the brand had to signal both academic rigour and spiritual rootedness in a single glance.',
     insight: 'Legacy isn’t what you protect. It’s what you carry forward.',
     leapHead: 'REFINE THE ICON. REBUILD THE SYSTEM.',
-    leapBody: 'Rather than discard the iconic mark, we refined it sharpening the logo’s construction and geometry while keeping its essence intact, then rebuilt everything around it: a consistent visual and verbal language, a future-ready system, and activation tools that unify IOU’s growing presence.',
-    solutionBody: 'The refined mark anchors a full identity system logo construction, type variants, and applications across campus, merchandise and digital confident, contemporary, and committed to accessible education.',
-    payoff: 'The new identity honors IOU’s Islamic foundation while boldly stepping into the future. Since the rebrand, IOU has strengthened its position as a serious academic institution, ready to shape the next generation of Muslim scholars and leaders.',
+    leapBody: 'Rather than discard the iconic IOU mark that generations of students already recognised, we refined it — sharpening the International Open University logo’s construction and geometry while keeping its essence intact — then rebuilt everything around it: a consistent visual and verbal language, a future-ready identity system, and activation tools that unify IOU’s growing global presence across every touchpoint.',
+    solutionBody: 'The refined IOU mark anchors a full identity system: logo construction, type variants, colour, iconography, and applications across campus signage, student merchandise, course materials and digital — confident, contemporary, and committed to accessible Islamic higher education for the global Ummah.',
+    payoff: 'The new International Open University identity honours IOU’s Islamic foundation while boldly stepping into the future. Since the rebrand, IOU has strengthened its position as a serious academic institution, ready to shape the next generation of Muslim scholars, teachers and leaders worldwide.',
     heroImg: R('68714cc49622fc59b2cac62d_IOU%20CS%20-%20Cover.png'),
     gallery: [
       g({ img: '6871521dd28e7a77d7cc7e66_IOU%20CS%20-%20Logo%20Before%20After.png', alt: 'IOU logo before and after the rebrand', col: '1 / -1', tag: '[ FIG.01 ]', caption: 'THE MARK BEFORE / AFTER' }),

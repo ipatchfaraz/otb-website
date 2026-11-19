@@ -25,6 +25,10 @@ const nextConfig = {
       // then the catch-all handles the ones that stayed the same.
       { source: '/project/dunes-water',      destination: '/work/dunes',    permanent: true },
       { source: '/project/the-barakah-effect', destination: '/work/barakah', permanent: true },
+      // IOU case study renamed to its full keyword-rich slug for SEO
+      // ("International Open University" ranks; the acronym alone does not).
+      { source: '/project/iou',              destination: '/work/international-open-university', permanent: true },
+      { source: '/work/iou',                 destination: '/work/international-open-university', permanent: true },
       // Catch-all — any other /project/<slug> maps 1:1 to /work/<slug>.
       { source: '/project/:slug',            destination: '/work/:slug',    permanent: true },
       // Webflow's portfolio index → new work index.

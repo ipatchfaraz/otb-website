@@ -10,6 +10,16 @@ const sitemap = [
   { href: '/#contact', label: 'Contact' }
 ];
 
+// SEO landing pages — surfaced in the footer on every page so Google
+// sees internal links from the entire site to the three keyword clusters
+// (KL agency / edutech / Islamic). Also helps visitors who land on a
+// case study navigate to the service they need.
+const services = [
+  { href: '/branding-agency-kuala-lumpur', label: 'Branding Agency KL' },
+  { href: '/edutech-branding',             label: 'Edutech Branding' },
+  { href: '/islamic-brand-design',         label: 'Islamic Branding' }
+];
+
 const marqueeItems = [
   'THINK OUTTA THE BOX',
   'BRANDING THAT REFUSES THE TEMPLATE',
@@ -293,6 +303,28 @@ export default function Footer() {
               fontSize: 11,
               letterSpacing: '0.15em',
               color: colors.yellow,
+              marginBottom: 4
+            }}
+          >
+            SERVICES
+          </div>
+          {services.map((s) => (
+            <Link
+              key={s.href}
+              href={s.href}
+              className="hover-white"
+              style={{ fontSize: 14, color: colors.muted, textDecoration: 'none' }}
+            >
+              {s.label}
+            </Link>
+          ))}
+          <div
+            style={{
+              fontFamily: fonts.mono,
+              fontSize: 11,
+              letterSpacing: '0.15em',
+              color: colors.yellow,
+              marginTop: 18,
               marginBottom: 4
             }}
           >

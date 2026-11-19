@@ -12,7 +12,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/work`,      lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/journal`,   lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/kit`,       lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/logo-vault`,lastModified: now, changeFrequency: 'monthly', priority: 0.6 }
+    { url: `${BASE}/logo-vault`,lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    // SEO landing pages — target branding-agency-KL, edutech and Islamic
+    // branding keyword clusters. High priority so Google crawls them first.
+    { url: `${BASE}/branding-agency-kuala-lumpur`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/edutech-branding`,             lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/islamic-brand-design`,         lastModified: now, changeFrequency: 'monthly', priority: 0.9 }
   ];
 
   const workRoutes: MetadataRoute.Sitemap = ORDER.map((slug) => ({
