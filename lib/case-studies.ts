@@ -406,7 +406,7 @@ export const CASES: Record<CaseSlug, CaseStudy> = {
 // if a project isn't listed here.
 export const COVERS: Partial<Record<CaseSlug, string>> = {
   trueilm: CDN_P + '6871589b841ef6679c9a666f_True%20Ilm%20CS%20-%20Thumbnail.png',
-  iou:     CDN_P + '68715b4c4c674742c4ea24f1_IOU%20CS%20-%20Thumbnail.png',
+  'international-open-university': CDN_P + '68715b4c4c674742c4ea24f1_IOU%20CS%20-%20Thumbnail.png',
   kalemah: '/images/kalemah/595.png',
   marookha:CDN_P + '638c50d59a16183b69adf97b_Marookha.png',
   bayaan:  '/images/bayaan/cover.png',
