@@ -183,6 +183,21 @@ export async function getNextCase(slug: string): Promise<PublicCase | null> {
 
 // ---- Journal ----
 
+/**
+ * Is a static-journal article live right now? An article is live when it has
+ * no `publishAt` (legacy articles) or its `publishAt` is in the past AND its
+ * `status` is not 'draft'. This is what powers scheduled auto-publishing:
+ * assign a future ISO datetime and the article appears automatically once
+ * Next's ISR revalidation picks it up (see revalidate = 60 on the pages).
+ */
+function isLive(a: JournalArticle, now: Date = new Date()): boolean {
+  if (a.status === 'draft') return false;
+  if (!a.publishAt) return true;
+  const t = Date.parse(a.publishAt);
+  if (Number.isNaN(t)) return true; // malformed date -> fail open (visible)
+  return t <= now.getTime();
+}
+
 export async function getJournalList(): Promise<JournalArticle[]> {
   if (prisma) {
     try {
@@ -208,7 +223,9 @@ export async function getJournalList(): Promise<JournalArticle[]> {
       /* fall through */
     }
   }
-  return STATIC_JOURNAL.slice().sort((a, b) => b.date.localeCompare(a.date));
+  return STATIC_JOURNAL.filter((a) => isLive(a))
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export async function getJournalEntry(slug: string): Promise<JournalArticle | null> {
@@ -233,7 +250,9 @@ export async function getJournalEntry(slug: string): Promise<JournalArticle | nu
       /* fall through */
     }
   }
-  return STATIC_JOURNAL_BY_SLUG[slug] ?? STATIC_JOURNAL_BY_LOG[slug] ?? null;
+  const a = STATIC_JOURNAL_BY_SLUG[slug] ?? STATIC_JOURNAL_BY_LOG[slug] ?? null;
+  if (!a) return null;
+  return isLive(a) ? a : null;
 }
 
 export async function getJournalSlugs(): Promise<string[]> {
@@ -248,7 +267,7 @@ export async function getJournalSlugs(): Promise<string[]> {
       /* fall through */
     }
   }
-  return STATIC_JOURNAL.map((a) => a.slug);
+  return STATIC_JOURNAL.filter((a) => isLive(a)).map((a) => a.slug);
 }
 
 /** Logo Vault marks. DB-first with a fallback to the compiled list of

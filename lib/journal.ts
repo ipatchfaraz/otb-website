@@ -8,6 +8,8 @@ export type JournalBlock =
   | { t: 'quote'; v: string }
   | { t: 'list'; v: string[] };
 
+export type JournalFaq = { q: string; a: string };
+
 export type JournalArticle = {
   log: string;
   slug: string;
@@ -20,6 +22,13 @@ export type JournalArticle = {
   title: string;
   dek: string;
   body: JournalBlock[];
+  // SEO + scheduling (all optional so existing articles keep working)
+  publishAt?: string; // ISO datetime; article hidden until this moment
+  status?: 'draft' | 'approved' | 'published';
+  keyword?: string; // primary SEO target
+  metaDescription?: string; // overrides dek for <meta description> if set
+  faq?: JournalFaq[]; // rendered as FAQ block + FAQPage JSON-LD
+  related?: string[]; // slugs for internal linking
 };
 
 export const STATIC_JOURNAL: JournalArticle[] = [
@@ -230,6 +239,83 @@ export const STATIC_JOURNAL: JournalArticle[] = [
       { t: 'p', v: "Behaviour change is slow and expensive and requires operational courage. Rebrands are fast and expensive and require a design agency. Almost every internal incentive pushes toward the second and away from the first. Which is exactly why the brands that pick the first end up owning categories the second-picker cannot dislodge." },
       { t: 'p', v: "The next time your team is about to spend six figures on a visual refresh, ask a simpler question first. What are three things the brand does today that would embarrass the brand book we are about to write? Fix those. Then, if you still want the refresh, at least it will land on something real." },
       { t: 'p', v: "A brand is not a promise made in a deck. It is a promise kept in the small moments that nobody put a KPI on. Get those right and you barely need branding. Get them wrong and the branding cannot save you." }
+    ]
+  },
+  {
+    log: '06',
+    slug: 'branding-islamic-edutech',
+    category: 'ISLAMIC EDUTECH',
+    readMin: '8 MIN READ',
+    date: '2026.11.25',
+    publishAt: '2026-11-25T09:00:00+08:00',
+    status: 'approved',
+    keyword: 'branding for Islamic edutech',
+    metaDescription: 'Branding for Islamic edutech is not Islamic branding plus education. It is its own discipline. A field guide from the studio behind the IOU and Trueilm rebrands.',
+    author: 'MUHAMMED FARAZ FAIZAL',
+    authorRole: 'CHIEF BRAND OFFICER',
+    thumb: null,
+    title: 'BRANDING FOR ISLAMIC EDUTECH: A FIELD GUIDE FROM A STUDIO THATS BUILT THREE.',
+    dek: 'Islamic edutech is not Islamic branding plus education. It is its own discipline, and almost everyone gets it wrong the same way. Here is what we have learned building brands for IOU, Trueilm and others.',
+    related: ['trueline', 'in-the-box', 'naming'],
+    body: [
+      { t: 'p', v: "Every six weeks or so a founder writes to us with roughly the same brief. They are launching an Islamic online learning platform. They want it to feel serious, trustworthy, modern, Shariah-aligned, globally credible, and not like every other Islamic brand on the internet. They have a short deadline, a modest budget, and a moodboard full of green gradients and Kufic typography they have quietly started to hate." },
+      { t: 'p', v: "We have built three of these brands now. We have been in the room for maybe ten more. The pattern is consistent enough that it is worth writing down. Branding for Islamic edutech is not Islamic branding plus a bit of education. It is its own discipline, and almost everyone, including some very well-meaning studios, gets it wrong the same way." },
+      { t: 'h', v: 'The mistake almost every Islamic edutech brand makes' },
+      { t: 'p', v: "They treat the Islam part as the brand and the edutech part as the product. So the identity leans hard into masjid green, gold trim, a stylised arch, perhaps a dome if the team was feeling bold. Then the platform underneath looks like a 2014 Coursera clone. The brand promises timeless tradition. The product delivers a slightly tired LMS. Students feel the gap in the first three clicks, and no amount of beautiful Thuluth calligraphy on the hero section fixes it." },
+      { t: 'p', v: "The inverse is just as common. Edutech founders with Silicon Valley aesthetics bolt a crescent onto a Linear-inspired marque, pick a sans-serif that looks like Stripe, and hope the content does the religious lifting. Now the brand feels like a secular SaaS tool politely performing modesty. Scholars do not endorse it. Students do not trust it. Nobody can tell what it stands for." },
+      { t: 'quote', v: "The brand is Islamic. The platform is edutech. The business is both at once, so the identity has to be both at once, not one wrapped around the other." },
+      { t: 'h', v: 'The three audiences you are branding to simultaneously' },
+      { t: 'p', v: "Most consumer brands have one primary audience. Islamic edutech has three, and each one reads the brand through a different lens. If any one of them bounces, the business does not work." },
+      { t: 'list', v: [
+        'Students. They want to feel competent, not condescended to. They have Netflix, Notion and Duolingo in the same tab. The brand has to compete on experience, not just on intention.',
+        'Scholars and credential partners. They want to see traditional rigour, correct terminology, and a brand that will not embarrass them in six months when a screenshot gets shared in a WhatsApp group.',
+        'Parents and payers. They are often paying for the student. They want proof of seriousness, legitimacy, and an institution they could introduce to their own teacher without flinching.'
+      ] },
+      { t: 'p', v: "The identity has to carry all three at once, because they are all looking at the same homepage. A brand built for only one of them will quietly bleed the other two." },
+      { t: 'h', v: 'What we learned rebranding the International Open University' },
+      { t: 'p', v: "The International Open University (IOU) is one of the largest Islamic online universities in the world, with students in more than 220 countries. When we took on the rebrand, the old identity read as serious, but it also read as old. The institution had outgrown it. The brand still looked like a document from an era when being online was the differentiator. Being online was no longer the differentiator. Being rigorous and accessible at scale was." },
+      { t: 'p', v: "So we did not start with the logo. We started with the sentence IOU could put at the centre of every decision. What survived every pass was simple: traditional knowledge, delivered with the seriousness a real university owes its students. That sentence told us what the identity had to do. It had to look like a university, not like a course marketplace. It had to carry weight without performing heritage. It had to work in English and in Arabic without either feeling like the translation." },
+      { t: 'p', v: "The visual language that came out of that is quiet by Islamic edutech standards. The restraint is the point. A brand that is already serious does not need to perform seriousness. That is the single hardest thing to communicate to a founder who has spent three years looking at competitor sites that all shout." },
+      { t: 'h', v: 'The five decisions that make or break an Islamic edutech identity' },
+      { t: 'p', v: "If you are briefing a studio, or doing this yourself, these are the decisions that matter more than any single visual choice. They are usually made badly because they are usually not made at all." },
+      { t: 'list', v: [
+        'Decide whether you are an institution or a platform. An institution brand reads with gravity and promises credentials. A platform brand reads with velocity and promises access. Trying to be both is the most common failure mode.',
+        'Decide whether your scripts are equal citizens. If Arabic is on the brand, it is on the brand everywhere, with the same craft as the Latin set. Treating Arabic as decoration is visible to every Arabic reader in the first two seconds.',
+        'Decide what you will not use. Not everything with an Islamic association belongs in your identity. Crescents, domes, mosque silhouettes, lanterns and gold flourishes are shortcuts the strongest brands deliberately refuse because the shortcuts flatten you into the category.',
+        'Decide the colour story before you pick the colour. Green is not banned. Green is overused. Pick the colour because your position demands it, not because the category expects it. Blue, red, oxblood, ochre and black have all worked in this space when chosen on purpose.',
+        'Decide what the brand sounds like when it is wrong. Every brand will, eventually, deliver bad news or correct a mistake. A brand that only has a voice for marketing moments cracks the moment it has to apologise.'
+      ] },
+      { t: 'h', v: 'Typography does more work here than anywhere else in branding' },
+      { t: 'p', v: "In most brand systems typography is one lever among many. In Islamic edutech it is the lever. It carries the register, the credibility, the bilingual balance and the student-facing warmth all at once. A wrong type pairing is a brand-level mistake, not a design-level one. The fastest way to look generic is to pair a safe humanist sans-serif with a free Arabic font that was never designed to sit with it." },
+      { t: 'p', v: "We now treat type selection as a separate phase of the project, with its own research, its own scholar review for the Arabic side, and its own test pages before anything else is designed. It adds two weeks. It saves years of visible drift." },
+      { t: 'h', v: 'The trust layer most brands skip' },
+      { t: 'p', v: "Visual trust and institutional trust are different things, and Islamic edutech needs both. Visual trust is what we have been discussing: register, restraint, considered type. Institutional trust is harder to design and matters more. It is the scholar page, the accreditation note, the syllabus sample, the clearly named academic board, the real photos of real faculty, the Shariah advisory with real people on it. A brand that looks world-class and hides those signals will underperform a visually plain brand that puts them front and centre. We have watched it happen." },
+      { t: 'h', v: 'When to rebrand and when to wait' },
+      { t: 'p', v: "A new coat of paint will not fix a product students are not completing or a programme scholars will not endorse. If the retention, completion or endorsement numbers are the real problem, the brand is not the leverage point this quarter. Fix the thing, then brand the thing." },
+      { t: 'p', v: "But when the product is good and the brand is the ceiling, the rebrand usually pays for itself inside a cohort. It compounds every impression, every partnership approach, every scholar outreach, every parent conversation. The maths is not subtle. It is just slow at first and then suddenly not." },
+      { t: 'p', v: "If you are standing up an Islamic edutech brand and any of this has landed, we are a 15-minute conversation away. The call is free. The thinking is already yours." }
+    ],
+    faq: [
+      {
+        q: 'How is branding for Islamic edutech different from general edutech branding?',
+        a: 'Islamic edutech serves three audiences at once with different trust codes: students who want a modern experience, scholars who need traditional rigour, and parents who need institutional seriousness. The identity has to carry all three at the same time, which general edutech branding rarely has to do.'
+      },
+      {
+        q: 'Do Islamic edutech brands have to use green or gold?',
+        a: 'No. Green and gold are category defaults, not Islamic requirements. The strongest Islamic edutech brands pick colour from their position, not the category. Blue, oxblood, ochre and near-black have all worked when chosen with intent.'
+      },
+      {
+        q: 'How much does rebranding an Islamic online university usually cost?',
+        a: 'A proper strategy-led rebrand for an Islamic edutech institution typically sits in the USD 15,000 to 60,000 range depending on scope. The variance is driven mostly by whether Arabic is treated as a first-class language in the system, which doubles the typography and testing effort.'
+      },
+      {
+        q: 'Should the Arabic logotype match the Latin one visually?',
+        a: 'It should feel like a sibling, not a translation. The two scripts have different mechanics, so matching them pixel-for-pixel usually weakens both. A good Arabic logotype shares the brand\'s underlying attitude, not its outlines.'
+      },
+      {
+        q: 'How long does an Islamic edutech rebrand take?',
+        a: 'Expect ten to sixteen weeks for strategy, naming if needed, visual identity in both scripts, scholar review, and a minimum viable rollout. Rushing the Arabic pass is the most common reason a project misses its launch.'
+      }
     ]
   }
 ];

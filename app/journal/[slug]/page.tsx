@@ -21,14 +21,16 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = await getJournalEntry(params.slug);
   if (!a) return { title: 'Entry not found | The Journal' };
+  const desc = a.metaDescription || a.dek;
   return {
     title: `${a.title} | The Journal`,
-    description: a.dek,
+    description: desc,
+    keywords: a.keyword ? [a.keyword] : undefined,
     alternates: { canonical: `/journal/${a.slug}` },
     openGraph: {
       type: 'article',
       title: a.title,
-      description: a.dek,
+      description: desc,
       url: `/journal/${a.slug}`,
       publishedTime: a.date?.replace(/\./g, '-'),
       authors: a.author ? [a.author] : undefined,
@@ -37,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: a.title,
-      description: a.dek,
+      description: desc,
       images: a.thumb ? [a.thumb] : undefined
     }
   };
@@ -54,9 +56,10 @@ export default async function JournalEntryPage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: a.title,
-    description: a.dek,
+    description: a.metaDescription || a.dek,
+    keywords: a.keyword,
     image: a.thumb ? [`https://www.outtathebox.design${a.thumb}`] : undefined,
-    datePublished: a.date?.replace(/\./g, '-'),
+    datePublished: a.publishAt || a.date?.replace(/\./g, '-'),
     author: a.author
       ? { '@type': 'Person', name: a.author, jobTitle: a.authorRole }
       : undefined,
@@ -74,12 +77,44 @@ export default async function JournalEntryPage({ params }: Props) {
     }
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.outtathebox.design' },
+      { '@type': 'ListItem', position: 2, name: 'Journal', item: 'https://www.outtathebox.design/journal' },
+      { '@type': 'ListItem', position: 3, name: a.title, item: `https://www.outtathebox.design/journal/${a.slug}` }
+    ]
+  };
+
+  const faqSchema = a.faq && a.faq.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: a.faq.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a }
+        }))
+      }
+    : null;
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <Cursor />
       <Scanlines />
       <ScanBar />
@@ -220,6 +255,73 @@ export default async function JournalEntryPage({ params }: Props) {
             );
           })}
         </article>
+
+        {a.faq && a.faq.length > 0 && (
+          <section
+            style={{
+              marginTop: 48,
+              borderTop: `1px solid ${colors.line}`,
+              paddingTop: 36,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 20
+            }}
+          >
+            <div style={{ fontFamily: fonts.mono, fontSize: 11, letterSpacing: '0.16em', color: colors.yellow }}>
+              [ FREQUENTLY ASKED ]
+            </div>
+            <h2
+              style={{
+                fontFamily: fonts.display,
+                fontWeight: 900,
+                fontSize: 28,
+                lineHeight: 1.1,
+                margin: 0,
+                textTransform: 'uppercase'
+              }}
+            >
+              QUESTIONS WE HEAR A LOT.
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 8 }}>
+              {a.faq.map((f, i) => (
+                <details
+                  key={i}
+                  style={{
+                    border: `1px solid ${colors.line}`,
+                    padding: '18px 22px',
+                    background: '#161616'
+                  }}
+                >
+                  <summary
+                    style={{
+                      cursor: 'pointer',
+                      listStyle: 'none',
+                      fontFamily: fonts.display,
+                      fontWeight: 700,
+                      fontSize: 16,
+                      lineHeight: 1.35,
+                      color: colors.fg,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.02em'
+                    }}
+                  >
+                    {f.q}
+                  </summary>
+                  <p
+                    style={{
+                      margin: '14px 0 0 0',
+                      fontSize: 15,
+                      lineHeight: 1.65,
+                      color: '#C4C4C4'
+                    }}
+                  >
+                    {f.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
 
         <div
           style={{
