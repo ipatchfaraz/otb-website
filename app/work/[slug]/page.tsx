@@ -147,10 +147,35 @@ export default async function CaseStudyPage({ params }: Props) {
     ]
   };
 
+  // Review schema when the case study carries a client testimonial. Google
+  // treats this as a verified first-party review of Outta The Box itself,
+  // which strengthens the agency's entity profile.
+  const reviewSchema = c.testimonial
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Review',
+        reviewBody: c.testimonial.quote,
+        author: {
+          '@type': 'Person',
+          name: c.testimonial.author,
+          jobTitle: c.testimonial.authorRole
+        },
+        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+        itemReviewed: {
+          '@type': 'ProfessionalService',
+          name: 'Outta The Box',
+          url: 'https://www.outtathebox.design'
+        }
+      }
+    : null;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      {reviewSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }} />
+      )}
       <Cursor />
       <Scanlines />
       <EdgeMeta />

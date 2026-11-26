@@ -258,6 +258,86 @@ export default async function CaseStudy({ slug }: { slug: string }) {
         </div>
       </section>
 
+      {/* CH.06 — Client testimonial (only when provided) */}
+      {c.testimonial && (
+        <section data-screen-label="Ch6 Testimonial" style={{ borderTop: `1px solid ${colors.line}`, background: '#161616' }}>
+          <div style={{ maxWidth: 1440, margin: '0 auto', padding: '88px 72px', display: 'flex', flexWrap: 'wrap', gap: 48 }}>
+            {chapterRow('CH.06 // THE CLIENT', 'IN THEIR WORDS')}
+            <div style={{ flex: '1 1 540px', minWidth: 300, display: 'flex', flexDirection: 'column', gap: 28, position: 'relative' }}>
+              <div
+                style={{
+                  position: 'absolute',
+                  top: -8,
+                  left: -24,
+                  width: 4,
+                  height: '100%',
+                  background: 'repeating-linear-gradient(-45deg, #FFE500 0px, #FFE500 8px, #161616 8px, #161616 16px)'
+                }}
+                aria-hidden
+              />
+              <blockquote
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  fontFamily: fonts.display,
+                  fontWeight: 600,
+                  fontSize: 'clamp(20px, 2.1vw, 26px)',
+                  lineHeight: 1.45,
+                  color: colors.fg,
+                  maxWidth: '62ch',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 18
+                }}
+              >
+                {c.testimonial.quote.split('\n\n').map((para, i) => (
+                  <span key={i}>“{para}”</span>
+                ))}
+              </blockquote>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 16,
+                  paddingTop: 20,
+                  borderTop: `1px solid ${colors.line}`
+                }}
+              >
+                {c.testimonial.photoUrl && (
+                  <img
+                    src={c.testimonial.photoUrl}
+                    alt={c.testimonial.author}
+                    style={{ width: 56, height: 56, borderRadius: 999, objectFit: 'cover', border: `1px solid ${colors.line}` }}
+                  />
+                )}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <div
+                    style={{
+                      fontFamily: fonts.display,
+                      fontWeight: 800,
+                      fontSize: 17,
+                      letterSpacing: '0.02em',
+                      color: colors.fg,
+                      textTransform: 'uppercase'
+                    }}
+                  >
+                    {c.testimonial.author}
+                  </div>
+                  <div style={{ fontSize: 13, color: colors.muted, maxWidth: '58ch', lineHeight: 1.4 }}>
+                    {c.testimonial.authorRole}
+                  </div>
+                  {c.testimonial.context && (
+                    <div style={{ fontFamily: fonts.mono, fontSize: 10, letterSpacing: '0.14em', color: '#6A6A6A', marginTop: 4 }}>
+                      {c.testimonial.context.toUpperCase()}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Next case link */}
       <section
         data-screen-label="Next case"

@@ -12,6 +12,19 @@ export type Gallery = {
   inHoverCycle?: boolean;
 };
 
+export type Testimonial = {
+  /** Full quote — can be multiple paragraphs separated by \n\n. */
+  quote: string;
+  /** Person's full name. */
+  author: string;
+  /** Role / title / credentials — appears on the next line. */
+  authorRole: string;
+  /** Optional: short attribution tag (e.g. "LinkedIn recommendation · Sept 2026"). */
+  context?: string;
+  /** Optional: absolute URL to a square headshot. */
+  photoUrl?: string;
+};
+
 export type CaseStudy = {
   caseLabel: string;
   title: string;
@@ -31,6 +44,8 @@ export type CaseStudy = {
   payoff: string;
   heroImg: string; // resolved URL
   gallery: Gallery[] | null;
+  /** Optional client testimonial — rendered after the Payoff chapter. */
+  testimonial?: Testimonial;
 };
 
 /** Resolve `A:foo.png` → CDN_A + foo.png; images/ or http URLs pass through; otherwise CDN_P prefix. */
@@ -222,7 +237,13 @@ export const CASES: Record<CaseSlug, CaseStudy> = {
       g({ img: '687151e984e7d5aa4de361ea_IOU%20CS%20-%20Logo%20Mockup%204.png', alt: 'IOU brand identity mockup', col: 'auto', tag: '[ FIG.07 ]', caption: 'ACTIVATION MERCH & CAMPUS' }),
       g({ img: '687151ed82d41fe2dab049c9_IOU%20CS%20-%20Logo%20Mockup%205.png', alt: 'IOU brand identity mockup', col: 'auto', tag: '[ FIG.08 ]', caption: 'ACTIVATION MERCH & CAMPUS' }),
       g({ img: '687151f0edf25e28ce9c1cd9_IOU%20CS%20-%20Logo%20Mockup%206.png', alt: 'IOU brand identity mockup', col: '1 / -1', tag: '[ FIG.09 ]', caption: 'DIGITAL THE NEW FACE OF IOU' })
-    ]
+    ],
+    testimonial: {
+      quote: 'I was pleased to work with Outta The Box on the rebranding of the International Open University. They took the time to understand our vision, mission, and objectives before developing a brand strategy that reflected the identity and direction of the university. Their work was not limited to creating a visual identity; they helped articulate the essence of our institution and translated it into a cohesive brand that communicates our values with greater clarity and professionalism.\n\nThe outcome has strengthened the way the university presents itself and provides a solid foundation for its continued growth and global outreach. I found the team to be professional, thoughtful, and committed to excellence throughout the process, and I would have no hesitation in recommending Outta The Box to organizations seeking a strategic partner for branding.',
+      author: 'Dr. Bilal Philips',
+      authorRole: 'Founder & Chancellor, International Open University · Ranked in #TheMuslim500',
+      context: 'LinkedIn recommendation · September 2026'
+    }
   },
   dunes: {
     caseLabel: '[ CASE_FILE: DUNES // NAMING, STRATEGY & IDENTITY ]',
