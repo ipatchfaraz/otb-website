@@ -121,6 +121,11 @@ export async function getFeaturedProjects(): Promise<PublicCase[]> {
 
 /** Full case study for /work/[slug]. */
 export async function getCase(slug: string): Promise<PublicCase | null> {
+  // Static fallback also used as source for fields the DB schema does not
+  // yet carry (e.g. testimonial). This keeps new CaseStudy fields working
+  // the moment they are added, without a Prisma migration.
+  const staticCase = CASES[slug as CaseSlug];
+
   if (prisma) {
     try {
       const r = await prisma.project.findUnique({ where: { slug } });
@@ -145,16 +150,17 @@ export async function getCase(slug: string): Promise<PublicCase | null> {
           solutionBody: r.solutionBody,
           payoff: r.payoff,
           heroImg: r.heroImg,
-          gallery: (r.gallery as unknown as Gallery[] | null) ?? null
+          gallery: (r.gallery as unknown as Gallery[] | null) ?? null,
+          // Static-only fields layered on top of the DB result
+          testimonial: staticCase?.testimonial
         };
       }
     } catch {
       /* fall through */
     }
   }
-  const c = CASES[slug as CaseSlug];
-  if (!c) return null;
-  return { ...c, slug, coverImage: COVERS[slug as CaseSlug] ?? c.heroImg };
+  if (!staticCase) return null;
+  return { ...staticCase, slug, coverImage: COVERS[slug as CaseSlug] ?? staticCase.heroImg };
 }
 
 /** Full case slug list for generateStaticParams. */
