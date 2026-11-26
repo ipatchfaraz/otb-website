@@ -242,7 +242,8 @@ export const CASES: Record<CaseSlug, CaseStudy> = {
       quote: 'I was pleased to work with Outta The Box on the rebranding of the International Open University. They took the time to understand our vision, mission, and objectives before developing a brand strategy that reflected the identity and direction of the university. Their work was not limited to creating a visual identity; they helped articulate the essence of our institution and translated it into a cohesive brand that communicates our values with greater clarity and professionalism.\n\nThe outcome has strengthened the way the university presents itself and provides a solid foundation for its continued growth and global outreach. I found the team to be professional, thoughtful, and committed to excellence throughout the process, and I would have no hesitation in recommending Outta The Box to organizations seeking a strategic partner for branding.',
       author: 'Dr. Bilal Philips',
       authorRole: 'Founder & Chancellor, International Open University · Ranked in #TheMuslim500',
-      context: 'LinkedIn recommendation · September 2026'
+      context: 'LinkedIn recommendation · September 2026',
+      photoUrl: '/images/testimonials/dr-bilal-philips.jpg'
     }
   },
   dunes: {
