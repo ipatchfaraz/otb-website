@@ -303,12 +303,40 @@ export default async function CaseStudy({ slug }: { slug: string }) {
                   borderTop: `1px solid ${colors.line}`
                 }}
               >
-                {c.testimonial.photoUrl && (
+                {c.testimonial.photoUrl ? (
                   <img
                     src={c.testimonial.photoUrl}
                     alt={c.testimonial.author}
-                    style={{ width: 56, height: 56, borderRadius: 999, objectFit: 'cover', border: `1px solid ${colors.line}` }}
+                    style={{ width: 64, height: 64, borderRadius: 999, objectFit: 'cover', border: `1px solid ${colors.line}`, flex: 'none' }}
                   />
+                ) : (
+                  <div
+                    aria-hidden
+                    style={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: 999,
+                      border: `1px solid ${colors.line}`,
+                      background: colors.yellow,
+                      color: '#141414',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontFamily: fonts.display,
+                      fontWeight: 900,
+                      fontSize: 22,
+                      letterSpacing: '0.04em',
+                      flex: 'none'
+                    }}
+                  >
+                    {c.testimonial.author
+                      .split(/\s+/)
+                      .filter((w) => !/^(dr|mr|mrs|ms|prof|sh)\.?$/i.test(w))
+                      .slice(0, 2)
+                      .map((w) => w[0])
+                      .join('')
+                      .toUpperCase()}
+                  </div>
                 )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   <div
